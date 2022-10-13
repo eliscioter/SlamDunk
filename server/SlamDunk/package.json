@@ -1,12 +1,12 @@
 {
-  "name": "slam_dunk",
+  "name": "slamdunk",
   "version": "1.0.0",
-  "description": "server for content of slam dunk wiki",
+  "description": "server for slam dunk content",
   "main": "index.js",
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "nodemon index.js"
+    "start": "nodemon index.js"
   },
   "author": "eliscioter",
   "license": "ISC",
