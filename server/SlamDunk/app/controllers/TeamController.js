@@ -31,7 +31,7 @@ export const fetchTeams = asyncHandler(async (req, res) => {
 export const fetchTeam = asyncHandler(async (req, res) => {
     try {
         const id = req.params.id
-        if (! await idExist(id)) return res.status(404).json({ message: `${id} not found`})
+        if (! await idExists(id)) return res.status(404).json({ message: `${id} not found`})
         const fetchedTeam = await TeamModel.findById(id).select('-id -createdAt -updatedAt -__v')
         res.status(200).json(fetchedTeam)
     } catch (error) {
@@ -43,7 +43,7 @@ export const modifyTeam = asyncHandler(async (req, res) => {
     const { team_name, team_image_url } = req.body
     const id = req.params.id
     try {
-        if(! await idExist(id)) return res.status(404).json({ message: `${id} not found` })
+        if(! await idExists(id)) return res.status(404).json({ message: `${id} not found` })
         const modifiedTeam = await TeamModel.findByIdAndUpdate(
             id,
             { $set: { team_name, team_image_url } },
@@ -58,7 +58,7 @@ export const modifyTeam = asyncHandler(async (req, res) => {
 export const deleteTeam = asyncHandler(async (req, res) => {
     try {
         const id = req.params.id
-        if(! await idExist(id)) return res.status(404).json({error_message: `${id} not found`})
+        if(! await idExists(id)) return res.status(404).json({error_message: `${id} not found`})
         const deletedTeam = await TeamModel.findByIdAndDelete(id).select('-id -createdAt -updatedAt -__v')
         res.status(200).json({ message: `${deletedTeam.team_name} is deleted successfully` })
     } catch (error) {
@@ -66,6 +66,6 @@ export const deleteTeam = asyncHandler(async (req, res) => {
     }
 })
 
-async function idExist(id) {
+async function idExists(id) {
     return !!await TeamModel.findById(id)
 }

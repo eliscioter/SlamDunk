@@ -1,8 +1,8 @@
 import express from 'express'
 
 import { createTeam, fetchTeams, fetchTeam, modifyTeam, deleteTeam } from '../controllers/TeamController.js'
-import { createPlayer, fetchPlayers, fetchPlayer, modifyPlayer, deletePlayer } from '../controllers/PlayerController.js'
-import { createTrait, fetchTraits, fetchTrait, modifyTrait, deleteTrait } from '../controllers/TraitController.js'
+import { createPlayer, fetchPlayers, fetchPlayer, fetchTeamPlayers, modifyPlayer, deletePlayer } from '../controllers/PlayerController.js'
+import { createTrait, fetchTraits, fetchTrait, fetchCategoryTraits, modifyTrait, deleteTrait } from '../controllers/TraitController.js'
 
 export const router = express.Router()
 
@@ -14,8 +14,10 @@ router.get('/teams', fetchTeams)
 router.get('/team/:id', fetchTeam)
 router.get('/players', fetchPlayers)
 router.get('/player/:id', fetchPlayer)
+router.get('/team/players/:team', fetchTeamPlayers)
 router.get('/traits', fetchTraits)
 router.get('/trait/:id', fetchTrait)
+router.get('/category/:category', fetchCategoryTraits)
 
 router.put('/team/modify/:id', modifyTeam)
 router.put('/player/modify/:id', modifyPlayer)
