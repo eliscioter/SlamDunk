@@ -22,3 +22,17 @@ export const createUser = asyncHandler(async (req, res) => {
         res.sendStatus(400)
     }
 })
+
+export const signInUser = asyncHandler(async (req, res) => {
+    let { username, password } = req.body
+    try {
+        if(!username || !password) return res.status(406).json({ error_message: 'Username and password are required' })
+        username = username.toLowerCase().trim()
+        const fetchUser = await UserModel.findOne({ username })
+        const isVerified = await bcrypt.compare(password, fetchUser.password)
+        if(!isVerified) return res.status(401).json({ error_message: 'Invalid credentials'})
+        res.status(200).json({ message: fetchUser.email})
+    } catch (error) {
+        
+    }
+})
