@@ -3,6 +3,9 @@ import express from 'express'
 import { createTeam, fetchTeams, fetchTeam, modifyTeam, deleteTeam } from '../controllers/TeamController.js'
 import { createPlayer, fetchPlayers, fetchPlayer, fetchTeamPlayers, modifyPlayer, deletePlayer } from '../controllers/PlayerController.js'
 import { createTrait, fetchTraits, fetchTrait, fetchCategoryTraits, modifyTrait, deleteTrait } from '../controllers/TraitController.js'
+import { authenticateToken } from '../middlewares/Authenticate.js'
+import { verifyRole } from '../middlewares/VerifyRole.js'
+import { ROLE } from '../../config/Roles.js'
 
 export const router = express.Router()
 
@@ -10,7 +13,7 @@ router.post('/store/team', createTeam)
 router.post('/store/player', createPlayer)
 router.post('/store/trait', createTrait)
 
-router.get('/teams', fetchTeams)
+router.get('/teams', [authenticateToken, verifyRole(ROLE.EDITOR)] ,fetchTeams)
 router.get('/team/:id', fetchTeam)
 router.get('/players', fetchPlayers)
 router.get('/player/:id', fetchPlayer)
