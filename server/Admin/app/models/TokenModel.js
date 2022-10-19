@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 
-const Token = new mongoose.Schema(
+const AdminToken = new mongoose.Schema(
     {
         token: {
             type: String,
@@ -9,4 +9,4 @@ const Token = new mongoose.Schema(
     }, { timestamps: true }
 )
 
-export default mongoose.model('Token', Token)
+export default mongoose.model('AdminToken', AdminToken)

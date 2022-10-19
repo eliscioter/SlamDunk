@@ -77,7 +77,7 @@ export const deleteMessage = asyncHandler(async (req, res) => {
             id,
             { $pull: { body: { _id: messageID } } }
         )
-        res.status(200).json({ message: "Message deleted"})
+        res.status(204).json({ message: "Message deleted"})
     } catch (error) {
         res.status(400).json({ error_message: error.message })
     }

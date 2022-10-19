@@ -35,7 +35,6 @@ export const signInAdmin = asyncHandler(async (req, res) => {
     try {
         if(!username || !password) return res.status(406).json({ message: 'Username and password are required' })
         username = username.toLowerCase().trim()
-        // role = role.toUpperCase().trim()
         const fetchAdmin = await UserModel.findOne({ username })
         if(!fetchAdmin) return res.status(404).json({ message: 'Wrong credentials'})
         const isVerified = await bcrypt.compare(password, fetchAdmin.password)

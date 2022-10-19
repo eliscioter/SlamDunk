@@ -7,27 +7,28 @@ import { generateToken } from '../controllers/UserController.js'
 
 dotenv.config()
 
-export const createToken = async(token) => {
+export const createToken = asyncHandler(async(token) => {
     try {
         if(!token) return res.status(404).json({message: `${token} not found`})
         const createdToken = await TokenModel.create(
             { token }
         )
-        if(!token) return res.status(401).json({message: 'Invalid input'})
+        if(!createdToken) return res.status(401).json({message: 'Invalid input'})
     } catch (error) {
         res.status(400).json({message: error.message})
     }
-}
+})
+
 
 export const verifyToken = asyncHandler(async (req, res) => {
     const { REFRESH_TOKEN } = process.env
     const { token } = req.body
     try {
-        if(!token) return res.status(400).json({message: `Token undefined`})
-        const fetchToken = await TokenModel.findOne({ token: new RegExp('^'+token+'$', "i") })
-        if(!fetchToken) return res.status(403).json({message: "Invalid credentials"})
+        if(!token) return res.status(404).json({message: `${token} not found`})
+        const fetchToken = await TokenModel.findOne({ token: new RegExp('^'+token+'$', "i")})
+        if(!fetchToken) return res.status(403).json({message: 'Invalid credentials'})
         jwt.verify(token, REFRESH_TOKEN, (err, user) => {
-            if(err) return user.status(400).json({message: err.message})
+            if(err) return res.status(401).json({message: err.message})
             const access_token = generateToken({
                 "user_info": {
                     "id": user.user_info.id,

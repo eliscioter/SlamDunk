@@ -9,11 +9,13 @@ import { ROLE } from '../../config/Roles.js'
 
 export const router = express.Router()
 
-router.post('/store/team', createTeam)
-router.post('/store/player', createPlayer)
-router.post('/store/trait', createTrait)
+const admin = [authenticateToken, verifyRole(ROLE.EDITOR)]
 
-router.get('/teams', [authenticateToken, verifyRole(ROLE.EDITOR)] ,fetchTeams)
+router.post('/store/team', admin, createTeam)
+router.post('/store/player', admin, createPlayer)
+router.post('/store/trait', admin, createTrait)
+
+router.get('/teams', fetchTeams)
 router.get('/team/:id', fetchTeam)
 router.get('/players', fetchPlayers)
 router.get('/player/:id', fetchPlayer)
@@ -22,10 +24,10 @@ router.get('/traits', fetchTraits)
 router.get('/trait/:id', fetchTrait)
 router.get('/category/:category', fetchCategoryTraits)
 
-router.put('/team/modify/:id', modifyTeam)
-router.put('/player/modify/:id', modifyPlayer)
-router.put('/trait/modify/:id', modifyTrait)
+router.put('/team/modify/:id', admin, modifyTeam)
+router.put('/player/modify/:id', admin, modifyPlayer)
+router.put('/trait/modify/:id', admin, modifyTrait)
 
-router.delete('/team/delete/:id', deleteTeam)
-router.delete('/player/delete/:id', deletePlayer)
-router.delete('/trait/delete/:id', deleteTrait)
+router.delete('/team/delete/:id', admin, deleteTeam)
+router.delete('/player/delete/:id', admin, deletePlayer)
+router.delete('/trait/delete/:id', admin, deleteTrait)
