@@ -1,0 +1,7 @@
+.thread-bg{
+    max-width: 100%;
+    min-height: 1100px;
+    background-image: url("../../../assets/forum-thread-bg1.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
