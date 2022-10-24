@@ -1,0 +1,43 @@
+.home-bg{
+  max-width: 100%;
+  min-height: 1100px;
+  background-image: url("../../../assets/home-background.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.home-logo{
+  padding-top: 117px;
+}
+
+.iframe-intro{
+  width: 50%;
+  height: 550px;
+}
+
+@media (min-width: 375px) and (max-width:560px){
+  .iframe-intro{
+    width: 100%;
+  }
+}
+
+@media (min-width: 561px) and (max-width: 800px){
+  .iframe-intro{
+    width: 100%;
+    height: 550px;  
+  }
+}
+
+@media (min-width: 801px) and (max-width: 1400px){
+  .iframe-intro{
+    width: 63%;
+    height: 550px;  
+  }
+}
+
+@media(min-width: 1400px){
+  .iframe-intro{
+    width: 50%;
+    height: 550px;  
+  }
+}
