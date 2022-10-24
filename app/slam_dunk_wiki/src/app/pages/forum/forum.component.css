@@ -1,0 +1,7 @@
+.forum-container{
+    max-width: 100%;
+    height: 1100px;
+    background-image: url("../../../assets/forum-bg.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
