@@ -1,3 +1,9 @@
 .navbar-collapse {
     flex-grow: 0 !important;
 }
+.sign-in {
+    color: orange;
+}
+.sign-in:hover {
+    border: 1px solid orange !important;
+}
