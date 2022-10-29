@@ -15,7 +15,6 @@ export const createUser = asyncHandler(async (req, res) => {
         if(!email || !username || !password || !role) return res.status(406).json({ message: 'Invalid or incomplete input' })
         email = email.toLowerCase().trim()
         username = username.toLowerCase().trim()
-        role = role.toUpperCase().trim()
         const emailExists = !!await UserModel.findOne({ email })
         const usernameExists = !!await UserModel.findOne({ username })
         if(emailExists || usernameExists) return res.status(406).json({ message: 'Email or username already exists'})
