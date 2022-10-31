@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog'
-import { SignInComponent } from '../sign-in/sign-in.component';
+
+import { SignInComponent } from '../sign-in/sign-in.component'
+import { MemberService } from '../../services/member/member.service';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -8,17 +10,12 @@ import { SignInComponent } from '../sign-in/sign-in.component';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private dialog: MatDialog) { }
+  constructor(private dialog: MatDialog, protected member: MemberService) { }
 
   ngOnInit(): void {
   }
 
   openSignIn() {
-    console.log('pressed')
     this.dialog.open(SignInComponent)
-  }
-
-  reload() {
-    // location.reload()
   }
 }

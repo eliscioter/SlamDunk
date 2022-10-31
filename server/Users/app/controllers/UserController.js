@@ -35,10 +35,10 @@ export const signInUser = asyncHandler(async (req, res) => {
         if(!username || !password) return res.status(406).json({ message: 'Username and password are required' })
         username = username.toLowerCase().trim()
         const fetchUser = await UserModel.findOne({ username })
+        if(!fetchUser) return res.status(401).json({ message: 'Invalid credentials'})
         const isVerified = await bcrypt.compare(password, fetchUser.password)
         if(!isVerified) return res.status(401).json({ message: 'Invalid credentials'})
         const roles = Object.values(fetchUser.role)
-        console.log(roles)
         const user = {
             "user_info": {
                 "id": fetchUser.id,
