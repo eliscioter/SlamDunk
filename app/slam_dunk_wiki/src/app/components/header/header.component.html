@@ -37,7 +37,7 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" (click)="reload()" routerLink="/forum">Forum</a>
+                    <a class="nav-link" routerLink="/forum">Forum</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" routerLink="/about">About</a>
@@ -51,7 +51,9 @@
             </ul>
         </div>
         <div class="d-none d-lg-inline">
-            <button (click)="openSignIn()" class="btn px-1 bg-transparent rounded sign-in">Sign in</button>
+            <button *ngIf="!this.member.isLoggedIn()" (click)="openSignIn()" class="btn px-1 bg-transparent rounded sign-in">Sign in</button>
+            <button *ngIf="this.member.isLoggedIn()" (click)="openSignIn()" class="btn px-1 bg-transparent rounded sign-in">Sign out</button>
+        
         </div>
     </div>
 </nav>
