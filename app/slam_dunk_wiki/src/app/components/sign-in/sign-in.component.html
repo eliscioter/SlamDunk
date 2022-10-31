@@ -3,19 +3,19 @@
         <h3 class="text-danger">Welcome back to</h3>
         <img src="../../../assets/home-logo.png" alt="" class="img-fluid" width="100" height="50">
     </div>
-    <div>
+    <form ngNativeValidate (ngSubmit)="onSignIn()">
         <div class="form-floating mb-3">
-            <input type="email" class="form-control outline-none" id="floatingInput" placeholder="name@example.com">
+            <input type="text" class="form-control outline-none" id="floatingInput" name="username" placeholder="john" [(ngModel)]="username" required>
             <label for="floatingInput">Username</label>
         </div>
         <div class="form-floating">
-            <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+            <input type="password" class="form-control" id="floatingPassword" name="password" placeholder="Password" [(ngModel)]="password" required>
             <label for="floatingPassword">Password</label>
         </div>
         <div class="d-flex justify-content-end mt-3">
-            <button type="submit" class="btn border rounded-pill">Sign In</button>
+            <button type="submit" class="btn border rounded-pill sign-in-button">Sign In</button>
         </div>
-    </div>
+    </form>
     <div class="mt-5 mb-2">
         <span>No account?</span>
         <span class="ms-1">
