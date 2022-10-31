@@ -5,3 +5,10 @@
     background-repeat: no-repeat;
     background-size: cover;
 }
+.form-control:focus {
+    color: #212529;
+    background-color: #fff;
+    border-color: orange;
+    outline: 0;
+    box-shadow: none !important;
+}
