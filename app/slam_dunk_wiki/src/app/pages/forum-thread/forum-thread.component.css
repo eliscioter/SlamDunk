@@ -6,3 +6,9 @@
     background-size: cover;
     background-position: center;
 }
+.title-container {
+    background: rgba(229, 161, 128, 0.8);
+}
+.foreground {
+    background: rgba(28, 22, 22, 0.8);
+}
