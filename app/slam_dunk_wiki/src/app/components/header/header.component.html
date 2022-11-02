@@ -52,7 +52,7 @@
         </div>
         <div class="d-none d-lg-inline">
             <button *ngIf="!this.member.isLoggedIn()" (click)="openSignIn()" class="btn px-1 bg-transparent rounded sign-in">Sign in</button>
-            <button *ngIf="this.member.isLoggedIn()" (click)="openSignIn()" class="btn px-1 bg-transparent rounded sign-in">Sign out</button>
+            <button *ngIf="this.member.isLoggedIn()" (click)="onSignOut()" class="btn px-1 bg-transparent rounded sign-in">Sign out</button>
         
         </div>
     </div>
