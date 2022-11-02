@@ -28,9 +28,10 @@ export class MemberService {
 
   auth(member: Member): Observable<Member> {
     return this.http.post<Member>(`${this.api_url}/login`, member, httpOptions).pipe(map(res => {
+      console.log(res)
+      const { access_token, refresh_token, message } = res
       
-      const { access_token, refresh_token } = res
-
+      localStorage.setItem('username', JSON.stringify(message))
       localStorage.setItem('access_token', JSON.stringify(access_token))
       localStorage.setItem('refresh_token', JSON.stringify(refresh_token))
       
@@ -39,11 +40,15 @@ export class MemberService {
   }
 
   isLoggedIn(): boolean {
-    let authToken = localStorage.getItem('access_token');
+    const authToken = localStorage.getItem('access_token');
     return authToken !== null ? true : false;
   }
 
-  signOut() {
-    
+  getUsername(): string {
+    return null || JSON.parse(localStorage.getItem('username') as string)
+  }
+
+  signOut(): void {
+    localStorage.clear()
   }
 }
