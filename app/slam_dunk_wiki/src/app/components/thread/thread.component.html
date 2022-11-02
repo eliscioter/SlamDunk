@@ -1,13 +1,13 @@
-<div class="container opacity-75 py-5 mb-5 rounded" style="background-color: #FFE3BA;">
-    <div class="row">
+<div *ngFor="let item of data" class="container opacity-75 py-5 mb-5 rounded" style="background-color: #FFE3BA;">
+    <div class="row" >
         <div class="col-lg-1">
             <div class="border-end border-secondary">
-                <h6>name</h6>
+                <h6>{{ item.author }}</h6>
                 <h6>role</h6>
             </div>
         </div>
-        <div class="col-lg-11">
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Inventore, in! Ab, veniam. Reiciendis deserunt aut quis eveniet eligendi! Necessitatibus, atque? Delectus, nemo blanditiis! Beatae natus dolorum harum quisquam alias quae.
+        <div class="col-lg-11 align-self-center">
+            {{ item.content }}
         </div>
     </div>
 </div>
