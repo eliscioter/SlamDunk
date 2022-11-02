@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { faPlusSquare } from '@fortawesome/free-regular-svg-icons';
+import { Router } from '@angular/router';
+
+import { CreateForum } from '../../interfaces/CreateForum'
+import { MemberService }  from '../../services/member/member.service'
+import { ForumService } from '../../services/forum/forum.service';
 @Component({
   selector: 'app-forum',
   templateUrl: './forum.component.html',
@@ -8,8 +13,33 @@ import { faPlusSquare } from '@fortawesome/free-regular-svg-icons';
 export class ForumComponent implements OnInit {
 
   faPlusSquare = faPlusSquare
+  title!: string
+  content!: string
 
-  constructor() { }
+  constructor(protected member: MemberService, private forumService: ForumService, private router: Router) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    
+  }
+
+  onCreateForum() {
+    const forum: CreateForum = {
+      title: this.title,
+      primary_author: this.member.getUsername(),
+      body: [
+        {
+          author: this.member.getUsername(),
+          content: this.content
+        }
+      ]
+    }
+    this.forumService.createForum(forum).subscribe(
+      next => {
+        this.router.navigate(['/forum/thread'])
+      },
+      error => {
+        alert('Something went wrong')
+      }
+    )
+  }
 }

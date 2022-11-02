@@ -1,9 +1,13 @@
-<a routerLink="/forum/thread" class="text-decoration-none">
+<a (click)="verifyAuth(forums[i]._id)" class="text-decoration-none" *ngFor="let forum of forums; let i = index">
     <div class="d-flex align-items-center flex-wrap border-bottom mb-3 pb-3">
         <div class="me-auto">
-            <div class="text-white fs-4">Lorem, ipsum dolor.</div>
-            <div class="text-white opacity-75">Ben Dover</div>
+            <div class="text-white fs-4">{{ forum.title }}</div>
+            <div class="text-white opacity-75">{{ forum.primary_author }}</div>
         </div>
-        <div class="text-white opacity-75">Oct 15, 2022</div>
+        <div class="text-white opacity-75">
+            <span style="font-size: .6rem">
+                {{ forumCreated[i] }}
+            </span>
+        </div>
     </div>
 </a>

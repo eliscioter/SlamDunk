@@ -18,4 +18,7 @@ export class HeaderComponent implements OnInit {
   openSignIn() {
     this.dialog.open(SignInComponent)
   }
+  onSignOut() {
+    this.member.signOut()
+  }
 }

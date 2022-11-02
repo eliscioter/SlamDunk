@@ -10,12 +10,12 @@ const admin = [authenticateToken, verifyRole(ROLE.EDITOR)]
 const mod = [authenticateToken, verifyRole(ROLE.MODERATOR)]
 const member = [authenticateToken, verifyRole(ROLE.EDITOR, ROLE.MODERATOR, ROLE.MEMBER)]
 
-router.post('/store', admin || mod || member ,createForum)
+router.post('/store', createForum)
 
 router.put('/message/:id', admin || mod || member, replyForum)
 
 router.delete('/forum/delete/:id', mod, deleteForum)
 router.delete('/message/delete/:id/:message', mod, deleteMessage)
 
-router.get('/forums', member, fetchForums)
-router.get('/forum/:id', member, fetchForum)
+router.get('/forums', fetchForums)
+router.get('/forum/:id', fetchForum)
