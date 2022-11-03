@@ -12,7 +12,7 @@ const member = [authenticateToken, verifyRole(ROLE.EDITOR, ROLE.MODERATOR, ROLE.
 
 router.post('/store', createForum)
 
-router.put('/message/:id', admin || mod || member, replyForum)
+router.put('/message/:id', replyForum)
 
 router.delete('/forum/delete/:id', mod, deleteForum)
 router.delete('/message/delete/:id/:message', mod, deleteMessage)
