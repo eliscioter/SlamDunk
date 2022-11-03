@@ -1,0 +1,10 @@
+h1, p {
+    color: white;
+    text-align: center;
+}
+body {
+    background-image: url("../../../assets/about-bg.jpg");
+}
+img {
+    align-items: center;
+}
