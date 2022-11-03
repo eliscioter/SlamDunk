@@ -1,7 +1,8 @@
 export interface Body {
-    title: string;
+    title: string
+    primary_author: string
     body: []
-    author: string;
+    author: string
     content: string
 
 }
