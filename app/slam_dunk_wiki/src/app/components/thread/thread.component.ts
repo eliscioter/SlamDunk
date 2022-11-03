@@ -13,10 +13,15 @@ export class ThreadComponent implements OnInit {
     id!: string;
     data: Body[] = []
     constructor(private route: ActivatedRoute, private forumService: ForumService) { 
-    this.id = this.route.snapshot.params['id']
+    this.id = this.route?.snapshot.params['id']
   }
 
   ngOnInit(): void {
+    this.displayComments()
+  }
+
+
+  displayComments() {
     this.forumService.getForum(this.id).subscribe( data => {
       this.data = data.body
     })
