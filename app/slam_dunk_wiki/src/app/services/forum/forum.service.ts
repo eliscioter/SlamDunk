@@ -5,6 +5,7 @@ import { Observable } from 'rxjs'
 import { Forum } from '../../interfaces/Forum';
 import { CreateForum } from '../../interfaces/CreateForum';
 import { Body } from '../../interfaces/ForumBody';
+import { Comment } from '../../interfaces/ForumComment';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -31,6 +32,10 @@ export class ForumService {
 
   createForum(forum: CreateForum): Observable<CreateForum> {
     return this.http.post<CreateForum>(`${this.api_url}/store`, forum, httpOptions)
+  }
+
+  commentForum(comment: Comment, id: string): Observable<Comment> {
+    return this.http.put<Comment>(`${this.api_url}/message/${id}`, comment, httpOptions)
   }
 
 }
