@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { faPlusSquare } from '@fortawesome/free-regular-svg-icons';
 import { Router } from '@angular/router';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { CreateForum } from '../../interfaces/CreateForum'
 import { MemberService }  from '../../services/member/member.service'

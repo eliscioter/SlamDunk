@@ -9,6 +9,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog'
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import {AutosizeModule} from 'ngx-autosize';
 
 import { HomeComponent } from './pages/home/home.component';
 import { ForumComponent } from './pages/forum/forum.component';
@@ -43,6 +44,7 @@ import { SignInComponent } from './components/sign-in/sign-in.component';
     MatDialogModule,
     HttpClientModule,
     FormsModule,
+    AutosizeModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

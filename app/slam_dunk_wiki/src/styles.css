@@ -4,14 +4,23 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    scrollbar-width: auto;
+    scrollbar-color: #a05c54 #ffffff;
+}
+.mat-dialog-container {
+    border-radius: 20px !important;
+}
+*::-webkit-scrollbar {
+    width: 16px;
+}
+*::-webkit-scrollbar-track {
+    background: #ffffff;
+}
+*::-webkit-scrollbar-thumb {
+    background-color: #a05c54;
+    border-radius: 10px;
+    border: 3px solid #ffffff;
 }
 html, body {
     overflow-x: hidden;
-}
-/* html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; } */
-
-.mat-dialog-container {
-    border-radius: 20px !important;
-    
 }
