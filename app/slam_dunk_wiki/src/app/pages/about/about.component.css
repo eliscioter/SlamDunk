@@ -6,5 +6,5 @@ body {
     background-image: url("../../../assets/about-bg.jpg");
 }
 img {
-    align-items: center;
+    margin: auto;
 }
