@@ -34,13 +34,14 @@ export class ForumComponent implements OnInit {
         }
       ]
     }
-    this.forumService.createForum(forum).subscribe(
-      next => {
-        this.router.navigate(['/forum/thread'])
+    this.forumService.createForum(forum).subscribe({
+      next: (data) => {
+        this.router.navigate(['/forum/thread', data._id])
       },
-      error => {
+      error: (e) => {
         alert('Something went wrong')
       }
-    )
+    })
+    
   }
 }
