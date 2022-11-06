@@ -28,17 +28,17 @@ export class SignInComponent implements OnInit {
       username: this.username,
       password: this.password
     }
-    this.member.auth(member).subscribe(
-      next => {
+    this.member.auth(member).subscribe({
+      next: () => {
         this.closeDialog()
         alert('Sign in successful')
         // TODO: also reload when user sign out
         window.location.reload()
       },
-      error => {
+      error: () => {
         this.password = ''
         alert('Sign in failed')
       } 
-    )
+    })
   }
 }

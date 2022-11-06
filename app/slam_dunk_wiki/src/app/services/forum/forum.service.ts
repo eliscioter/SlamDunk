@@ -7,12 +7,6 @@ import { CreateForum } from '../../interfaces/CreateForum';
 import { Body } from '../../interfaces/ForumBody';
 import { Comment } from '../../interfaces/ForumComment';
 
-const httpOptions = {
-  headers: new HttpHeaders({
-    'Content-Type': 'application/json'
-  })
-}
-
 @Injectable({
   providedIn: 'root'
 })
@@ -31,11 +25,21 @@ export class ForumService {
   }
 
   createForum(forum: CreateForum): Observable<CreateForum> {
-    return this.http.post<CreateForum>(`${this.api_url}/store`, forum, httpOptions)
+    console.log(forum)
+    return this.http.post<CreateForum>(`${this.api_url}/store`, forum).pipe()
   }
 
   commentForum(comment: Comment, id: string): Observable<Comment> {
-    return this.http.put<Comment>(`${this.api_url}/message/${id}`, comment, httpOptions)
+    return this.http.put<Comment>(`${this.api_url}/message/${id}`, comment)
+  }
+
+  deleteForum(forum: Forum): Observable<Forum> {
+    console.log(forum)
+    return this.http.delete<Forum>(`${this.api_url}/forum/delete/${forum._id}`)
+  }
+
+  deleteComment(id: string, forum: Body): Observable<Body> {
+    return this.http.delete<Body>(`${this.api_url}/message/delete/${id}/${forum._id}`)
   }
 
 }

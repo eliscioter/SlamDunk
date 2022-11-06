@@ -5,6 +5,7 @@ import { ForumService } from '../../services/forum/forum.service';
 import { MemberService } from 'src/app/services/member/member.service';
 import { Body } from '../../interfaces/ForumBody';
 import { Comment } from 'src/app/interfaces/ForumComment';
+import { Forum } from 'src/app/interfaces/Forum';
 @Component({
   selector: 'app-forum-thread',
   templateUrl: './forum-thread.component.html',
@@ -16,15 +17,27 @@ export class ForumThreadComponent implements OnInit {
   title!: string;
   author!: string;
   comment!: string;
+  data: Body[] = []
   constructor(private forumService: ForumService, private memberService: MemberService, private route: ActivatedRoute) {
     this.id = this.route.snapshot.params['id']
   }
 
   ngOnInit(): void {
     this.forumService.getForum(this.id).subscribe( data => {
+      this.data = data.body
       this.title = data.title
       this.author = this.memberService.getUsername()
+      if(window.localStorage) {
+        if( !localStorage.getItem('firstLoad') ) {
+          localStorage['firstLoad'] = true;
+          window.location.reload();
+        }  
+        else 
+          localStorage.removeItem('firstLoad');
+      }
+      
     })
+    
   }
 
   onReply() {

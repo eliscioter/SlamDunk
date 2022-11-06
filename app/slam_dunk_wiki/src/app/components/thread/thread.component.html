@@ -1,12 +1,20 @@
-<div *ngFor="let item of data.reverse()" class="container opacity-75 py-5 mb-5 rounded" style="background-color: #FFE3BA;">
+<div *ngFor="let item of forum" class="container opacity-75 py-5 mb-5 rounded" style="background-color: #FFE3BA;">
     <div class="d-flex align-self-center">
-        <div class="me-2">
-            <h6 class="m-0">{{ item.author }}</h6>
-        </div>
-        <div class="align-self-center">
-            <div class="border-start ps-2 border-secondary">
-                {{ item.content }}
+        <div class="d-flex align-self-center me-auto">
+            <div class="me-2">
+                <h6 class="m-0">{{ item.author }}</h6>
             </div>
+            <div class="align-self-center">
+                <div class="border-start ps-2 border-secondary">
+                    {{ item.content }}
+                    
+                </div>
+    
+            </div>
+        </div>
+        <div>
+            <!-- <fa-icon *ngIf="item.author === this.member.getUsername()" [icon]="faEdit"></fa-icon> -->
+            <fa-icon *ngIf="verifyRole()" [icon]="faTrash" class="ms-3 delete-button" (click)="onDelete(item)"></fa-icon> 
         </div>
     </div>
 </div>

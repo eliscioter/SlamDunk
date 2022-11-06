@@ -19,6 +19,7 @@ export class HeaderComponent implements OnInit {
     this.dialog.open(SignInComponent)
   }
   onSignOut() {
-    this.member.signOut()
+    const user = this.member.getRefreshToken() as string
+    this.member.signOut(user).subscribe()
   }
 }

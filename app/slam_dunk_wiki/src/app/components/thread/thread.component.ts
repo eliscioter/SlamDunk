@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 
-import { ForumService } from '../../services/forum/forum.service';
+import { MemberService } from 'src/app/services/member/member.service';
+import { ForumService } from 'src/app/services/forum/forum.service';
 import { Body } from '../../interfaces/ForumBody';
 @Component({
   selector: 'app-thread',
@@ -10,21 +12,30 @@ import { Body } from '../../interfaces/ForumBody';
 })
 export class ThreadComponent implements OnInit {
 
-    id!: string;
-    data: Body[] = []
-    constructor(private route: ActivatedRoute, private forumService: ForumService) { 
-    this.id = this.route?.snapshot.params['id']
+  faEdit = faEdit;
+  faTrash = faTrash;
+  id!: string;
+  @Input() forum: Body[] = []
+
+  constructor(protected member: MemberService, private forumService: ForumService, private route: ActivatedRoute) {
+    this.id = this.route.snapshot.params['id'];
   }
 
-  ngOnInit(): void {
-    this.displayComments()
+  ngOnInit(): void { }
+
+
+  verifyRole(): boolean {
+    return this.member.getRole().includes('MODERATOR')
   }
 
-
-  displayComments() {
-    this.forumService.getForum(this.id).subscribe( data => {
-      this.data = data.body
+  onDelete(forum: Body) {
+    console.log(forum)
+    this.forumService.deleteComment(this.id, forum).subscribe({
+      next: () => {
+        this.forum = this.forum.filter(forum => forum._id !== forum._id)
+        location.reload()
+      },
+      error: (e) => console.log(e)
     })
   }
-
 }

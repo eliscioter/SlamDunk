@@ -6,16 +6,15 @@ import { verifyRole } from '../middlewares/VerifyRole.js'
 import { ROLE } from '../../config/Roles.js'
 export const router = express.Router()
 
-const admin = [authenticateToken, verifyRole(ROLE.EDITOR)]
-const mod = [authenticateToken, verifyRole(ROLE.MODERATOR)]
-const member = [authenticateToken, verifyRole(ROLE.EDITOR, ROLE.MODERATOR, ROLE.MEMBER)]
+const mod = [authenticateToken, verifyRole(ROLE.EDITOR, ROLE.MODERATOR)]
+const all = [authenticateToken, verifyRole(ROLE.EDITOR, ROLE.MODERATOR, ROLE.MEMBER)]
 
-router.post('/store', createForum)
+router.post('/store', all, createForum)
 
-router.put('/message/:id', replyForum)
+router.put('/message/:id',all, replyForum)
 
 router.delete('/forum/delete/:id', mod, deleteForum)
 router.delete('/message/delete/:id/:message', mod, deleteMessage)
 
-router.get('/forums', fetchForums)
-router.get('/forum/:id', fetchForum)
+router.get('/forums', all, fetchForums)
+router.get('/forum/:id', all, fetchForum)
