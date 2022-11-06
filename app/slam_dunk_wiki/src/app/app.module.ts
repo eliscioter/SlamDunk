@@ -7,9 +7,10 @@ import { FooterComponent } from './components/footer/footer.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog'
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import {AutosizeModule} from 'ngx-autosize';
+
 
 import { HomeComponent } from './pages/home/home.component';
 import { ForumComponent } from './pages/forum/forum.component';
@@ -20,6 +21,7 @@ import { AboutComponent } from './pages/about/about.component';
 import { PlayersComponent } from './pages/players/players.component';
 import { RegisterComponent } from './components/register/register.component';
 import { SignInComponent } from './components/sign-in/sign-in.component';
+import { AuthInterceptor } from './interceptor/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -46,7 +48,13 @@ import { SignInComponent } from './components/sign-in/sign-in.component';
     FormsModule,
     AutosizeModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide:  HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
