@@ -25,10 +25,11 @@ export const verifyToken = asyncHandler(async (req, res) => {
     const { token } = req.body
     try {
         if(!token) return res.status(404).json({message: `${token} not found`})
-        const fetchToken = await TokenModel.findOne({ token: new RegExp('^'+token+'$', "i")})
-        if(!fetchToken) return res.status(403).json({message: 'Invalid credentials'})
+        // TODO: also change the admin token controller
+        const fetchToken = await TokenModel.find({ token: new RegExp('^'+token+'$', "i")})
+        if(!fetchToken) return res.status(401).json({message: 'Invalid credentials'})
         jwt.verify(token, REFRESH_TOKEN, (err, user) => {
-            if(err) return res.status(401).json({message: err.message})
+            if(err) return res.status(403).json({message: err.message})
             const access_token = generateToken({
                 "user_info": {
                     "id": user.user_info.id,
@@ -39,6 +40,6 @@ export const verifyToken = asyncHandler(async (req, res) => {
             res.status(201).json(access_token)
         })
     } catch (error) {
-        res.status(400).json({message: error.message})
+        return res.status(400).json({message: error.message})
     }
 })
