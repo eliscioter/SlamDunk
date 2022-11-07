@@ -12,6 +12,7 @@ import { ForumsComponent } from './components/forums/forums.component';
 import { ForumThreadComponent } from './pages/forum-thread/forum-thread.component';
 import { ThreadComponent } from './components/thread/thread.component';
 import { PlayersComponent } from './pages/players/players.component';
+import { TraitsComponent } from './pages/traits/traits.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { PlayersComponent } from './pages/players/players.component';
     ForumThreadComponent,
     ThreadComponent,
     PlayersComponent,
+    TraitsComponent,
   ],
   imports: [
     BrowserModule,
