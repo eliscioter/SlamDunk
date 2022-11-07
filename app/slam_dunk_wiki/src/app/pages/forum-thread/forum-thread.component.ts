@@ -23,6 +23,7 @@ export class ForumThreadComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if (!this.memberService.isLoggedIn()) return alert('You must be logged in')
     this.forumService.getForum(this.id).subscribe( data => {
       this.data = data.body
       this.title = data.title
@@ -53,7 +54,7 @@ export class ForumThreadComponent implements OnInit {
         this.comment = ''
         window.location.reload()
       }, error => {
-        console.error('error', error)
+        error.statusText === 'Unauthorized' ? alert('You need to sign in first') : error
       }
     )
   }
