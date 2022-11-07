@@ -1,9 +1,22 @@
-<a routerLink="/forum/thread" class="text-decoration-none">
-    <div class="d-flex align-items-center flex-wrap border-bottom mb-3 pb-3">
-        <div class="me-auto">
-            <div class="text-white fs-4">Lorem, ipsum dolor.</div>
-            <div class="text-white opacity-75">Ben Dover</div>
-        </div>
-        <div class="text-white opacity-75">Oct 15, 2022</div>
+<div *ngFor="let forum of forums; let i = index">
+    <div class="d-flex justify-content-end">
+        <fa-icon *ngIf="verifyRole()" [icon]="faTrash" class="delete-button ms-3" (click)="onDelete(forum)"></fa-icon> 
     </div>
-</a>
+    <a (click)="verifyAuth(forums[i]._id)" class="text-decoration-none" >
+        <div class="d-flex align-items-center flex-wrap border rounded px-3 mb-2 pb-3">
+            <div class="me-auto">
+                <div class="d-flex">
+                    <div class="text-white fs-4">{{ forum.title }}</div>
+                    <!-- TODO: add edit button in the future -->
+                    <!-- <fa-icon *ngIf="forum.primary_author === this.member.getUsername()" class="edit-button" [icon]="faEdit"></fa-icon> -->
+                </div>
+                <div class="text-white opacity-75">{{ forum.primary_author }}</div>
+            </div>
+            <div class="text-white opacity-75">
+                <span style="font-size: .6rem">
+                    {{ forumCreated[i] }}
+                </span>
+            </div>
+        </div>
+    </a>
+</div>

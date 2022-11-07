@@ -15,7 +15,6 @@ export const createUser = asyncHandler(async (req, res) => {
         if(!email || !username || !password || !role) return res.status(406).json({ message: 'Invalid or incomplete input' })
         email = email.toLowerCase().trim()
         username = username.toLowerCase().trim()
-        role = role.toUpperCase().trim()
         const emailExists = !!await UserModel.findOne({ email })
         const usernameExists = !!await UserModel.findOne({ username })
         if(emailExists || usernameExists) return res.status(406).json({ message: 'Email or username already exists'})
@@ -36,10 +35,11 @@ export const signInUser = asyncHandler(async (req, res) => {
         if(!username || !password) return res.status(406).json({ message: 'Username and password are required' })
         username = username.toLowerCase().trim()
         const fetchUser = await UserModel.findOne({ username })
+        if(!fetchUser) return res.status(401).json({ message: 'Invalid credentials'})
         const isVerified = await bcrypt.compare(password, fetchUser.password)
         if(!isVerified) return res.status(401).json({ message: 'Invalid credentials'})
         const roles = Object.values(fetchUser.role)
-        console.log(roles)
+
         const user = {
             "user_info": {
                 "id": fetchUser.id,
@@ -50,7 +50,7 @@ export const signInUser = asyncHandler(async (req, res) => {
         const access_token = generateToken(user)
         const refresh_token = jwt.sign(user, REFRESH_TOKEN)
         createToken(refresh_token)
-        res.status(200).json({access_token: access_token, refresh_token: refresh_token, message: fetchUser.email})
+        res.status(200).json({access_token: access_token, refresh_token: refresh_token, username: fetchUser.username, role: roles})
     } catch (error) {
         res.status(400).json({message: error.message})
     }

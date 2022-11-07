@@ -1,0 +1,18 @@
+.form-control {
+    border: 0px solid;
+    border-radius: 0px;
+    border-bottom: 1px solid #000;
+}
+.form-control:focus {
+    color: #212529;
+    background-color: #fff;
+    border: 0px solid;
+    border-bottom: 1px solid #000;
+    border-color: orange;
+    outline: 0;
+    box-shadow: none !important;
+}
+
+.sign-in-button:active {
+    background-color: orange;
+}

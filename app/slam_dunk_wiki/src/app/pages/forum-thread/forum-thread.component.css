@@ -1,7 +1,14 @@
 .thread-bg{
     max-width: 100%;
     min-height: 1100px;
-    background-image: url("../../../assets/forum-thread-bg1.png");
+    background-image: url("../../../assets/Haruko-Thread.jpg");
     background-repeat: no-repeat;
     background-size: cover;
+    background-position: center;
+}
+.title-container {
+    background: rgba(229, 161, 128, 0.8);
+}
+.foreground {
+    background: rgba(28, 22, 22, 0.8);
 }

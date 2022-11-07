@@ -59,7 +59,7 @@ export const deleteForum = asyncHandler(async (req, res) => {
     try {
         const id = req.params.id
         if(! await idExists(id)) return res.status(404).json({ error_message: 'Forum not found' })
-        const deletedForum = await ForumModel.findByIdAndUpdate(id)
+        const deletedForum = await ForumModel.findByIdAndDelete(id)
         res.status(200).json({ message: "Forum successfully deleted"})
     } catch (error) {
         res.status(400).json({ error_message: error.message })

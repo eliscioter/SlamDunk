@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog'
 
+import { SignInComponent } from '../sign-in/sign-in.component'
+import { MemberService } from '../../services/member/member.service';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -7,9 +10,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  constructor(private dialog: MatDialog, protected member: MemberService) { }
 
   ngOnInit(): void {
   }
 
+  openSignIn() {
+    this.dialog.open(SignInComponent)
+  }
+  onSignOut() {
+    const user = this.member.getRefreshToken() as string
+    this.member.signOut(user).subscribe()
+  }
 }
