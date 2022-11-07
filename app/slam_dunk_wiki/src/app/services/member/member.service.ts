@@ -18,8 +18,6 @@ export class MemberService {
 
   private api_url = 'http://localhost:5002/api/user'
 
-  
-
   constructor(private http: HttpClient) { }
 
   register(member: Member): Observable<Member> {
@@ -36,10 +34,11 @@ export class MemberService {
       return res
     }))
   }
-
+  
   isLoggedIn(): boolean {
-    const authToken = localStorage.getItem('access_token');
-    return authToken !== null ? true : false;
+    const authToken = !!localStorage.getItem('access_token');
+
+    return authToken ? true : false;
   }
 
   getUsername(): string {
