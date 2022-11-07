@@ -16,5 +16,5 @@ router.put('/message/:id',all, replyForum)
 router.delete('/forum/delete/:id', mod, deleteForum)
 router.delete('/message/delete/:id/:message', mod, deleteMessage)
 
-router.get('/forums', all, fetchForums)
+router.get('/forums', fetchForums)
 router.get('/forum/:id', all, fetchForum)
