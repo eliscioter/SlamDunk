@@ -7,6 +7,7 @@ import { ForumThreadComponent } from './pages/forum-thread/forum-thread.componen
 import { PlayersComponent } from './pages/players/players.component';
 import { AboutComponent } from './pages/about/about.component';
 import { RegisterComponent } from './components/register/register.component';
+import { TraitsComponent } from './pages/traits/traits.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent},
@@ -15,6 +16,8 @@ const routes: Routes = [
   { path: 'players', component: PlayersComponent},
   { path: 'about', component: AboutComponent},
   { path: 'register', component: RegisterComponent},
+  { path: 'traits', component: TraitsComponent}
+
 ];
 
 @NgModule({

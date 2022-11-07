@@ -22,6 +22,7 @@ import { PlayersComponent } from './pages/players/players.component';
 import { RegisterComponent } from './components/register/register.component';
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import { AuthInterceptor } from './interceptor/auth.interceptor';
+import { TraitsComponent } from './pages/traits/traits.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { AuthInterceptor } from './interceptor/auth.interceptor';
     PlayersComponent,
     RegisterComponent,
     SignInComponent,
+    TraitsComponent,
   ],
   imports: [
     BrowserModule,
