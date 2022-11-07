@@ -23,6 +23,7 @@ import { SignInComponent } from './components/sign-in/sign-in.component';
 import { AuthInterceptor } from './interceptor/auth.interceptor';
 import { LoginComponent } from './admin/pages/login/login.component';
 import { CreateComponent } from './admin/pages/create/create.component';
+import { TraitsComponent } from './pages/traits/traits.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { CreateComponent } from './admin/pages/create/create.component';
     SignInComponent,
     LoginComponent,
     CreateComponent,
+    TraitsComponent,
   ],
   imports: [
     BrowserModule,

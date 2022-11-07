@@ -10,6 +10,7 @@ import { AboutComponent } from './pages/about/about.component';
 import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './admin/pages/login/login.component';
 import { Title } from '@angular/platform-browser';
+import { TraitsComponent } from './pages/traits/traits.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, data: {title: 'Slam Dunk Wiki'}},
@@ -19,6 +20,7 @@ const routes: Routes = [
   { path: 'about', component: AboutComponent, data: {title: 'About'}},
   { path: 'register', component: RegisterComponent, data: {title: 'Register'}},
   { path: 'admin/login', component: LoginComponent, data: {title: 'Admin | Login'}},
+  { path: 'traits', component: TraitsComponent}
 ];
 
 @NgModule({
