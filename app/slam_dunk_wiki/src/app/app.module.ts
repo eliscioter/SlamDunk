@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, Title } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
@@ -11,7 +11,6 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import {AutosizeModule} from 'ngx-autosize';
 
-
 import { HomeComponent } from './pages/home/home.component';
 import { ForumComponent } from './pages/forum/forum.component';
 import { ForumsComponent } from './components/forums/forums.component';
@@ -22,6 +21,8 @@ import { PlayersComponent } from './pages/players/players.component';
 import { RegisterComponent } from './components/register/register.component';
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import { AuthInterceptor } from './interceptor/auth.interceptor';
+import { LoginComponent } from './admin/pages/login/login.component';
+import { CreateComponent } from './admin/pages/create/create.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,8 @@ import { AuthInterceptor } from './interceptor/auth.interceptor';
     PlayersComponent,
     RegisterComponent,
     SignInComponent,
+    LoginComponent,
+    CreateComponent,
   ],
   imports: [
     BrowserModule,
@@ -46,14 +49,15 @@ import { AuthInterceptor } from './interceptor/auth.interceptor';
     MatDialogModule,
     HttpClientModule,
     FormsModule,
-    AutosizeModule,
+    AutosizeModule
   ],
   providers: [
     {
       provide:  HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
       multi: true
-    }
+    },
+    Title,
   ],
   bootstrap: [AppComponent]
 })
