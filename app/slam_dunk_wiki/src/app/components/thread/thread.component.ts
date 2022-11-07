@@ -25,7 +25,7 @@ export class ThreadComponent implements OnInit {
 
 
   verifyRole(): boolean {
-    return this.member.getRole().includes('MODERATOR')
+    return this.member.getRole()?.includes('MODERATOR')
   }
 
   onDelete(forum: Body) {
