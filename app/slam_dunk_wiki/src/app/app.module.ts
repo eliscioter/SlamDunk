@@ -24,6 +24,7 @@ import { AuthInterceptor } from './interceptor/auth.interceptor';
 import { LoginComponent } from './admin/pages/login/login.component';
 import { CreateComponent } from './admin/pages/create/create.component';
 import { TraitsComponent } from './pages/traits/traits.component';
+import { ContactComponent } from './pages/contact/contact.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { TraitsComponent } from './pages/traits/traits.component';
     LoginComponent,
     CreateComponent,
     TraitsComponent,
+    ContactComponent,
   ],
   imports: [
     BrowserModule,

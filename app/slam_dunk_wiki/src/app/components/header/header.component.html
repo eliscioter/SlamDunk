@@ -43,7 +43,7 @@
                     <a class="nav-link" routerLink="/about">About</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Contact</a>
+                    <a class="nav-link" routerLink="/contact">Contact</a>
                 </li>
                 <li *ngIf="!checkRoute()" class="nav-item d-md-inline d-lg-none">
                     <button mat-button *ngIf="!this.user.isLoggedIn()" (click)="openSignIn()" class="btn px-0 bg-transparent sign-in">Sign in</button>
