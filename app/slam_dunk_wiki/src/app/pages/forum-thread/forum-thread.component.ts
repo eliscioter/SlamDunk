@@ -5,7 +5,7 @@ import { ForumService } from '../../services/forum/forum.service';
 import { MemberService } from 'src/app/services/member/member.service';
 import { Body } from '../../interfaces/ForumBody';
 import { Comment } from 'src/app/interfaces/ForumComment';
-import { Forum } from 'src/app/interfaces/Forum';
+import { UserService } from '../../services/user/user.service'
 @Component({
   selector: 'app-forum-thread',
   templateUrl: './forum-thread.component.html',
@@ -18,16 +18,16 @@ export class ForumThreadComponent implements OnInit {
   author!: string;
   comment!: string;
   data: Body[] = []
-  constructor(private forumService: ForumService, private memberService: MemberService, private route: ActivatedRoute) {
+  constructor(private forumService: ForumService, private userService: UserService, private route: ActivatedRoute) {
     this.id = this.route.snapshot.params['id']
   }
 
   ngOnInit(): void {
-    if (!this.memberService.isLoggedIn()) return alert('You must be logged in')
+    if (!this.userService.isLoggedIn()) return alert('You must be logged in')
     this.forumService.getForum(this.id).subscribe( data => {
       this.data = data.body
       this.title = data.title
-      this.author = this.memberService.getUsername()
+      this.author = this.userService.getUsername()
       if(window.localStorage) {
         if( !localStorage.getItem('firstLoad') ) {
           localStorage['firstLoad'] = true;
