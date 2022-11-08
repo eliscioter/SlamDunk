@@ -50,7 +50,7 @@ export const signInAdmin = asyncHandler(async (req, res) => {
         const access_token = generateToken(user)
         const refresh_token = jwt.sign(user, REFRESH_TOKEN)
         createToken(refresh_token)
-        res.status(200).json({access_token: access_token, refresh_token: refresh_token, message: `Welcome ${username}`})
+        res.status(200).json({access_token: access_token, refresh_token: refresh_token, username: fetchAdmin.username, role: roles})
     } catch (error) {
         res.status(401).json({ message: error.message })
     }
