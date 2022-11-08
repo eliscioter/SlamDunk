@@ -45,15 +45,22 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#">Contact</a>
                 </li>
-                <li class="nav-item d-md-inline d-lg-none">
-                    <button mat-button (click)="openSignIn()" class="btn px-0 bg-transparent sign-in">Sign in</button>
+                <li *ngIf="!checkRoute()" class="nav-item d-md-inline d-lg-none">
+                    <button mat-button *ngIf="!this.user.isLoggedIn()" (click)="openSignIn()" class="btn px-0 bg-transparent sign-in">Sign in</button>
+                    <button mat-button *ngIf="this.user.isLoggedIn()" (click)="openSignIn()" class="btn px-0 bg-transparent sign-in">Sign in</button>
+                </li>
+                <li  *ngIf="checkRoute() || this.user.getRole()?.includes('admin')" class="nav-item d-md-inline d-lg-none">
+                    <button mat-button *ngIf="this.user.isLoggedIn()" (click)="openSignIn()" class="btn px-0 bg-transparent sign-in">Sign in</button>
                 </li>
             </ul>
         </div>
-        <div class="d-none d-lg-inline">
-            <button *ngIf="!this.member.isLoggedIn()" (click)="openSignIn()" class="btn px-1 bg-transparent rounded sign-in">Sign in</button>
-            <button *ngIf="this.member.isLoggedIn()" (click)="onSignOut()" class="btn px-1 bg-transparent rounded sign-in">Sign out</button>
-        
+        <div *ngIf="!checkRoute()" class="d-none d-lg-inline">
+            <button *ngIf="!this.user.isLoggedIn()" (click)="openSignIn()" class="btn px-1 bg-transparent rounded sign-in">Sign in</button>
+            <button *ngIf="this.user.isLoggedIn()" (click)="onSignOut('member')" class="btn px-1 bg-transparent rounded sign-in">Sign out</button>
+        </div>
+        <div *ngIf="checkRoute() || this.user.getRole()?.includes('admin')" class="d-none d-lg-inline">
+
+            <button (click)="onSignOut('admin')" class="btn px-1 bg-transparent rounded sign-in">Sign out</button>
         </div>
     </div>
 </nav>
