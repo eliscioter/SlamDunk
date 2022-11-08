@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 
-import { MemberService } from '../../services/member/member.service';
+import { UserService } from '../../services/user/user.service';
 import { ForumService } from '../../services/forum/forum.service';
 import { Forum } from '../../interfaces/Forum';
 @Component({
@@ -18,7 +18,7 @@ export class ForumsComponent implements OnInit {
   forum_author!: string
   faTrash = faTrash;
 
-  constructor(private forum: ForumService, protected member: MemberService, private router: Router) { }
+  constructor(private forum: ForumService, protected user: UserService, private router: Router) { }
 
   ngOnInit(): void {
     this.forum.getForums().subscribe({
@@ -33,12 +33,12 @@ export class ForumsComponent implements OnInit {
   }
 
   verifyAuth(id: string) {
-    if(!this.member.isLoggedIn()) return alert('You need to sign in first to see the forum thread')
+    if(!this.user.isLoggedIn()) return alert('You need to sign in first to see the forum thread')
     else return this.router.navigate(['/forum/thread',id])
   }
 
   verifyRole(): boolean {
-    return this.member.getRole()?.includes('MODERATOR')
+    return this.user.getRole()?.includes('MODERATOR')
   }
 
   onDelete(forum: Forum) {

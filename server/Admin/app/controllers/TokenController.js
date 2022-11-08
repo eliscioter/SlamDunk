@@ -24,7 +24,7 @@ export const verifyToken = asyncHandler(async (req, res) => {
     const { token } = req.body
     try {
         if(!token) return res.status(400).json({message: `Token undefined`})
-        const fetchToken = await TokenModel.findOne({ token: new RegExp('^'+token+'$', "i") })
+        const fetchToken = await TokenModel.find({ token: new RegExp('^'+token+'$', "i") })
         if(!fetchToken) return res.status(403).json({message: "Invalid credentials"})
         jwt.verify(token, REFRESH_TOKEN, (err, user) => {
             if(err) return user.status(400).json({message: err.message})
