@@ -2,8 +2,12 @@ h1, p {
     color: white;
     text-align: center;
 }
-body {
+.body {
     background-image: url("../../../assets/about-bg.jpg");
+    max-width: 100%;
+    margin: auto;
+    height: 1100px;
+    padding: auto;
 }
 img {
     margin: auto;
