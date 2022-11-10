@@ -24,8 +24,6 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent, data: {title: 'Register'}},
   { path: 'admin/login', component: LoginComponent, data: {title: 'Admin | Login'}},
   { path: 'create', component: CreateComponent, data: {title: 'Admin | Create'}, canActivate: [AuthGuard]}
-  { path: 'traits', component: TraitsComponent},
-  { path: 'contact', component: ContactComponent}
 ];
 
 @NgModule({
