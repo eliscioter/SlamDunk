@@ -25,6 +25,12 @@ import { LoginComponent } from './admin/pages/login/login.component';
 import { CreateComponent } from './admin/pages/create/create.component';
 import { TraitsComponent } from './pages/traits/traits.component';
 import { ContactComponent } from './pages/contact/contact.component';
+import { DashboardComponent } from './admin/pages/dashboard/dashboard.component';
+import { ErrorComponent } from './pages/error/error.component';
+import { SidebarComponent } from './admin/components/sidebar/sidebar.component';
+import { PlayersAdminComponent } from './admin/pages/players-admin/players-admin.component';
+import { TraitsAdminComponent } from './admin/pages/traits-admin/traits-admin.component';
+import { ModifyComponent } from './admin/pages/modify/modify.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +50,12 @@ import { ContactComponent } from './pages/contact/contact.component';
     CreateComponent,
     TraitsComponent,
     ContactComponent,
+    DashboardComponent,
+    ErrorComponent,
+    SidebarComponent,
+    PlayersAdminComponent,
+    TraitsAdminComponent,
+    ModifyComponent,
   ],
   imports: [
     BrowserModule,
