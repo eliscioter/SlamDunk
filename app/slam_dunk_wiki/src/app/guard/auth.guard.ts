@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
-import {UserService } from '../services/user/user.service';
+import { UserService } from '../services/user/user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -20,11 +20,7 @@ export class AuthGuard implements CanActivate {
         this.router.navigate(['/'])
         return false
       }
-      if(this.user.isLoggedIn() && !this.user.getRole()?.includes('EDITOR')) {
-        alert('Acces denied')
-        this.router.navigate(['/'])
-        return false
-      }
+      
     return true;
   }
   
