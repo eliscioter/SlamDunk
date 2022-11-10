@@ -18,7 +18,6 @@ export class AdminService {
   constructor(private http: HttpClient) { }
 
   auth(user: Admin): Observable<Admin> {
-    console.log(user)
     return this.http.post<Admin>(`${this.api_url}/login`, user, httpOptions).pipe(map( res => {
       const { access_token, refresh_token, username, role } = res
       localStorage.setItem('role', JSON.stringify(role));
