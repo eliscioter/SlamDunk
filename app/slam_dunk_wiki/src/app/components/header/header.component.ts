@@ -41,10 +41,9 @@ export class HeaderComponent implements OnInit {
       return
     }
   }
-  checkRoute(): boolean {
+  isAdminRoute(): boolean {
     const route =  this.admin.getURL() as string
     const target = String(route).substring(0, 5).trim()
     return target === 'Admin'
   }
-  
 }
