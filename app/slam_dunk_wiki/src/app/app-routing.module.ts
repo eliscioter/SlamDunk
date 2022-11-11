@@ -13,12 +13,13 @@ import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './admin/pages/login/login.component';
 import { Title } from '@angular/platform-browser';
 import { TraitsComponent } from './pages/traits/traits.component';
-import { CreateComponent } from './admin/pages/create/create.component';
+import { CreatePlayerComponent } from './admin/pages/create-player/create-player.component';
 import { ContactComponent } from './pages/contact/contact.component';
 import { DashboardComponent } from './admin/pages/dashboard/dashboard.component';
 import { PlayersAdminComponent } from './admin/pages/players-admin/players-admin.component';
 import { TraitsAdminComponent } from './admin/pages/traits-admin/traits-admin.component';
-import { ModifyComponent } from './admin/pages/modify/modify.component';
+import { ModifyPlayerComponent } from './admin/pages/modify-player/modify-player.component';
+import { CreateTraitComponent } from './admin/pages/create-trait/create-trait.component';
 import { ErrorComponent } from './pages/error/error.component';
 
 const routes: Routes = [
@@ -31,8 +32,9 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent, data: {title: 'Register'}},
   { path: 'contact', component: ContactComponent, data: {title: 'Contact'}},
   { path: 'admin/login', component: LoginComponent, data: {title: 'Admin | Login'}, canActivate: [LoginGuard] },
-  { path: 'create', component: CreateComponent, data: {title: 'Admin | Create'}, canActivate: [AdminGuard] },
-  { path: 'modify', component: ModifyComponent, data: {title: 'Admin | Modify'}, canActivate: [AdminGuard]},
+  { path: 'create-player', component: CreatePlayerComponent, data: {title: 'Admin | Create Player'}, canActivate: [AdminGuard] },
+  { path: 'create-trait', component: CreateTraitComponent, data: {title: 'Admin | Create Trait'}, canActivate: [AdminGuard] },
+  { path: 'modify/:_id', component: ModifyPlayerComponent, data: {title: 'Admin | Modify'}, canActivate: [AdminGuard]},
   { path: 'dashboard', component: DashboardComponent, data: {title: 'Admin | Dashboard'}, canActivate: [AdminGuard],
     children: [
       { path: 'admin/players', component: PlayersAdminComponent, data: {title: 'Admin | Players'}, canActivate: [AdminGuard] },

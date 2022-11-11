@@ -22,7 +22,6 @@ import { RegisterComponent } from './components/register/register.component';
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import { AuthInterceptor } from './interceptor/auth.interceptor';
 import { LoginComponent } from './admin/pages/login/login.component';
-import { CreateComponent } from './admin/pages/create/create.component';
 import { TraitsComponent } from './pages/traits/traits.component';
 import { ContactComponent } from './pages/contact/contact.component';
 import { DashboardComponent } from './admin/pages/dashboard/dashboard.component';
@@ -30,7 +29,9 @@ import { ErrorComponent } from './pages/error/error.component';
 import { SidebarComponent } from './admin/components/sidebar/sidebar.component';
 import { PlayersAdminComponent } from './admin/pages/players-admin/players-admin.component';
 import { TraitsAdminComponent } from './admin/pages/traits-admin/traits-admin.component';
-import { ModifyComponent } from './admin/pages/modify/modify.component';
+import { CreatePlayerComponent } from './admin/pages/create-player/create-player.component';
+import { ModifyPlayerComponent } from './admin/pages/modify-player/modify-player.component';
+import { CreateTraitComponent } from './admin/pages/create-trait/create-trait.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,6 @@ import { ModifyComponent } from './admin/pages/modify/modify.component';
     RegisterComponent,
     SignInComponent,
     LoginComponent,
-    CreateComponent,
     TraitsComponent,
     ContactComponent,
     DashboardComponent,
@@ -55,7 +55,9 @@ import { ModifyComponent } from './admin/pages/modify/modify.component';
     SidebarComponent,
     PlayersAdminComponent,
     TraitsAdminComponent,
-    ModifyComponent,
+    CreatePlayerComponent,
+    ModifyPlayerComponent,
+    CreateTraitComponent,
   ],
   imports: [
     BrowserModule,
