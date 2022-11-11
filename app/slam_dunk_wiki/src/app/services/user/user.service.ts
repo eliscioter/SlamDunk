@@ -13,7 +13,7 @@ export class UserService {
   }
 
   getUsername(): string {
-    return null || JSON.parse(localStorage.getItem('username') as string)
+    return null || localStorage.getItem('username') as string
   }
 
   getToken(): string {
