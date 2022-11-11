@@ -24,6 +24,8 @@ import { AuthInterceptor } from './interceptor/auth.interceptor';
 import { LoginComponent } from './admin/pages/login/login.component';
 import { TraitsComponent } from './pages/traits/traits.component';
 import { ContactComponent } from './pages/contact/contact.component';
+import { DefenseComponent } from './pages/traits/defense/defense.component';
+import { TrickComponent } from './pages/traits/trick/trick.component';
 import { DashboardComponent } from './admin/pages/dashboard/dashboard.component';
 import { ErrorComponent } from './pages/error/error.component';
 import { SidebarComponent } from './admin/components/sidebar/sidebar.component';
@@ -50,6 +52,8 @@ import { CreateTraitComponent } from './admin/pages/create-trait/create-trait.co
     LoginComponent,
     TraitsComponent,
     ContactComponent,
+    DefenseComponent,
+    TrickComponent,
     DashboardComponent,
     ErrorComponent,
     SidebarComponent,

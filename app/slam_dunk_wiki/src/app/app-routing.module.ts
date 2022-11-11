@@ -15,6 +15,8 @@ import { Title } from '@angular/platform-browser';
 import { TraitsComponent } from './pages/traits/traits.component';
 import { CreatePlayerComponent } from './admin/pages/create-player/create-player.component';
 import { ContactComponent } from './pages/contact/contact.component';
+import { DefenseComponent } from './pages/traits/defense/defense.component';
+import { TrickComponent } from './pages/traits/trick/trick.component';
 import { DashboardComponent } from './admin/pages/dashboard/dashboard.component';
 import { PlayersAdminComponent } from './admin/pages/players-admin/players-admin.component';
 import { TraitsAdminComponent } from './admin/pages/traits-admin/traits-admin.component';
@@ -30,6 +32,9 @@ const routes: Routes = [
   { path: 'about', component: AboutComponent, data: {title: 'About'}},
   { path: 'traits', component: TraitsComponent, data: {title: 'Traits'}},
   { path: 'register', component: RegisterComponent, data: {title: 'Register'}},
+  { path: 'traits/offense', component: TraitsComponent, data: {title: 'Traits | Offense'}},
+  { path: 'traits/defense', component: DefenseComponent, data: {title: 'Traits | Defense'}},
+  { path: 'traits/trick', component: TrickComponent, data: {title: 'Traits | Trick'}},
   { path: 'contact', component: ContactComponent, data: {title: 'Contact'}},
   { path: 'admin/login', component: LoginComponent, data: {title: 'Admin | Login'}, canActivate: [LoginGuard] },
   { path: 'create-player', component: CreatePlayerComponent, data: {title: 'Admin | Create Player'}, canActivate: [AdminGuard] },
@@ -43,7 +48,6 @@ const routes: Routes = [
   },
   
   { path: '**', component: ErrorComponent, data: { title: 'Error' }}
-
 ];
 
 @NgModule({
