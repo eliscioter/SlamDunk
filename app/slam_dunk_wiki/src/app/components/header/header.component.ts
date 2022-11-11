@@ -5,6 +5,7 @@ import { Title } from '@angular/platform-browser';
 import { SignInComponent } from '../sign-in/sign-in.component'
 import { MemberService } from '../../services/member/member.service';
 import { AdminService } from 'src/app/services/admin/admin.service';
+import { UserService } from 'src/app/services/user/user.service';
 import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-header',
@@ -14,19 +15,35 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class HeaderComponent implements OnInit {
 
   @Input() titleName!: string
-  constructor(private dialog: MatDialog, protected member: MemberService, private admin: AdminService, private title: Title, private readonly route: ActivatedRoute, private router: Router) { }
+  constructor(private dialog: MatDialog, protected user: UserService, protected member: MemberService, protected admin: AdminService, private title: Title, private readonly route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
-    console.log(this.titleName)
   }
 
   openSignIn() {
     this.dialog.open(SignInComponent)
   }
-  onSignOut() {
-    const user = this.member.getRefreshToken() as string
-    this.member.signOut(user).subscribe()
+  onSignOut(type: string) {
+    const user = this.user.getRefreshToken() as string
+    if(type === 'member') {
+      this.member.signOut(user).subscribe()
+      return
+    }
+    if(type === 'admin') {
+      this.admin.logout(user).subscribe({
+        next: () => {
+          this.router.navigate(['/'], { replaceUrl: true })
+        }, 
+        error: (e) => {
+          console.log(e)
+        }
+      })
+      return
+    }
   }
-
-  
+  isAdminRoute(): boolean {
+    const route =  this.admin.getURL() as string
+    const target = String(route).substring(0, 5).trim()
+    return target === 'Admin'
+  }
 }

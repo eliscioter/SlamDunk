@@ -25,8 +25,7 @@ export class ForumService {
   }
 
   createForum(forum: CreateForum): Observable<CreateForum> {
-    console.log(forum)
-    return this.http.post<CreateForum>(`${this.api_url}/store`, forum).pipe()
+    return this.http.post<CreateForum>(`${this.api_url}/store`, forum)
   }
 
   commentForum(comment: Comment, id: string): Observable<Comment> {
@@ -34,7 +33,6 @@ export class ForumService {
   }
 
   deleteForum(forum: Forum): Observable<Forum> {
-    console.log(forum)
     return this.http.delete<Forum>(`${this.api_url}/forum/delete/${forum._id}`)
   }
 

@@ -1,10 +1,24 @@
-h1, p {
+h1, p, hr {
     color: white;
     text-align: center;
 }
-body {
+.body {
     background-image: url("../../../assets/about-bg.jpg");
+    padding: auto;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 900px;
+    padding-top: 10%;
+}
+.imgCon {
+    display: flex;
+    justify-content: center;
 }
 img {
-    margin: auto;
+    width: auto;
+}
+.forAbout{
+    background-color: #432E2E;
+    width: 50%;
+    padding: 30%;
 }

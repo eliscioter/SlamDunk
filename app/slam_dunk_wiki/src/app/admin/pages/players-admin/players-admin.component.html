@@ -1,0 +1,118 @@
+<div class="d-flex justify-content-end mb-5">
+    <a routerLink="/create-player" class="btn bg-danger text-light">Create new</a>
+</div>
+<div class="row g-3">
+    <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6" *ngFor="let item of players">
+        <div class="card">
+            <div class="bg-secondary d-flex justify-content-end p-1">
+                <div class="rounded-circle bg-danger py-1 px-2 me-2">
+                    <a [routerLink]="['/modify', item._id]">
+                        <fa-icon [icon]="faEdit" class="delete-button text-white"></fa-icon> 
+                    </a>
+                </div>
+                <div class="rounded-circle bg-danger py-1 px-2">
+                    <fa-icon [icon]="faTrash" class="delete-button text-white"></fa-icon> 
+                </div>
+            </div>
+            <img
+                src='https://imgur.com/mvfKmhJ.png'
+                class="img-fluid"
+                alt="Hisashi Mitsui Picture"
+            />
+            <div class="card-body bg-light">
+                <h5 class="card-title text-center text-truncate">    
+                    {{ item.player.profile.player_name.first_name }}
+                    {{ item.player.profile.player_name.last_name }}
+                </h5>
+            </div>
+        </div>
+    </div>
+    <!-- <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6">
+        <div class="card">
+            <div class="bg-secondary d-flex justify-content-end p-1">
+                <div class="rounded-circle bg-danger py-1 px-2 me-2">
+                    <a routerLink="/modify">
+                        <fa-icon [icon]="faEdit" class="delete-button text-white"></fa-icon> 
+                    </a>
+                </div>
+                <div class="rounded-circle bg-danger py-1 px-2">
+                    <fa-icon [icon]="faTrash" class="delete-button text-white"></fa-icon> 
+                </div>
+            </div>
+            <img
+                src="https://imgur.com/ZaDG0Q3.png"
+                class="img-fluid"
+                alt="Hisashi Mitsui Picture"
+            />
+            <div class="card-body bg-light">
+                <h5 class="card-title text-center text-truncate">Hisashi Mitsui</h5>
+            </div>
+        </div>
+    </div>
+    <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6">
+        <div class="card">
+            <div class="bg-secondary d-flex justify-content-end p-1">
+                <div class="rounded-circle bg-danger py-1 px-2 me-2">
+                    <a routerLink="/modify">
+                        <fa-icon [icon]="faEdit" class="delete-button text-white"></fa-icon> 
+                    </a>
+                </div>
+                <div class="rounded-circle bg-danger py-1 px-2">
+                    <fa-icon [icon]="faTrash" class="delete-button text-white"></fa-icon> 
+                </div>
+            </div>
+            <img
+                src="https://imgur.com/ZaDG0Q3.png"
+                class="img-fluid"
+                alt="Hisashi Mitsui Picture"
+            />
+            <div class="card-body bg-light">
+                <h5 class="card-title text-center text-truncate">Hisashi Mitsui</h5>
+            </div>
+        </div>
+    </div>
+    <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6">
+        <div class="card">
+            <div class="bg-secondary d-flex justify-content-end p-1">
+                <div class="rounded-circle bg-danger py-1 px-2 me-2">
+                    <a routerLink="/modify">
+                        <fa-icon [icon]="faEdit" class="delete-button text-white"></fa-icon> 
+                    </a>
+                </div>
+                <div class="rounded-circle bg-danger py-1 px-2">
+                    <fa-icon [icon]="faTrash" class="delete-button text-white"></fa-icon> 
+                </div>
+            </div>
+            <img
+                src="https://imgur.com/ZaDG0Q3.png"
+                class="img-fluid"
+                alt="Hisashi Mitsui Picture"
+            />
+            <div class="card-body bg-light">
+                <h5 class="card-title text-center text-truncate">Hisashi Mitsui</h5>
+            </div>
+        </div>
+    </div>
+    <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6">
+        <div class="card">
+            <div class="bg-secondary d-flex justify-content-end p-1">
+                <div class="rounded-circle bg-danger py-1 px-2 me-2">
+                    <a routerLink="/modify">
+                        <fa-icon [icon]="faEdit" class="delete-button text-white"></fa-icon> 
+                    </a>
+                </div>
+                <div class="rounded-circle bg-danger py-1 px-2">
+                    <fa-icon [icon]="faTrash" class="delete-button text-white"></fa-icon> 
+                </div>
+            </div>
+            <img
+                src="https://imgur.com/ZaDG0Q3.png"
+                class="img-fluid"
+                alt="Hisashi Mitsui Picture"
+            />
+            <div class="card-body bg-light">
+                <h5 class="card-title text-center text-truncate">Hisashi Mitsui</h5>
+            </div>
+        </div>
+    </div> -->
+</div>

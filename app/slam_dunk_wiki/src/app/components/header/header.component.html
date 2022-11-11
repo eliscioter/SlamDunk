@@ -45,15 +45,37 @@
                 <li class="nav-item">
                     <a class="nav-link" routerLink="/contact">Contact</a>
                 </li>
-                <li class="nav-item d-md-inline d-lg-none">
-                    <button mat-button (click)="openSignIn()" class="btn px-0 bg-transparent sign-in">Sign in</button>
+                <li class="nav-item" *ngIf="this.user.isLoggedIn() && this.user.getRole()?.includes('EDITOR')">
+                    <a class="nav-link" routerLink="/dashboard/admin/players">Dashboard</a>
                 </li>
+                <div class="d-md-inline d-lg-none">
+                    <li *ngIf="!isAdminRoute() && !this.user.getRole()?.includes('EDITOR')" class="nav-item">
+                        <button mat-button *ngIf="!this.user.isLoggedIn()" (click)="openSignIn()" class="btn px-0 bg-transparent sign-in">Sign in</button>
+                        <button mat-button *ngIf="this.user.isLoggedIn()" (click)="openSignIn()" class="btn px-0 bg-transparent sign-in">Sign out</button>
+                    </li>
+                    <li  *ngIf="this.user.isLoggedIn() && this.user.getRole()?.includes('EDITOR')" class="nav-item">
+                        <button mat-button *ngIf="this.user.isLoggedIn()" (click)="openSignIn()" class="btn px-0 bg-transparent sign-in">Sign Out</button>
+                    </li>
+                    <div class="border-top">
+                        <li class="nav-item">
+                            <a class="nav-link" routerLink="/forum">Team</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" routerLink="/about">Players</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" routerLink="/contact">Traits</a>
+                        </li>
+                    </div>
+                </div>
             </ul>
         </div>
-        <div class="d-none d-lg-inline">
-            <button *ngIf="!this.member.isLoggedIn()" (click)="openSignIn()" class="btn px-1 bg-transparent rounded sign-in">Sign in</button>
-            <button *ngIf="this.member.isLoggedIn()" (click)="onSignOut()" class="btn px-1 bg-transparent rounded sign-in">Sign out</button>
-        
+        <div *ngIf="!isAdminRoute() && !this.user.getRole()?.includes('EDITOR')" class="d-none d-lg-inline">
+            <button *ngIf="!this.user.isLoggedIn()" (click)="openSignIn()" class="btn px-1 bg-transparent rounded sign-in">Sign in</button>
+            <button *ngIf="this.user.isLoggedIn()" (click)="onSignOut('member')" class="btn px-1 bg-transparent rounded sign-in">Sign out</button>
+        </div>
+        <div *ngIf="this.user.isLoggedIn() && this.user.getRole()?.includes('EDITOR')" class="d-none d-lg-inline">
+            <button (click)="onSignOut('admin')" class="btn px-1 bg-transparent rounded sign-in">Sign out</button>
         </div>
     </div>
 </nav>

@@ -6,6 +6,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CreateForum } from '../../interfaces/CreateForum'
 import { MemberService }  from '../../services/member/member.service'
 import { ForumService } from '../../services/forum/forum.service';
+import { UserService } from 'src/app/services/user/user.service';
 @Component({
   selector: 'app-forum',
   templateUrl: './forum.component.html',
@@ -17,7 +18,7 @@ export class ForumComponent implements OnInit {
   title!: string
   content!: string
 
-  constructor(protected member: MemberService, private forumService: ForumService, private router: Router) { }
+  constructor(protected member: MemberService, protected user: UserService, private forumService: ForumService, private router: Router) { }
 
   ngOnInit(): void {
     
@@ -26,10 +27,10 @@ export class ForumComponent implements OnInit {
   onCreateForum() {
     const forum: CreateForum = {
       title: this.title,
-      primary_author: this.member.getUsername(),
+      primary_author: this.user.getUsername(),
       body: [
         {
-          author: this.member.getUsername(),
+          author: this.user.getUsername(),
           content: this.content
         }
       ]

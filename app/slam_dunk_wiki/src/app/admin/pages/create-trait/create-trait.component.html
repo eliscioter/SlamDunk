@@ -1,0 +1,28 @@
+<div class="bg-secondary min-vh-100 p-5">
+    <div class="border rounded p-5 create-trait-container">
+        <h5>Trait</h5>
+        <form>
+            <select class="form-select mb-3 w-100 trait-input" aria-label="Select type of trait">
+                <option selected>Choose type of trait</option>
+                <option value="1">Offense</option>
+                <option value="2">Defense</option>
+                <option value="3">Tricks</option>
+            </select>
+            <div class="form-floating mb-3 w-100 trait-input">
+                <input type="text" class="form-control outline-none" name="name" placeholder="name" required>
+                <label for="floatingInput">Name</label>
+            </div>
+            <div class="form-floating mb-3 w-100 trait-input">
+                <textarea class="form-control outline-none" name="description" placeholder="description" autosize required></textarea>
+                <label for="floatingInput">Talent description</label>
+            </div>
+            <div class="form-floating mb-3 w-100 trait-input">
+                <input type="text" class="form-control outline-none" name="talent-img-url" placeholder="img-url" required>
+                <label for="floatingInput">https://image_url.com</label>
+            </div>
+            <div class="d-flex justify-content-end">
+                <input type="submit" value="Create" class="btn p-1 fs-4 bg-danger text-white">
+            </div>
+        </form>
+    </div>
+</div>
