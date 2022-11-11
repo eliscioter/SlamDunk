@@ -14,13 +14,13 @@ div>.card {
   text-overflow: ellipsis;
 }
 
+div>.card>img {
+  margin-top: 10px;
+}
+
 div>.card-text {
   color: #661a1a;
   font-weight: 500;
-}
-
-div>.card>img {
-  margin-top: 10px;
 }
 
 @media (min-width: 992px) {
