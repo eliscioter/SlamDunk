@@ -1,6 +1,10 @@
 .navbar-collapse {
     flex-grow: 0 !important;
 }
+.navbar-brand > img {
+    height: 80px;
+    border-radius: 40px;
+}
 .sign-in {
     color: orange;
 }
