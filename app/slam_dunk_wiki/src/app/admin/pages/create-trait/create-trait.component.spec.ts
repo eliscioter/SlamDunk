@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ModifyComponent } from './modify.component';
+import { CreateTraitComponent } from './create-trait.component';
 
-describe('ModifyComponent', () => {
-  let component: ModifyComponent;
-  let fixture: ComponentFixture<ModifyComponent>;
+describe('CreateTraitComponent', () => {
+  let component: CreateTraitComponent;
+  let fixture: ComponentFixture<CreateTraitComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ModifyComponent ]
+      declarations: [ CreateTraitComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ModifyComponent);
+    fixture = TestBed.createComponent(CreateTraitComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

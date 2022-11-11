@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
     }
     this.admin.auth(user).subscribe({
       next: () => {
-        this.router.navigate(['/dashboard'], { replaceUrl: true })
+        this.router.navigate(['/dashboard/admin/players'], { replaceUrl: true })
         
         alert('Welcome admin!')
       },

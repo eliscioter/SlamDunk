@@ -1,0 +1,280 @@
+<div class="bg-secondary min-vh-100 p-md-5">
+    <div class="border rounded p-1 p-md-5">
+        <form ngNativeValidate>
+            <section class="mb-3">
+                <h3>Profile</h3>
+                <div class="container-fluid">
+                    <div class="row">
+                        <section class="col-lg-5">
+                            <section class="mb-3">
+                                <h5>Player name</h5>
+                                <div class="d-md-flex">
+                                    <div class="form-floating me-3 mb-3 w-100">
+                                        <input type="text" class="form-control outline-none" name="first-name" placeholder="john" [(ngModel)]="firstName" required>
+                                        <label for="floatingInput">First name</label>
+                                    </div>
+                                    <div class="form-floating w-100">
+                                        <input type="text" class="form-control outline-none" name="last-name" placeholder="john" [(ngModel)]="lastName" required>
+                                        <label for="floatingInput">Last name</label>
+                                    </div>
+                                </div>
+                            </section>
+                            <section class="mb-3">
+                                <h5>Position</h5>
+                                <div class="d-md-flex ">
+                                    <div class="form-floating me-3 mb-3 w-100">
+                                        <input type="text" class="form-control outline-none" name="abbr" placeholder="C" [(ngModel)]="abbr" required>
+                                        <label for="floatingInput">Abbreviation</label>
+                                    </div>
+                                    <div class="form-floating w-100">
+                                        <input type="text" class="form-control outline-none" name="full-version" placeholder="Center" [(ngModel)]="fullVersion" required>
+                                        <label for="floatingInput">Full version</label>
+                                    </div>
+                                </div>
+                            </section>
+                            <section class="mb-3">
+                                <h5>Height and Weight</h5>
+                                <div class="d-md-flex ">
+                                    <div class="form-floating me-3 mb-3 w-100">
+                                        <input type="number" class="form-control outline-none" name="height" placeholder="170" [(ngModel)]="height" required>
+                                        <label for="floatingInput">Height (in cm)</label>
+                                    </div>
+                                    <div class="form-floating w-100">
+                                        <input type="number" class="form-control outline-none" name="weight" placeholder="90" [(ngModel)]="weight" required>
+                                        <label for="floatingInput">Weight (in kg)</label>
+                                    </div>
+                                </div>
+                            </section>
+                        </section>
+                        <section class="col-lg-7">
+                            <section class="mb-3">
+                                <h5>School</h5>
+                                <div class="form-floating me-3">
+                                    <input type="text" class="form-control outline-none" name="School" placeholder="Shohoku High School" [(ngModel)]="school" required>
+                                    <label for="floatingInput">School name</label>
+                                </div>
+                            </section>
+                            <section class="mb-3">
+                                <h5>Description</h5>
+                                <div class="form-floating me-3">
+                                    <textarea type="text" class="form-control outline-none" name="description" placeholder="Description" autosize spellcheck="true" [(ngModel)]="description" required></textarea>
+                                    <label for="floatingInput">Give a brief description</label>
+                                </div>
+                            </section>
+                            <section class="mb-3">
+                                <h5>Image URL</h5>
+                                <div class="form-floating me-3">
+                                    <input type="text" class="form-control outline-none" name="img-url" placeholder="image URL" inputmode="url" [(ngModel)]="imgURL" required>
+                                    <label for="floatingInput">https://image_url.com</label>
+                                </div>
+                            </section>
+                        </section>
+                    </div>
+                </div>
+            </section>
+            <section class="mb-3 border-top border-bottom py-3">
+                <h3>Attributes</h3>
+                <div class="container-fluid">
+                    <div class="row">
+                        <section class="col-md-4">
+                            <h5>General</h5>
+                            <div class="d-flex flex-wrap justify-content-evenly">
+                                <div class="form-floating mb-3 attr">
+                                    <input type="number" class="form-control outline-none" name="control" placeholder="control" [(ngModel)]="control" required>
+                                    <label for="floatingInput">Control</label>
+                                </div>
+                                <div class="form-floating mb-3 attr">
+                                    <input type="number" class="form-control outline-none" name="strength" placeholder="strength" [(ngModel)]="strength" required>
+                                    <label for="floatingInput">Strength</label>
+                                </div>
+                                <div class="form-floating mb-3 attr">
+                                    <input type="number" class="form-control outline-none" name="res" placeholder="res" [(ngModel)]="res" required>
+                                    <label for="floatingInput">Res</label>
+                                </div>
+                                <div class="form-floating mb-3 attr">
+                                    <input type="number" class="form-control outline-none" name="jump" placeholder="jump" [(ngModel)]="jump" required>
+                                    <label for="floatingInput">Jump</label>
+                                </div>
+                                <div class="form-floating mb-3 attr">
+                                    <input type="number" class="form-control outline-none" name="run" placeholder="run" [(ngModel)]="run" required>
+                                    <label for="floatingInput">Run</label>
+                                </div>
+                                <div class="form-floating mb-3 attr">
+                                    <input type="number" class="form-control outline-none" name="dribble" placeholder="dribble" [(ngModel)]="dribble" required>
+                                    <label for="floatingInput">Dribble</label>
+                                </div>
+                            </div>
+                        </section>
+                        <section class="col-md-4">
+                            <h5>Offense</h5>
+                            <div class="d-flex flex-wrap justify-content-evenly">
+                                <div class="form-floating mb-3 attr">
+                                    <input type="number" class="form-control outline-none" name="close" placeholder="close" [(ngModel)]="close" required>
+                                    <label for="floatingInput">Close</label>
+                                </div>
+                                <div class="form-floating mb-3 attr">
+                                    <input type="number" class="form-control outline-none" name="middle" placeholder="middle" [(ngModel)]="middle" required>
+                                    <label for="floatingInput">Middle</label>
+                                </div>
+                                <div class="form-floating mb-3 attr">
+                                    <input type="number" class="form-control outline-none" name="three-pointer" placeholder="Three-pointer" [(ngModel)]="three_pointer" required>
+                                    <label for="floatingInput">Three-pointer</label>
+                                </div>
+                                <div class="form-floating mb-3 attr">
+                                    <input type="number" class="form-control outline-none" name="dunk" placeholder="Dunk" [(ngModel)]="dunk" required>
+                                    <label for="floatingInput">Dunk</label>
+                                </div>
+                                <div class="form-floating mb-3 attr">
+                                    <input type="number" class="form-control outline-none" name="layup" placeholder="Layup" [(ngModel)]="layup" required>
+                                    <label for="floatingInput">Layup</label>
+                                </div>
+                            </div>
+                        </section>
+                        <section class="col-md-4">
+                            <h5>Deffense</h5>
+                            <div class="d-flex flex-wrap justify-content-evenly">
+                                <div class="form-floating mb-3 attr">
+                                    <input type="number" class="form-control outline-none" name="reb" placeholder="Reb" [(ngModel)]="reb" required>
+                                    <label for="floatingInput">Reb</label>
+                                </div>
+                                <div class="form-floating mb-3 attr">
+                                    <input type="number" class="form-control outline-none" name="description" placeholder="Blk" [(ngModel)]="blk" required>
+                                    <label for="floatingInput">Blk</label>
+                                </div>
+                                <div class="form-floating mb-3 attr">
+                                    <input type="number" class="form-control outline-none" name="talent-img-url" placeholder="Jam" [(ngModel)]="jam" required>
+                                    <label for="floatingInput">Jam</label>
+                                </div>
+                                <div class="form-floating mb-3 attr">
+                                    <input type="number" class="form-control outline-none" name="stl" placeholder="Jam" [(ngModel)]="stl" required>
+                                    <label for="floatingInput">Stl</label>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </section>
+            <section class="mb-3 py-3 border-bottom">
+                <h3>Talents</h3>
+                <div class="container-fluid">
+                    <div class="row">
+                        <section class="col-md-3 col-lg-2">
+                            <h5>Talent 1</h5>
+                            <div>
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control outline-none" name="name" placeholder="name" [(ngModel)]="tl1_name" required>
+                                    <label for="floatingInput">name</label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <textarea class="form-control outline-none" name="description" placeholder="description" autosize [(ngModel)]="tl1_desc" required></textarea>
+                                    <label for="floatingInput">Talent description</label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control outline-none" name="talent-img-url" placeholder="img-url" [(ngModel)]="tl1_img_url" required>
+                                    <label for="floatingInput">https://image_url.com</label>
+                                </div>
+                            </div>
+                        </section>
+                        <section class="col-md-3 col-lg-2">
+                            <h5>Talent 2</h5>
+                            <div>
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control outline-none" name="name" placeholder="name" [(ngModel)]="tl2_name"  required>
+                                    <label for="floatingInput">Name</label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <textarea class="form-control outline-none" name="description" placeholder="description" autosize [(ngModel)]="tl2_desc"  required></textarea>
+                                    <label for="floatingInput">Talent description</label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control outline-none" name="talent-img-url" placeholder="img-url" [(ngModel)]="tl2_img_url"  required>
+                                    <label for="floatingInput">https://image_url.com</label>
+                                </div>
+                            </div>
+                        </section>
+                        <section class="col-md-3 col-lg-2">
+                            <h5>Talent 3</h5>
+                            <div>
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control outline-none" name="name" placeholder="name" [(ngModel)]="tl3_name"  required>
+                                    <label for="floatingInput">Name</label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <textarea class="form-control outline-none" name="description" placeholder="description" autosize [(ngModel)]="tl3_desc"  required></textarea>
+                                    <label for="floatingInput">Talent description</label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control outline-none" name="talent-img-url" placeholder="img-url" [(ngModel)]="tl3_img_url"  required>
+                                    <label for="floatingInput">https://image_url.com</label>
+                                </div>
+                            </div>
+                        </section>
+                        <section class="col-md-3 col-lg-2">
+                            <h5>Talent 4</h5>
+                            <div>
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control outline-none" name="name" placeholder="name" [(ngModel)]="tl4_name" required>
+                                    <label for="floatingInput">Name</label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <textarea class="form-control outline-none" name="description" placeholder="description" autosize [(ngModel)]="tl4_desc" required></textarea>
+                                    <label for="floatingInput">Talent description</label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control outline-none" name="talent-img-url" placeholder="img-url" [(ngModel)]="tl4_img_url" required>
+                                    <label for="floatingInput">https://image_url.com</label>
+                                </div>
+                            </div>
+                        </section>
+                        <section class="col-md-3 col-lg-2">
+                            <h5>Talent 5</h5>
+                            <div>
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control outline-none" name="name" placeholder="name" [(ngModel)]="tl5_name" required>
+                                    <label for="floatingInput">Name</label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <textarea class="form-control outline-none" name="description" placeholder="description" autosize [(ngModel)]="tl5_desc" required></textarea>
+                                    <label for="floatingInput">Talent description</label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control outline-none" name="talent-img-url" placeholder="img-url" [(ngModel)]="tl5_img_url" required>
+                                    <label for="floatingInput">https://image_url.com</label>
+                                </div>
+                            </div>
+                        </section>
+                        <section class="col-md-3 col-lg-2">
+                            <h5>Talent 6</h5>
+                            <div>
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control outline-none" name="name" placeholder="name" [(ngModel)]="tl6_name" required>
+                                    <label for="floatingInput">Name</label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <textarea class="form-control outline-none" name="description" placeholder="description" autosize [(ngModel)]="tl6_desc" required></textarea>
+                                    <label for="floatingInput">Talent description</label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control outline-none" name="talent-img-url" placeholder="img-url" [(ngModel)]="tl6_img_url" required>
+                                    <label for="floatingInput">https://image_url.com</label>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </section>
+            <section class="mb-3 py-3 border-bottom">
+                <h5>Team</h5>
+                <div>
+                    <div class="form-floating mb-3 w-25">
+                        <input type="text" class="form-control outline-none" name="tag" placeholder="tag" [(ngModel)]="tag" required>
+                        <label for="floatingInput">Team</label>
+                    </div>
+                </div>
+            </section>
+            <div class="d-flex justify-content-end">
+                <button class="btn p-3 fs-3 bg-danger text-white" (click)="onCreatePlayer()">Create</button>
+            </div>
+        </form>
+    </div>
+</div>

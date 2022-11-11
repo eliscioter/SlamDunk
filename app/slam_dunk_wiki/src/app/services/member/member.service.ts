@@ -28,7 +28,7 @@ export class MemberService {
     return this.http.post<Member>(`${this.api_url}/login`, member, httpOptions).pipe(map(res => {
       const { access_token, refresh_token, username, role } = res
       localStorage.setItem('role', JSON.stringify(role));
-      localStorage.setItem('username', JSON.stringify(username))
+      localStorage.setItem('username', username)
       localStorage.setItem('access_token', JSON.stringify(access_token))
       localStorage.setItem('refresh_token', JSON.stringify(refresh_token))
       return res
