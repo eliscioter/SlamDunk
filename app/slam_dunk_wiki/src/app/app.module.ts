@@ -25,6 +25,8 @@ import { LoginComponent } from './admin/pages/login/login.component';
 import { CreateComponent } from './admin/pages/create/create.component';
 import { TraitsComponent } from './pages/traits/traits.component';
 import { ContactComponent } from './pages/contact/contact.component';
+import { DefenseComponent } from './pages/traits/defense/defense.component';
+import { TrickComponent } from './pages/traits/trick/trick.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +46,8 @@ import { ContactComponent } from './pages/contact/contact.component';
     CreateComponent,
     TraitsComponent,
     ContactComponent,
+    DefenseComponent,
+    TrickComponent,
   ],
   imports: [
     BrowserModule,

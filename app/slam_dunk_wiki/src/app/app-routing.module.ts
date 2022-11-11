@@ -12,6 +12,8 @@ import { LoginComponent } from './admin/pages/login/login.component';
 import { Title } from '@angular/platform-browser';
 import { TraitsComponent } from './pages/traits/traits.component';
 import { ContactComponent } from './pages/contact/contact.component';
+import { DefenseComponent } from './pages/traits/defense/defense.component';
+import { TrickComponent } from './pages/traits/trick/trick.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, data: {title: 'Slam Dunk Wiki'}},
@@ -21,8 +23,11 @@ const routes: Routes = [
   { path: 'about', component: AboutComponent, data: {title: 'About'}},
   { path: 'register', component: RegisterComponent, data: {title: 'Register'}},
   { path: 'admin/login', component: LoginComponent, data: {title: 'Admin | Login'}},
-  { path: 'traits', component: TraitsComponent},
-  { path: 'contact', component: ContactComponent}
+  { path: 'traits/offense', component: TraitsComponent, data: {title: 'Traits | Offense'}},
+  { path: 'contact', component: ContactComponent, data: {title: 'Contact'}},
+  { path: 'traits/defense', component: DefenseComponent, data: {title: 'Traits | Defense'}},
+  { path: 'traits/trick', component: TrickComponent, data: {title: 'Traits | Trick'}},
+
 ];
 
 @NgModule({
