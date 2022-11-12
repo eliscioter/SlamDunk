@@ -33,14 +33,13 @@ export class SignInComponent implements OnInit {
     this.member.auth(member).subscribe({
       next: () => {
         this.closeDialog()
-        alert('Sign in successful')
         // TODO: also reload when user sign out
         if(this.admin.getURL() === 'Error') {
-          console.log('yes')
           this.router.navigate(['/'])
+          alert('Sign in successful')
           return
         }
-        console.log('no')
+        alert('Sign in successful')
         window.location.reload()
       },
       error: () => {
