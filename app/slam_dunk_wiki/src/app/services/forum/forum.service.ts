@@ -12,7 +12,7 @@ import { Comment } from '../../interfaces/ForumComment';
 })
 export class ForumService {
 
-  private api_url = 'http://localhost:5003/api/data'
+  private api_url = 'https://slamdunkforum.onrender.com/api/data'
 
   constructor(private http: HttpClient) { }
 

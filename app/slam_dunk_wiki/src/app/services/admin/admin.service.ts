@@ -14,7 +14,7 @@ const httpOptions = {
 })
 export class AdminService {
 
-  private api_url = 'http://localhost:5001/api/admin'
+  private api_url = 'https://slamdunkadmin.onrender.com/api/admin'
   constructor(private http: HttpClient) { }
 
   auth(user: Admin): Observable<Admin> {
