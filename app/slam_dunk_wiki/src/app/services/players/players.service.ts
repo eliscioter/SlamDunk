@@ -15,14 +15,14 @@ export class PlayersService {
   constructor(private http: HttpClient) { }
 
   getPlayers(): Observable<Player[]> {
-    return this.http.get<Player[]>(`${this.dummy_api_url}/players`)
+    return this.http.get<Player[]>(`${this.api_url}/players`)
   }
 
   getPlayer(id: string): Observable<Player> {
-    return this.http.get<Player>(`${this.dummy_api_url}/player/${id}`)
+    return this.http.get<Player>(`${this.api_url}/player/${id}`)
   }
 
   createPlayer(player: Player): Observable<Player> {
-    return this.http.post<Player>(`${this.dummy_api_url}/store/player`, player)
+    return this.http.post<Player>(`${this.api_url}/store/player`, player)
   }
 }
