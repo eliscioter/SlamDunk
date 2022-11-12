@@ -81,6 +81,7 @@ export class TraitsAdminComponent implements OnInit {
     }
     this.traitsService.updateTrait(updatedTrait).subscribe({
       next: () => {
+        alert(`${updatedTrait.name} successfully updated`)
         window.location.reload()
       }, error: () => alert('Something went wrong')
     })
