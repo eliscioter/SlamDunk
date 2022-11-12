@@ -21,7 +21,6 @@ import { DashboardComponent } from './admin/pages/dashboard/dashboard.component'
 import { PlayersAdminComponent } from './admin/pages/players-admin/players-admin.component';
 import { TraitsAdminComponent } from './admin/pages/traits-admin/traits-admin.component';
 import { ModifyPlayerComponent } from './admin/pages/modify-player/modify-player.component';
-import { CreateTraitComponent } from './admin/pages/create-trait/create-trait.component';
 import { ErrorComponent } from './pages/error/error.component';
 
 const routes: Routes = [
@@ -38,7 +37,6 @@ const routes: Routes = [
   { path: 'contact', component: ContactComponent, data: {title: 'Contact'}},
   { path: 'admin/login', component: LoginComponent, data: {title: 'Admin | Login'}, canActivate: [LoginGuard] },
   { path: 'create-player', component: CreatePlayerComponent, data: {title: 'Admin | Create Player'}, canActivate: [AdminGuard] },
-  { path: 'create-trait', component: CreateTraitComponent, data: {title: 'Admin | Create Trait'}, canActivate: [AdminGuard] },
   { path: 'modify/:_id', component: ModifyPlayerComponent, data: {title: 'Admin | Modify'}, canActivate: [AdminGuard]},
   { path: 'dashboard', component: DashboardComponent, data: {title: 'Admin | Dashboard'}, canActivate: [AdminGuard],
     children: [
