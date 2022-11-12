@@ -158,8 +158,8 @@
                 <h3>Talents</h3>
                 <div class="container-fluid">
                     <div class="row">
-                        <section class="col-md-3 col-lg-2" *ngFor="let item of talent">
-                            <h5>Talent 1</h5>
+                        <section class="col-md-3 col-lg-2" *ngFor="let item of talent; let i = index">
+                            <h5>Talent {{ i + 1 }}</h5>
                             <div>
                                 <div class="form-floating mb-3">
                                     <input type="text" class="form-control outline-none" name="name" placeholder="name" value="{{ item.name }}" required>
@@ -273,7 +273,7 @@
                 </div>
             </section>
             <div class="d-flex justify-content-end">
-                <button class="btn p-3 fs-3 bg-danger text-white">Save</button>
+                <button (click)="onUpdate()" class="btn p-3 fs-3 bg-danger text-white">Save</button>
             </div>
         </form>
     </div>
