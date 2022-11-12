@@ -13,8 +13,12 @@ export class LoginGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
-      if(this.user.isLoggedIn() && this.user.getRole()?.includes('MODERATOR'||'MEMBER')) {
+      if(this.user.isLoggedIn() && (this.user.getRole()?.includes('MODERATOR') || this.user.getRole()?.includes('MEMBER'))) {
         this.router.navigate(['**'])
+        return false
+      }
+      if(this.user.isLoggedIn() && this.user.getRole()?.includes('EDITOR')) {
+        this.router.navigate(['/dashboard/admin/players'])
         return false
       }
     return true;

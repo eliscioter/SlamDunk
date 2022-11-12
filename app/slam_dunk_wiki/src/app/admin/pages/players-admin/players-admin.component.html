@@ -11,7 +11,7 @@
                     </a>
                 </div>
                 <div class="rounded-circle bg-danger py-1 px-2">
-                    <fa-icon [icon]="faTrash" class="delete-button text-white"></fa-icon> 
+                    <fa-icon [icon]="faTrash" (click)="onDelete(item)" class="delete-button text-white"></fa-icon> 
                 </div>
             </div>
             <img

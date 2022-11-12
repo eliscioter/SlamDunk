@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { Player, Talent } from 'src/app/interfaces/Players';
 import { PlayersService } from 'src/app/services/players/players.service';
@@ -39,7 +39,7 @@ export class ModifyPlayerComponent implements OnInit {
   tag!: string
   talent: Talent[] = []
 
-  constructor(private playerService: PlayersService, private route: ActivatedRoute) { 
+  constructor(private playerService: PlayersService, private route: ActivatedRoute, private router: Router) { 
     this.id = this.route.snapshot.params['_id']
   }
 
@@ -71,13 +71,100 @@ export class ModifyPlayerComponent implements OnInit {
         this.jam = item.player.attributes.defense.jam
         this.stl = item.player.attributes.defense.stl
         this.tag = item.tag
-        let prope = Object.values(item.player.talents)
-        for (let i = 0; i < prope.length; i++) {
-          this.talent.push(prope[i])
+        const talents = Object.values(item.player.talents)
+        for (let i = 0; i < talents.length; i++) {
+          this.talent.push(talents[i])
         }
       }
-    })
-    
+    }) 
   }
+
+ 
+  onUpdate() {
+    const player: Player = {
+      _id: this.id,
+      player: {
+          profile: { 
+              player_name: {
+                  first_name: this.firstName,
+                  last_name: this.lastName
+              },
+              image_url: this.imgURL,
+              position: {
+                  abbr: this.abbr,
+                  full_version: this.fullVersion
+              },
+              school: this.school,
+              height: this.height,
+              weight: this.weight,
+              description: this.description,
+          },
+          attributes: {
+              general: {
+                  control: this.control,
+                  strength: this.strength,
+                  res: this.res,
+                  jump: this.jump,
+                  run: this.run,
+                  dribble: this.dribble,
+              },
+              offense: {
+                  close: this.close,
+                  middle: this.middle,
+                  three_pointer: this.three_pointer,
+                  dunk: this.dunk,
+                  layup: this.layup
+              },
+              defense: {
+                  reb: this.reb,
+                  blk: this.blk,
+                  jam: this.jam,
+                  stl: this.stl
+              }
+          },
+          talents: {
+              talent1: {
+                  name: this.talent[0].name,
+                  description: this.talent[0].description,
+                  talent_image_url: this.talent[0].talent_image_url,
+              },
+              talent2: {
+                name: this.talent[1].name,
+                description: this.talent[1].description,
+                talent_image_url: this.talent[1].talent_image_url,
+              },
+              talent3: {
+                name: this.talent[2].name,
+                description: this.talent[2].description,
+                talent_image_url: this.talent[2].talent_image_url,
+              },
+              talent4: {
+                name: this.talent[3].name,
+                description: this.talent[3].description,
+                talent_image_url: this.talent[3].talent_image_url,
+              },
+              talent5: {
+                name: this.talent[4].name,
+                description: this.talent[4].description,
+                talent_image_url: this.talent[4].talent_image_url,
+              },
+              talent6: {
+                name: this.talent[5].name,
+                description: this.talent[5].description,
+                talent_image_url: this.talent[5].talent_image_url,
+              },
+          }
+          
+      },
+      tag: this.tag
+    }
+    this.playerService.updatePlayer(player).subscribe({
+      next: () => {
+        alert(`${this.firstName} ${this.lastName} successfully updated`)
+        this.router.navigate(['/dashboard/admin/players'])
+      }, error: () => alert('Something went wrong')
+    })
+  }
+
 
 }

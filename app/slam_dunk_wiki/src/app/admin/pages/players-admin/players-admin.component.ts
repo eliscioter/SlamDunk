@@ -21,11 +21,20 @@ export class PlayersAdminComponent implements OnInit {
       next: data => {
         this.players = data
       }, 
-      error: e => {
+      error: () => {
         alert('Something went wrong')
       }
     })
+  }
 
+  onDelete(item: Player) {
+    this.playerService.deletePlayer((item._id) as string).subscribe({
+      next: () => {
+        this.players = this.players.filter(player => player._id !== player._id)
+        alert(`${item.player.profile.player_name.first_name} ${item.player.profile.player_name.last_name} deleted successfully`)
+        window.location.reload()
+      }, error: () => alert('Something went wrong')
+    })
   }
 
 }

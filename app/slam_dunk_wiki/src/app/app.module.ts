@@ -33,7 +33,6 @@ import { PlayersAdminComponent } from './admin/pages/players-admin/players-admin
 import { TraitsAdminComponent } from './admin/pages/traits-admin/traits-admin.component';
 import { CreatePlayerComponent } from './admin/pages/create-player/create-player.component';
 import { ModifyPlayerComponent } from './admin/pages/modify-player/modify-player.component';
-import { CreateTraitComponent } from './admin/pages/create-trait/create-trait.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +60,6 @@ import { CreateTraitComponent } from './admin/pages/create-trait/create-trait.co
     TraitsAdminComponent,
     CreatePlayerComponent,
     ModifyPlayerComponent,
-    CreateTraitComponent,
   ],
   imports: [
     BrowserModule,

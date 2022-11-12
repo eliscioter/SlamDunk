@@ -25,4 +25,12 @@ export class PlayersService {
   createPlayer(player: Player): Observable<Player> {
     return this.http.post<Player>(`${this.api_url}/store/player`, player)
   }
+
+  updatePlayer(player: Player): Observable<Player> {
+    return this.http.put<Player>(`${this.api_url}/player/modify/${player._id}`, player)
+  }
+
+  deletePlayer(player: string): Observable<Player> {
+    return this.http.delete<Player>(`${this.api_url}/player/delete/${player}`)
+  }
 }
