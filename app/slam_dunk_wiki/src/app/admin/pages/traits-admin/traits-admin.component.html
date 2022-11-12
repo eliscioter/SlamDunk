@@ -1,16 +1,27 @@
 <div class="d-flex justify-content-end mb-5">
-    <a routerLink="/create-trait" class="btn bg-danger text-light">Create new</a>
+    <!-- <a routerLink="/create-trait" class="btn bg-danger text-light">Create new</a> -->
+    <button
+        class="btn bg-danger text-light"
+        data-bs-toggle="modal" 
+        data-bs-target="#create_trait"
+        (click)="createButton(); traitForm.reset()">
+    Create new
+    </button>
 </div>
 <div class="row g-3">
-    <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6">
+    <div class="col-md-3 col-xxl-2" *ngFor="let item of traits; let i = index">
         <div class="bg-secondary d-flex justify-content-end p-1">
             <div class="rounded-circle bg-danger py-1 px-2 me-2">
-                <a routerLink="/modify">
-                    <fa-icon [icon]="faEdit" class="delete-button text-white"></fa-icon> 
-                </a>
+                <fa-icon 
+                    [icon]="faEdit" 
+                    (click)="onUpdate(item)" 
+                    class="delete-button text-white"
+                    data-bs-toggle="modal" 
+                    data-bs-target="#create_trait"
+                    ></fa-icon> 
             </div>
             <div class="rounded-circle bg-danger py-1 px-2">
-                <fa-icon [icon]="faTrash" class="delete-button text-white"></fa-icon> 
+                <fa-icon [icon]="faTrash" (click)="delete_trait(item)" class="delete-button text-white"></fa-icon> 
             </div>
         </div>
         <div class="card">
@@ -20,117 +31,44 @@
                 alt="Ryota Miyagi Picture"
             />
             <div class="card-body">
-                <h5 class="card-title text-center text-truncate">Ryota Miyagi</h5>
-            </div>
-        </div>
-    </div>
-    <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6">
-        <div class="card">
-            <div class="bg-secondary d-flex justify-content-end p-1">
-                <div class="rounded-circle bg-danger py-1 px-2 me-2">
-                    <a routerLink="/modify">
-                        <fa-icon [icon]="faEdit" class="delete-button text-white"></fa-icon> 
-                    </a>
-                </div>
-                <div class="rounded-circle bg-danger py-1 px-2">
-                    <fa-icon [icon]="faTrash" class="delete-button text-white"></fa-icon> 
-                </div>
-            </div>
-            <img
-                src="https://imgur.com/DWeqbhu.png"
-                class="img-fluid"
-                alt="Ryota Miyagi Picture"
-            />
-            <div class="card-body">
-                <h5 class="card-title text-center text-truncate">Ryota Miyagi</h5>
+                <h5 class="card-title text-center text-truncate">{{ item.name }}</h5>
             </div>
         </div>
     </div>
-    <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6">
-        <div class="card">
-            <div class="bg-secondary d-flex justify-content-end p-1">
-                <div class="rounded-circle bg-danger py-1 px-2 me-2">
-                    <a routerLink="/modify">
-                        <fa-icon [icon]="faEdit" class="delete-button text-white"></fa-icon> 
-                    </a>
-                </div>
-                <div class="rounded-circle bg-danger py-1 px-2">
-                    <fa-icon [icon]="faTrash" class="delete-button text-white"></fa-icon> 
-                </div>
+</div>
+<div class="modal fade" id="create_trait" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Create a forum</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <img
-                src="https://imgur.com/DWeqbhu.png"
-                class="img-fluid"
-                alt="Ryota Miyagi Picture"
-            />
-            <div class="card-body">
-                <h5 class="card-title text-center text-truncate">Ryota Miyagi</h5>
-            </div>
-        </div>
-    </div>
-    <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6">
-        <div class="card">
-            <div class="bg-secondary d-flex justify-content-end p-1">
-                <div class="rounded-circle bg-danger py-1 px-2 me-2">
-                    <a routerLink="/modify">
-                        <fa-icon [icon]="faEdit" class="delete-button text-white"></fa-icon> 
-                    </a>
-                </div>
-                <div class="rounded-circle bg-danger py-1 px-2">
-                    <fa-icon [icon]="faTrash" class="delete-button text-white"></fa-icon> 
-                </div>
-            </div>
-            <img
-                src="https://imgur.com/DWeqbhu.png"
-                class="img-fluid"
-                alt="Ryota Miyagi Picture"
-            />
-            <div class="card-body">
-                <h5 class="card-title text-center text-truncate">Ryota Miyagi</h5>
-            </div>
-        </div>
-    </div>
-    <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6">
-        <div class="card">
-            <div class="bg-secondary d-flex justify-content-end p-1">
-                <div class="rounded-circle bg-danger py-1 px-2 me-2">
-                    <a routerLink="/modify">
-                        <fa-icon [icon]="faEdit" class="delete-button text-white"></fa-icon> 
-                    </a>
-                </div>
-                <div class="rounded-circle bg-danger py-1 px-2">
-                    <fa-icon [icon]="faTrash" class="delete-button text-white"></fa-icon> 
-                </div>
-            </div>
-            <img
-                src="https://imgur.com/DWeqbhu.png"
-                class="img-fluid"
-                alt="Ryota Miyagi Picture"
-            />
-            <div class="card-body">
-                <h5 class="card-title text-center text-truncate">Ryota Miyagi</h5>
-            </div>
-        </div>
-    </div>
-    <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6">
-        <div class="card">
-            <div class="bg-secondary d-flex justify-content-end p-1">
-                <div class="rounded-circle bg-danger py-1 px-2 me-2">
-                    <a routerLink="/modify">
-                        <fa-icon [icon]="faEdit" class="delete-button text-white"></fa-icon> 
-                    </a>
-                </div>
-                <div class="rounded-circle bg-danger py-1 px-2">
-                    <fa-icon [icon]="faTrash" class="delete-button text-white"></fa-icon> 
-                </div>
-            </div>
-            <img
-                src="https://imgur.com/DWeqbhu.png"
-                class="img-fluid"
-                alt="Ryota Miyagi Picture"
-            />
-            <div class="card-body">
-                <h5 class="card-title text-center text-truncate">Ryota Miyagi</h5>
+            <div class="modal-body">
+                <form #traitForm="ngForm" ngNativeValidate (ngSubmit)="isCreateType() || update_trait()">
+                    <div class="form-floating mb-3">
+                        <select class="form-select w-100 trait-input" name="type" [(ngModel)]="tag" aria-label="Select type of trait">
+                            <option value="offense">Offense</option>
+                            <option value="defense">Defense</option>
+                            <option value="tricks">Tricks</option>
+                        </select>
+                        <label for="floatingInput">Choose type of trait</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" name="trait-title" placeholder="trait title" [(ngModel)]="title" required/>
+                        <label for="floatingInput">Trait title</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <textarea class="form-control" name="desc" placeholder="trait description" autosize [(ngModel)]="description" required></textarea>
+                        <label for="floatingTextarea">Description</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" name="img-url" placeholder="trait img url" inputmode="url" [(ngModel)]="imgURL" required/>
+                        <label for="floatingTextarea">Image URL</label>
+                    </div>
+                    <div class="mt-3">
+                        <button type="submit" class="btn text-white float-end bg-danger text-light">{{ buttonName }}</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
