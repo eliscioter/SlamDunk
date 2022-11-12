@@ -12,7 +12,6 @@ import { PlayersService } from 'src/app/services/players/players.service';
 export class ModifyPlayerComponent implements OnInit {
 
   id!: string;
-  player: Player[] = [];
   firstName!: string;
   lastName!: string;
   abbr!: string;
