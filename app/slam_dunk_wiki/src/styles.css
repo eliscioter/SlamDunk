@@ -19,7 +19,7 @@
 *::-webkit-scrollbar-thumb {
     background-color: #a05c54;
     border-radius: 10px;
-    border: 3px solid #ffffff;
+    border: 2px solid #ffffff;
 }
 html, body {
     overflow-x: hidden;
