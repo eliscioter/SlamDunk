@@ -19,7 +19,7 @@ export class AdminGuard implements CanActivate {
         this.router.navigate(['**'])
         return false
       }
-      if(this.user.isLoggedIn() && this.user.getRole()?.includes('MODERATOR'||'MEMBER')) {
+      if(this.user.isLoggedIn() && (this.user.getRole()?.includes('MODERATOR') || this.user.getRole()?.includes('MEMBER'))) {
         this.router.navigate(['**'])
         return false
       }
