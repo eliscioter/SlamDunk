@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { Player } from 'src/app/interfaces/Players';
 
 @Component({
   selector: 'app-player-attributes',
@@ -7,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PlayerAttributesComponent implements OnInit {
 
+  @Input() item: Player[] = []
   constructor() { }
 
   ngOnInit(): void {

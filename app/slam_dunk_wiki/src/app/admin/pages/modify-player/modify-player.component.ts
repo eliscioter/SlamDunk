@@ -37,7 +37,24 @@ export class ModifyPlayerComponent implements OnInit {
   jam!: number
   stl!: number
   tag!: string
-  talent: Talent[] = []
+  tl1_name!: string
+  tl1_desc!: string
+  tl1_img_url!: string
+  tl2_name!: string
+  tl2_desc!: string
+  tl2_img_url!: string
+  tl3_name!: string
+  tl3_desc!: string
+  tl3_img_url!: string
+  tl4_name!: string
+  tl4_desc!: string
+  tl4_img_url!: string
+  tl5_name!: string
+  tl5_desc!: string
+  tl5_img_url!: string
+  tl6_name!: string
+  tl6_desc!: string
+  tl6_img_url!: string
 
   constructor(private playerService: PlayersService, private route: ActivatedRoute, private router: Router) { 
     this.id = this.route.snapshot.params['_id']
@@ -71,10 +88,24 @@ export class ModifyPlayerComponent implements OnInit {
         this.jam = item.player.attributes.defense.jam
         this.stl = item.player.attributes.defense.stl
         this.tag = item.tag
-        const talents = Object.values(item.player.talents)
-        for (let i = 0; i < talents.length; i++) {
-          this.talent.push(talents[i])
-        }
+        this.tl1_name = item.player.talents.talent1.name
+        this.tl1_desc = item.player.talents.talent1.description
+        this.tl1_img_url = item.player.talents.talent1.talent_image_url
+        this.tl2_name = item.player.talents.talent2.name
+        this.tl2_desc = item.player.talents.talent2.description
+        this.tl2_img_url = item.player.talents.talent2.talent_image_url
+        this.tl3_name = item.player.talents.talent3.name
+        this.tl3_desc = item.player.talents.talent3.description
+        this.tl3_img_url = item.player.talents.talent3.talent_image_url
+        this.tl4_name = item.player.talents.talent4.name
+        this.tl4_desc = item.player.talents.talent4.description
+        this.tl4_img_url = item.player.talents.talent4.talent_image_url
+        this.tl5_name = item.player.talents.talent5.name
+        this.tl5_desc = item.player.talents.talent5.description
+        this.tl5_img_url = item.player.talents.talent5.talent_image_url
+        this.tl6_name = item.player.talents.talent6.name
+        this.tl6_desc = item.player.talents.talent6.description
+        this.tl6_img_url = item.player.talents.talent6.talent_image_url
       }
     }) 
   }
@@ -124,34 +155,34 @@ export class ModifyPlayerComponent implements OnInit {
           },
           talents: {
               talent1: {
-                  name: this.talent[0].name,
-                  description: this.talent[0].description,
-                  talent_image_url: this.talent[0].talent_image_url,
+                  name: this.tl1_name,
+                  description: this.tl1_desc,
+                  talent_image_url: this.tl1_img_url,
               },
               talent2: {
-                name: this.talent[1].name,
-                description: this.talent[1].description,
-                talent_image_url: this.talent[1].talent_image_url,
+                name: this.tl2_name,
+                description: this.tl2_desc,
+                talent_image_url: this.tl2_img_url,
               },
               talent3: {
-                name: this.talent[2].name,
-                description: this.talent[2].description,
-                talent_image_url: this.talent[2].talent_image_url,
+                name: this.tl3_name,
+                description: this.tl3_desc,
+                talent_image_url: this.tl3_img_url,
               },
               talent4: {
-                name: this.talent[3].name,
-                description: this.talent[3].description,
-                talent_image_url: this.talent[3].talent_image_url,
+                name: this.tl4_name,
+                description: this.tl4_desc,
+                talent_image_url: this.tl4_img_url,
               },
               talent5: {
-                name: this.talent[4].name,
-                description: this.talent[4].description,
-                talent_image_url: this.talent[4].talent_image_url,
+                name: this.tl5_name,
+                description: this.tl5_desc,
+                talent_image_url: this.tl5_img_url,
               },
               talent6: {
-                name: this.talent[5].name,
-                description: this.talent[5].description,
-                talent_image_url: this.talent[5].talent_image_url,
+                name: this.tl6_name,
+                description: this.tl6_desc,
+                talent_image_url: this.tl6_img_url,
               },
           }
           

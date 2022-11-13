@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { Member } from '../../interfaces/Member';
 import { MemberService } from '../../services/member/member.service';
@@ -15,7 +16,7 @@ export class RegisterComponent implements OnInit {
   password!: string;
   re_password!: string;
 
-  constructor(private member: MemberService) { }
+  constructor(private member: MemberService, private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -37,13 +38,22 @@ export class RegisterComponent implements OnInit {
       password: this.password,
       role: ['MEMBER']
     }
-    this.member.register(form).subscribe(
-      next => {
-        console.log('Registered')
+    const user: Member = {
+      username: this.username,
+      password: this.password,
+    }
+    this.member.register(form).subscribe({
+      next: () => {
         alert('Success')
+        this.member.auth(user).subscribe({
+          next: () => {
+            alert('Logging in')
+            this.router.navigate(['/'])
+          }
+        })
       },
-      error => console.log('Something went wrong')
-    )
+      error: e => {alert('Something went wrong'); console.log(e)}
+    })
   }
 
 }
