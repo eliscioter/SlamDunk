@@ -99,15 +99,15 @@ export class PlayerDasboardComponent implements OnInit {
         this.data.push(obj)
         console.log(this.data)
 
-        if (obj.player.profile.player_name.first_name === "ben"){
-          this.bg = "../../../assets/new-akagi.png"
-        }
-        if (obj.player.profile.player_name.first_name === "hanagata"){
-          this.bg = "../../../assets/new-ryota.png"
-        }
-        if (obj.player.profile.player_name.first_name === "hasegawa"){
-          this.bg = "../../../assets/new-sakuragi.png"
-        }
+        // if (obj.player.profile.player_name.first_name === "ben"){
+        //   this.bg = "../../../assets/new-akagi.png"
+        // }
+        // if (obj.player.profile.player_name.first_name === "hanagata"){
+        //   this.bg = "../../../assets/new-ryota.png"
+        // }
+        // if (obj.player.profile.player_name.first_name === "hasegawa"){
+        //   this.bg = "../../../assets/new-sakuragi.png"
+        // }
         
       },error:e => console.log(e)
     })
