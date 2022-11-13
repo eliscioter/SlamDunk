@@ -22,6 +22,7 @@ import { PlayersAdminComponent } from './admin/pages/players-admin/players-admin
 import { TraitsAdminComponent } from './admin/pages/traits-admin/traits-admin.component';
 import { ModifyPlayerComponent } from './admin/pages/modify-player/modify-player.component';
 import { ErrorComponent } from './pages/error/error.component';
+import { PlayerDasboardComponent} from './components/player-dasboard/player-dasboard.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, data: {title: 'Slam Dunk Wiki'}},
@@ -44,8 +45,9 @@ const routes: Routes = [
       { path: 'admin/traits', component: TraitsAdminComponent, data: {title: 'Admin | Traits'}, canActivate: [AdminGuard] },
     ]  
   },
-  
+  { path: 'player/name', component: PlayerDasboardComponent, data: {title: 'name'}},
   { path: '**', component: ErrorComponent, data: { title: 'Error' }}
+  
 ];
 
 @NgModule({
