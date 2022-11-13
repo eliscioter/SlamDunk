@@ -8,110 +8,35 @@ import { Player } from 'src/app/interfaces/Players';
   styleUrls: ['./player-dasboard.component.css']
 })
 export class PlayerDasboardComponent implements OnInit {
-  data: Player={
-    _id:'',
-    player: {
-      profile: {
-        player_name: {
-          first_name: '',
-          last_name: ''
-        },
-        image_url: '',
-        position: {
-          abbr: '',
-          full_version: ''
-        },
-        school: '',
-        height: 0,
-        weight: 0,
-        description: ''
-      },
-      attributes: {
-        general: {
-          control: 0,
-          strength: 0,
-          res: 0,
-          jump: 0,
-          run: 0,
-          dribble: 0
-        },
-        offense: {
-          close: 0,
-          middle: 0,
-          three_pointer: 0,
-          dunk: 0,
-          layup: 0
-        },
-        defense: {
-          reb: 0,
-          blk: 0,
-          jam: 0,
-          stl: 0
-        }
-      },
-      talents: {
-        talent1: {
-          name: '',
-          description: '',
-          talent_image_url: ''
-        },
-        talent2: {
-          name: '',
-          description: '',
-          talent_image_url: ''
-        },
-        talent3: {
-          name: '',
-          description: '',
-          talent_image_url: ''
-        },
-        talent4: {
-          name: '',
-          description: '',
-          talent_image_url: ''
-        },
-        talent5: {
-          name: '',
-          description: '',
-          talent_image_url: ''
-        },
-        talent6: {
-          name: '',
-          description: '',
-          talent_image_url: ''
-        }
-      }
-    },
-    tag: ''
-  }
+
+  data: Player[] = []
   id!:string
+
   constructor(private route: ActivatedRoute,private playerservice:PlayersService) { 
     this.id=this.route.snapshot.params['id']
-
   }
 
   ngOnInit(): void {
     this.playerservice.getPlayer(this.id).subscribe({
-      next: player =>{
-        
-        this.data = player = {
+      next: player => {
+        const obj: Player = {
           _id: player._id,
-      player: {
-          profile: { 
-              player_name: {
-                  first_name: player.player.profile.player_name.first_name,
-                  last_name: player.player.profile.player_name.last_name,
+          player: {
+              profile: { 
+                  player_name: {
+                      first_name: player.player.profile.player_name.first_name,
+                      last_name: player.player.profile.player_name.last_name,
+                  },
+                  image_url: player.player.profile.image_url,
+                  position: {
+                      abbr: player.player.profile.position.abbr,
+                      full_version: player.player.profile.position.full_version
+                  },
+                  school: player.player.profile.school,
+                  height: player.player.profile.height,
+                  weight: player.player.profile.weight,
+                  description: player.player.profile.description,
               },
-              image_url: player.player.profile.image_url,
-              position: {
-                  abbr: player.player.profile.position.abbr,
-                  full_version: player.player.profile.position.full_version
-              },
-              school: player.player.profile.school,
-              height: player.player.profile.height,
-              weight: player.player.profile.weight,
-              description: player.player.profile.description,
-          },
           attributes: {
               general: {
                   control: player.player.attributes.general.control,
@@ -168,11 +93,13 @@ export class PlayerDasboardComponent implements OnInit {
               },
           }
           
-      },
-      tag: player.tag
-
+        },
+          tag: player.tag
         }
+        this.data.push(obj)
         console.log(this.data)
+
+        console.log(obj)
       },error:e => console.log(e)
     })
 

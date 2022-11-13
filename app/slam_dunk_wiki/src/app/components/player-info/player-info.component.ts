@@ -7,7 +7,7 @@ import { Player } from 'src/app/interfaces/Players';
   styleUrls: ['./player-info.component.css']
 })
 export class PlayerInfoComponent implements OnInit {
-  @Input() item!: Player 
+  @Input() item: Player[] = []
   
   constructor() {
     
