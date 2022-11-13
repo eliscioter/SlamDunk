@@ -1,5 +1,7 @@
 
-
+.abilities{
+    background-color: #ffeece;
+}
 
 
 .player-image{
@@ -11,10 +13,13 @@
 }
 
 .skills{
-    
-    margin-right: 150px;
+    padding-left: 150px;
+    padding-right: 150px;
 }
 
-.text{
-    margin-left: 20px;
+@media (min-width:768px) and (max-width:1200px){
+    .skills{
+        padding-left: 50px;
+        padding-right: 50px;
+    }
 }
