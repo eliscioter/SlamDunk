@@ -1,42 +1,18 @@
-<div class="row row-cols-1 row-cols-md-3 row-cols-lg-5 g-2 p-3">
-  <div class="col-lg-3 col-md-6">
-    <div class="card">
-      <img src="https://imgur.com/L1JQwbh.png" class="card-img-top img-fluid" alt="Takenori Akagi Picture">
-      <div class="card-body">
-        <h5 class="card-title">Takenori Akagi</h5>
-      </div>
-    </div>
-  </div>
-  <div class="col-lg-3 col-md-6">
-    <div class="card">
-      <img src="https://imgur.com/mvfKmhJ.png" class="card-img-top img-fluid" alt="Hanamichi Sakuragi Picture">
-      <div class="card-body">
-        <h5 class="card-title">Hanamichi Sakuragi</h5>
-      </div>
-    </div>
-  </div>
-  <div class="col-lg-3 col-md-6">
-    <div class="card">
-      <img src="https://imgur.com/i3t0gOX.png" class="card-img-top img-fluid" alt="Kaede Rukawa Picture">
-      <div class="card-body">
-        <h5 class="card-title">Kaede Rukawa</h5>
-      </div>
-    </div>
-  </div>
-  <div class="col-lg-3 col-md-6">
-    <div class="card">
-      <img src="https://imgur.com/ZaDG0Q3.png" class="card-img-top img-fluid" alt="Hisashi Mitsui Picture">
-      <div class="card-body">
-        <h5 class="card-title">Hisashi Mitsui</h5>
-      </div>
-    </div>
-  </div>
-  <div class="col-lg-3 col-md-6">
-    <div class="card">
-      <img src="https://imgur.com/DWeqbhu.png" class="card-img-top img-fluid" alt="Ryota Miyagi Picture">
-      <div class="card-body">
-        <h5 class="card-title">Ryota Miyagi</h5>
-      </div>
+<div class="player-bg">
+  <div class="row row-cols-1 row-cols-md-3 row-cols-lg-5 g-2 p-3">
+    <div class="col-lg-3 col-md-6" *ngFor="let item of players">
+      <a [routerLink]="['/player', item._id]">
+        <div class="card">
+          <img src={{item.player.profile.image_url}} class="card-img-top img-fluid"
+            alt={{item.player.profile.player_name.last_name}}>
+          <div class="card-body">
+            <h5 class="card-title">
+              {{ item.player.profile.player_name.first_name }}
+              {{ item.player.profile.player_name.last_name }}
+            </h5>
+          </div>
+        </div>
+      </a>
     </div>
   </div>
 </div>

@@ -5,3 +5,13 @@
 .card-body{
   background-color: #b63a0d;
 }
+
+.card > img {
+  object-fit: cover!important;
+  height: 500px;
+  max-height: 500px;
+}
+
+a {
+  text-decoration: none;
+}
