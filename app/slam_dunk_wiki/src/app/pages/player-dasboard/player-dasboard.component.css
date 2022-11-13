@@ -1,0 +1,7 @@
+.dashboard-container{
+    min-height: 700px;
+    background-image: url("../../../assets/new-akagi.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
