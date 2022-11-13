@@ -33,7 +33,9 @@ import { PlayersAdminComponent } from './admin/pages/players-admin/players-admin
 import { TraitsAdminComponent } from './admin/pages/traits-admin/traits-admin.component';
 import { CreatePlayerComponent } from './admin/pages/create-player/create-player.component';
 import { ModifyPlayerComponent } from './admin/pages/modify-player/modify-player.component';
-import { PlayerDasboardComponent } from './components/player-dasboard/player-dasboard.component';
+import { PlayerDasboardComponent } from './pages/player-dasboard/player-dasboard.component';
+import { PlayerInfoComponent } from './components/player-info/player-info.component';
+import { PlayerAttributesComponent } from './components/player-attributes/player-attributes.component';
 
 @NgModule({
   declarations: [
@@ -62,6 +64,8 @@ import { PlayerDasboardComponent } from './components/player-dasboard/player-das
     CreatePlayerComponent,
     ModifyPlayerComponent,
     PlayerDasboardComponent,
+    PlayerInfoComponent,
+    PlayerAttributesComponent,
   ],
   imports: [
     BrowserModule,
