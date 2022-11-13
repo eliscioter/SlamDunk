@@ -1,31 +1,34 @@
 <div class="skills d-flex align-items-center justify-content-center">
     <div class="border border-5">
         <div class="name text-light text-center px-1 pt-1 bg-dark">
-            <span class="me-2">SHOHOKU</span>
-            <span>TAKENORI AKAGI</span>
+            <!-- <span class="me-2">SHOHOKU</span> -->
+            <span>
+                {{item[0].player.profile.player_name.first_name}}
+                {{item[0].player.profile.player_name.last_name}}
+            </span>
             <div class="position pb-2">
-                <span class="me-2">C</span>
-                <span>{{item}</span>
+                <span class="me-2">{{item[0].player.profile.position.abbr}}</span>
+                <span>{{item[0].player.profile.position.full_version}}</span>
             </div>
         </div>
         <div class="text-center opacity-75 " style= "background-color: #892E2A">
-            <span class="d-block text-center border-bottom border-1 text-light p-2 fw-bolder">Shohoku High School </span>
-                <span class="d-block text-center border-bottom border-1 text-light p-2 fw-bolder" >197 cm </span>
-                <span class="d-block text-center border-bottom border-1 text-light p-2 fw-bolder" >90 Kg </span>
-            <p class="text-light m-0 p-2 fw-bolder">Leader of a group of unique players including Sakuragi Hanamichi, he is trusted by the entire
-                Team Shohoku. With his incredible defense ability in the paint.
+            <span class="d-block text-center border-bottom border-1 text-light p-2 fw-bolder">{{item[0].player.profile.school}} </span>
+                <span class="d-block text-center border-bottom border-1 text-light p-2 fw-bolder" >{{item[0].player.profile.height}} </span>
+                <span class="d-block text-center border-bottom border-1 text-light p-2 fw-bolder" >{{item[0].player.profile.weight}} </span>
+            <p class="text-light m-0 p-2 fw-bolder">{{item[0].player.profile.description}}
             </p>
         </div>
         <div class="abilities p-2">
             <div class=" d-flex justify-content-evenly flex-wrap ">
-                <img src="https://imgur.com/2XkAfPj.png" class="player-image rounded-circle img-fluid">
-                <img src="https://imgur.com/JcAwjf9.png" class="player-image rounded-circle img-fluid">
-                <img src="https://imgur.com/t5Ik6ly.png" class="player-image rounded-circle img-fluid">
-                <img src="https://imgur.com/qg0itge.png" class="player-image rounded-circle img-fluid">
+                <img src={{item[0].player.talents.talent1.talent_image_url}} class="player-image rounded-circle img-fluid" alt="{{item[0].player.talents.talent1.name}}">
+                <img src={{item[0].player.talents.talent2.talent_image_url}} class="player-image rounded-circle img-fluid" alt="{{item[0].player.talents.talent2.name}}">
+                <img src={{item[0].player.talents.talent3.talent_image_url}} class="player-image rounded-circle img-fluid" alt="{{item[0].player.talents.talent3.name}}">
+                <img src={{item[0].player.talents.talent4.talent_image_url}} class="player-image rounded-circle img-fluid" alt="{{item[0].player.talents.talent4.name}}">
+                <img src={{item[0].player.talents.talent5.talent_image_url}} class="player-image rounded-circle img-fluid" alt="{{item[0].player.talents.talent5.name}}">
             </div>
             <div class="text d-flex justify-content-center align-items-center fs-5 fw-bolder">
-                <img src="https://imgur.com/Pvb2amf.png" class="player-ultimate-image rounded-circle img-fluid">
-                <p>Akagi Dunk</p>
+                <img src={{item[0].player.talents.talent6.talent_image_url}} class="player-ultimate-image rounded-circle img-fluid" alt="{{item[0].player.talents.talent6.name}}">
+                <p>{{item[0].player.talents.talent6.name}}</p>
             </div>
         </div>
     </div>
