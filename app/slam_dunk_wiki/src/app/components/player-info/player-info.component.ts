@@ -14,7 +14,6 @@ export class PlayerInfoComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    console.log(this.item)
   }
 
 }

@@ -1,9 +1,9 @@
 <div class="thread-bg">
-    <div class="w-100 p-5">
-        <h1 class="title-container mx-auto p-5">{{ title }}</h1>
+    <div class="w-100 p-lg-5 p-md-3 p-2">
+        <h1 class="title-container mx-auto p-lg-5 p-md-4 p-3 rounded-4">{{ title }}</h1>
     </div>
     <div class="container mx-auto w-lg-75 mb-5 rounded main-container">
-        <div class="foreground">
+        <div class="foreground rounded-3">
             <div class=" p-2 p-lg-5 text-white comment-container">
                 <span>
                     Commenting as {{ author }}
@@ -21,12 +21,12 @@
                             <label for="floatingTextarea">Comment</label>
                         </div>
                         <div class="d-flex justify-content-end mt-3">
-                            <button type="submit" (click)="onReply()" class="btn btn-secondary">Post</button>
+                            <button type="submit" (click)="onReply()" class="btn text-light">Post</button>
                         </div>
                     </form>
                 </div>
             </div>
-            <div class="w-full mx-lg-5 pb-3 thread-container">
+            <div class="w-full mx-lg-5 p-3 thread-container">
                 <app-thread [forum]="data"></app-thread>
             </div>
         </div>

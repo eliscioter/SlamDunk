@@ -1,6 +1,13 @@
 .skill-container {
     background: rgba(28, 22, 22, 0.8) !important;
 }
+
+@media (min-width:300px) and (max-width:767px){
+    .main-container{
+        padding-bottom: 50px;
+    }
+}
+
 @media (max-width: 1075px) {
     .skill-container {
         width: 100% !important;
