@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-md-5">
     <div class="container-fluid d-flex justify-content-between">
-        <a class="navbar-brand" routerLink="/">
+        <a class="navbar-brand" [routerLinkActive]="['active']" routerLink="">
             <img src="../../../assets/Sakuragi_Logo3.png" alt="nav"/>
         </a>
         <button
@@ -17,7 +17,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" routerLink="/">Home</a>
+                    <a class="nav-link" aria-current="page" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact : true}"  routerLink="/">Home</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a
@@ -31,39 +31,36 @@
                     Articles
                 </a>
                     <ul class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item text-light" routerLink="/players">Players</a></li>
-                        <li><a class="dropdown-item text-light" routerLink="/traits/offense">Traits</a></li>
+                        <li><a class="dropdown-item text-light" [routerLinkActive]="['active']" routerLink="/players">Players</a></li>
+                        <li><a class="dropdown-item text-light" [routerLinkActive]="['active']" routerLink="/traits/offense">Traits</a></li>
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" routerLink="/forum">Forum</a>
+                    <a class="nav-link" [routerLinkActive]="['active']" routerLink="/forum">Forum</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" routerLink="/about">About</a>
+                    <a class="nav-link" [routerLinkActive]="['active']" routerLink="/about">About</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" routerLink="/contact">Contact</a>
+                    <a class="nav-link" [routerLinkActive]="['active']" routerLink="/contact">Contact</a>
                 </li>
                 <li class="nav-item" *ngIf="this.user.isLoggedIn() && this.user.getRole()?.includes('EDITOR')">
-                    <a class="nav-link" routerLink="/dashboard/admin/players">Dashboard</a>
+                    <a class="nav-link" [routerLinkActive]="['active']" routerLink="/dashboard/admin/players">Dashboard</a>
                 </li>
                 <div class="d-md-inline d-lg-none">
                     <li *ngIf="!isAdminRoute() && !this.user.getRole()?.includes('EDITOR')" class="nav-item">
                         <button mat-button *ngIf="!this.user.isLoggedIn()" (click)="openSignIn()" class="btn px-0 bg-transparent sign-in">Sign in</button>
-                        <button mat-button *ngIf="this.user.isLoggedIn()" (click)="openSignIn()" class="btn px-0 bg-transparent sign-in">Sign out</button>
+                        <button mat-button *ngIf="this.user.isLoggedIn()" (click)="onSignOut('member')" class="btn px-0 bg-transparent sign-in">Sign out</button>
                     </li>
                     <li  *ngIf="this.user.isLoggedIn() && this.user.getRole()?.includes('EDITOR')" class="nav-item">
-                        <button mat-button *ngIf="this.user.isLoggedIn()" (click)="openSignIn()" class="btn px-0 bg-transparent sign-in">Sign Out</button>
+                        <button mat-button *ngIf="this.user.isLoggedIn()" (click)="onSignOut('admin')" class="btn px-0 bg-transparent sign-in">Sign Out</button>
                     </li>
-                    <div class="border-top">
+                    <div class="border-top" *ngIf="this.user.isLoggedIn() && this.user.getRole()?.includes('EDITOR')">
                         <li class="nav-item">
-                            <a class="nav-link" routerLink="/forum">Team</a>
+                            <a class="nav-link" [routerLinkActive]="['active']" routerLink="/dashboard/admin/players">Players</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" routerLink="/about">Players</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" routerLink="/contact">Traits</a>
+                            <a class="nav-link" [routerLinkActive]="['active']" routerLink="/dashboard/admin/traits">Traits</a>
                         </li>
                     </div>
                 </div>

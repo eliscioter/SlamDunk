@@ -1,9 +1,11 @@
 .contact-container{
     max-width: 100%;
-    height: 1100px;
+    min-height: 1100px;
     background-image: url("../../../assets/Contactbg.jpg");
     background-repeat: no-repeat;
     background-size: cover;
+    background-position: right 35% bottom 45%;
+
 }
 
 .talk-to-us{
@@ -14,7 +16,14 @@
     .talk-to-us{
         width: 100%;
     }
+    .title-contact {
+        background: rgba(229, 161, 128, 0.8);
+    }
+    .contact-form {
+        opacity: 0.8;
+    }
 }
+
 
 
 
