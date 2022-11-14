@@ -26,7 +26,14 @@ export class HeaderComponent implements OnInit {
   onSignOut(type: string) {
     const user = this.user.getRefreshToken() as string
     if(type === 'member') {
-      this.member.signOut(user).subscribe()
+      this.member.signOut(user).subscribe({
+        next: () => {
+          this.router.navigate(['/'], { replaceUrl: true })
+        }, 
+        error: (e) => {
+          alert('Something went wrong')
+        }
+      })
       return
     }
     if(type === 'admin') {
@@ -35,7 +42,7 @@ export class HeaderComponent implements OnInit {
           this.router.navigate(['/'], { replaceUrl: true })
         }, 
         error: (e) => {
-          console.log(e)
+          alert('Something went wrong')
         }
       })
       return

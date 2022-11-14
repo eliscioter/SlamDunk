@@ -13,7 +13,6 @@
             </div>
         </div>
         <div>
-            <!-- <fa-icon *ngIf="item.author === this.member.getUsername()" [icon]="faEdit"></fa-icon> -->
             <fa-icon *ngIf="verifyRole()" [icon]="faTrash" class="ms-3 delete-button" (click)="onDelete(item)"></fa-icon> 
         </div>
     </div>

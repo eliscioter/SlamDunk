@@ -48,14 +48,13 @@ export class ForumThreadComponent implements OnInit {
         content: this.comment
       }
     }
-    this.forumService.commentForum(comment, this.id).subscribe(
-      next => {
-        console.log('success')
+    this.forumService.commentForum(comment, this.id).subscribe({
+      next: () => {
         this.comment = ''
         window.location.reload()
-      }, error => {
+      }, error: (error) => {
         error.statusText === 'Unauthorized' ? alert('You need to sign in first') : error
       }
-    )
+    })
   }
 }

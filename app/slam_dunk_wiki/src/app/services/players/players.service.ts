@@ -10,8 +10,6 @@ export class PlayersService {
 
   private api_url = 'https://slamdunk.onrender.com/api/data'
 
-  private dummy_api_url = 'http://localhost:5000/api/data'
-
   constructor(private http: HttpClient) { }
 
   getPlayers(): Observable<Player[]> {

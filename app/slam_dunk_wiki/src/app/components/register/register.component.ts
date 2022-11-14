@@ -52,7 +52,7 @@ export class RegisterComponent implements OnInit {
           }
         })
       },
-      error: e => {alert('Something went wrong'); console.log(e)}
+      error: e => {alert('Something went wrong')}
     })
   }
 

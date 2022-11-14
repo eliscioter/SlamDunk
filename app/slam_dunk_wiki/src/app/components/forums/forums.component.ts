@@ -42,13 +42,12 @@ export class ForumsComponent implements OnInit {
   }
 
   onDelete(forum: Forum) {
-    console.log(forum._id)
     this.forum.deleteForum(forum).subscribe({
       next: () => {
         this.forums = this.forums.filter(forum => forum._id !== forum._id)
         location.reload()
       },
-      error: (e) => console.log(e)
+      error: (e) => alert('Something went wrong')
     })
   }
 }
