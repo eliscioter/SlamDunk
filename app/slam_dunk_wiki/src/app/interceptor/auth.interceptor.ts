@@ -23,7 +23,7 @@ export class AuthInterceptor implements HttpInterceptor {
 
     const route = this.admin.getURL() as string
     const target = String(route).substring(0, 5)
-    const credentials = {
+    /*const credentials = {
       port: '5002',
       type: 'user',
       token: JSON.parse(this.userService.getToken()),
@@ -32,8 +32,8 @@ export class AuthInterceptor implements HttpInterceptor {
     if(target === 'Admin') {
       credentials.type = 'admin'
       credentials.port = '5001'
-    }
-    /* const credentials = {
+    }*/
+    const credentials = {
       port: 'users',
       type: 'user',
       token: JSON.parse(this.userService.getToken()),
@@ -42,9 +42,9 @@ export class AuthInterceptor implements HttpInterceptor {
     if(target === 'Admin') {
       credentials.type = 'admin'
       credentials.port = 'admin'
-    } */
-    // const api_url = `https://slamdunk${credentials.port}.onrender.com/api/${credentials.type}/token`
-    const api_url = `http://localhost:${credentials.port}/api/${credentials.type}/token`
+    }
+    const api_url = `https://slamdunk${credentials.port}.onrender.com/api/${credentials.type}/token`
+    // const api_url = `http://localhost:${credentials.port}/api/${credentials.type}/token`
 
     request = request.clone({
       setHeaders: {
