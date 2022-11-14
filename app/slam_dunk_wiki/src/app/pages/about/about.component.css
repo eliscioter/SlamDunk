@@ -13,19 +13,19 @@ h1, p, hr {
 .imgCon {
     display: flex;
     justify-content: center;
+    height: 75px;
 }
 img {
     width: 75px;
 }
 .forAbout{
-    background-color: rgba(67, 46, 46, 0.9);
+    background-color: rgba(87, 48, 48, 0.9);
 }
 .forAbout.background {
     opacity: 0.5;
 }
-@media(min-width: 592px){
+@media(min-width: 768px){
     .forAbout{
         width: 50%;
-       
     }
 }
