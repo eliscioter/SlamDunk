@@ -30,3 +30,9 @@
         padding-right: 5px;
     }
 }
+
+@media (max-width: 768px) {
+    .abilities {
+        background: rgb(255, 238, 206, 0.8) !important;
+    }
+}
