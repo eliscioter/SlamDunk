@@ -15,7 +15,7 @@ const httpOptions = {
 export class AdminService {
 
   private api_url = 'https://slamdunkadmin.onrender.com/api/admin'
-  private dev_url = 'http://localhost:5001/api/data'
+  private dev_url = 'http://localhost:5001/api/admin'
 
   constructor(private http: HttpClient) { }
 

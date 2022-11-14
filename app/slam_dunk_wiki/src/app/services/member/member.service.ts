@@ -17,7 +17,7 @@ const httpOptions = {
 export class MemberService {
 
   private api_url = 'https://slamdunkusers.onrender.com/api/user'
-  private dev_url = 'http://localhost:5002/api/data'
+  private dev_url = 'http://localhost:5002/api/user'
 
   constructor(private http: HttpClient) { }
 
