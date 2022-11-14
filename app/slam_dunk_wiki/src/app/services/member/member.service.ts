@@ -17,11 +17,11 @@ const httpOptions = {
 export class MemberService {
 
   private api_url = 'https://slamdunkusers.onrender.com/api/user'
-  private dev_url = 'http://localhost:5002/api/user'
+  // private dev_url = 'http://localhost:5002/api/user'
 
   constructor(private http: HttpClient) { }
 
-  register(member: Member): Observable<Member> {
+  /* register(member: Member): Observable<Member> {
     return this.http.post<Member>(`${this.dev_url}/store`, member, httpOptions)
   }
 
@@ -41,8 +41,8 @@ export class MemberService {
   signOut(token: string): Observable<string> {
     localStorage.clear()
     return this.http.delete<string>(`${this.dev_url}/logout/${JSON.parse(token)}`)
-  }
-  /* register(member: Member): Observable<Member> {
+  } */
+  register(member: Member): Observable<Member> {
     return this.http.post<Member>(`${this.api_url}/store`, member, httpOptions)
   }
 
@@ -62,5 +62,5 @@ export class MemberService {
   signOut(token: string): Observable<string> {
     localStorage.clear()
     return this.http.delete<string>(`${this.api_url}/logout/${JSON.parse(token)}`)
-  } */
+  }
 }
