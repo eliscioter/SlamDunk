@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Title } from '@angular/platform-browser';
+
 import { PlayersService } from 'src/app/services/players/players.service';
 import { Player } from 'src/app/interfaces/Players';
 @Component({
@@ -12,13 +14,15 @@ export class PlayerDasboardComponent implements OnInit {
   data: Player[] = []
   id!:string
   bg!:string
-  constructor(private route: ActivatedRoute,private playerservice:PlayersService) { 
+  constructor(private route: ActivatedRoute,private playerservice:PlayersService, private title:Title) { 
     this.id=this.route.snapshot.params['id']
   }
 
   ngOnInit(): void {
     this.playerservice.getPlayer(this.id).subscribe({
       next: player => {
+      this.title.setTitle(`${player.player.profile.player_name.first_name} ${player.player.profile.player_name.last_name}`)
+
         const obj: Player = {
           _id: player._id,
           player: {
@@ -97,22 +101,7 @@ export class PlayerDasboardComponent implements OnInit {
           tag: player.tag
         }
         this.data.push(obj)
-        console.log(this.data)
-
-        // if (obj.player.profile.player_name.first_name === "ben"){
-        //   this.bg = "../../../assets/new-akagi.png"
-        // }
-        // if (obj.player.profile.player_name.first_name === "hanagata"){
-        //   this.bg = "../../../assets/new-ryota.png"
-        // }
-        // if (obj.player.profile.player_name.first_name === "hasegawa"){
-        //   this.bg = "../../../assets/new-sakuragi.png"
-        // }
-        
-      },error:e => console.log(e)
+      },error: e => console.log(e)
     })
-
-    
   }
-
 }
