@@ -13,11 +13,11 @@ import { Comment } from '../../interfaces/ForumComment';
 export class ForumService {
 
   private api_url = 'https://slamdunkforum.onrender.com/api/data'
-  private dev_url = 'http://localhost:5003/api/data'
+  // private dev_url = 'http://localhost:5003/api/data'
 
   constructor(private http: HttpClient) { }
 
-  getForums(): Observable<Forum[]> {
+  /* getForums(): Observable<Forum[]> {
     return this.http.get<Forum[]>(`${this.dev_url}/forums`)
   }
 
@@ -39,8 +39,8 @@ export class ForumService {
 
   deleteComment(id: string, forum: Body): Observable<Body> {
     return this.http.delete<Body>(`${this.dev_url}/message/delete/${id}/${forum._id}`)
-  }
-  /* getForums(): Observable<Forum[]> {
+  } */
+  getForums(): Observable<Forum[]> {
     return this.http.get<Forum[]>(`${this.api_url}/forums`)
   }
 
@@ -62,6 +62,6 @@ export class ForumService {
 
   deleteComment(id: string, forum: Body): Observable<Body> {
     return this.http.delete<Body>(`${this.api_url}/message/delete/${id}/${forum._id}`)
-  } */
+  }
 
 }
