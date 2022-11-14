@@ -4,11 +4,16 @@
     background-image: url("../../../assets/Haruko-Thread.jpg");
     background-repeat: no-repeat;
     background-size: cover;
-    background-position: center;
+    background-position: right 10% bottom 45%;
 }
 .title-container {
-    background: rgba(229, 161, 128, 0.8);
+    background: rgba(239, 159, 87, 0.9);
+    text-transform: capitalize;
 }
 .foreground {
     background: rgba(28, 22, 22, 0.8);
+}
+
+.btn{
+    background-color: #EE7C1C;
 }

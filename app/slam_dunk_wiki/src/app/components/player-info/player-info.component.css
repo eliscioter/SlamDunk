@@ -17,6 +17,12 @@
     padding-right: 150px;
 }
 
+@media (min-width:300px) and (max-width:767px){
+    .skills{
+        padding-top: 50px;
+    }
+}
+
 @media (min-width:768px) and (max-width:1200px){
     .skills{
         padding-left: 50px;
