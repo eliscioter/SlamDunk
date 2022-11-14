@@ -17,7 +17,8 @@
             <img
                 src={{item.player.profile.image_url}}
                 class="img-fluid"
-                alt="Hisashi Mitsui Picture"
+                alt='{{ item.player.profile.player_name.first_name }}
+                    {{ item.player.profile.player_name.last_name }} photo'
             />
             <div class="card-body bg-light">
                 <h5 class="card-title text-center text-truncate">    
