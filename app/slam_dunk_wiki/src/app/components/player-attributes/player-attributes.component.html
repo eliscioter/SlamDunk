@@ -1,7 +1,7 @@
 <div class="d-flex justify-content-center">
-  <div class="container">
+  <div class="container skill-container w-75">
     <div class="row">
-      <div class="col-md-6">
+      <div class="col-12">
         <div>
           <h5 class="fw-bold text-light border-bottom">Offensive Attribute</h5>
         </div>
@@ -12,8 +12,8 @@
 
           <div class="col-10">
             <div class="progress">
-              <div class="progress-bar bg-danger" role="progressbar" aria-valuenow="61" aria-valuemin="0"
-                aria-valuemax="100" style="width:61%;">61</div>
+              <div class="progress-bar bg-danger" role="progressbar" aria-valuemin="0"
+                aria-valuemax="100" [style.width]="(item[0].player.attributes.offense.close / 200) * 100 + '%'">{{(item[0].player.attributes.offense.close) / 2}}</div>
 
             </div>
           </div>
@@ -23,7 +23,7 @@
           <div class="col-10">
             <div class="progress">
               <div class="progress-bar bg-danger" role="progressbar" aria-valuenow="62" aria-valuemin="0"
-                aria-valuemax="100" style="width:52%;">52</div>
+                aria-valuemax="100" [style.width]="(item[0].player.attributes.offense.middle / 200) * 100 + '%'">{{(item[0].player.attributes.offense.middle) / 2}}</div>
 
             </div>
           </div>
@@ -33,7 +33,7 @@
           <div class="col-10">
             <div class="progress">
               <div class="progress-bar bg-danger" role="progressbar" aria-valuenow="62" aria-valuemin="0"
-                aria-valuemax="100" style="width:12%;">12</div>
+                aria-valuemax="100" [style.width]="(item[0].player.attributes.offense.three_pointer / 200) * 100 + '%'">{{(item[0].player.attributes.offense.three_pointer) / 2}}</div>
 
             </div>
           </div>
@@ -43,7 +43,7 @@
           <div class="col-10">
             <div class="progress">
               <div class="progress-bar bg-danger" role="progressbar" aria-valuenow="62" aria-valuemin="0"
-                aria-valuemax="100" style="width:71%;">71</div>
+                aria-valuemax="100" [style.width]="(item[0].player.attributes.offense.dunk / 200) * 100 + '%'">{{(item[0].player.attributes.offense.dunk) / 2}}</div>
 
             </div>
           </div>
@@ -53,13 +53,13 @@
           <div class="col-10">
             <div class="progress" style="width: 100%;">
               <div class="progress-bar bg-danger" role="progressbar" aria-valuenow="62" aria-valuemin="0"
-                aria-valuemax="100" style="width:61%;">61</div>
+                aria-valuemax="100" [style.width]="(item[0].player.attributes.offense.layup / 200) * 100 + '%'">{{(item[0].player.attributes.offense.layup) / 2}}</div>
 
             </div>
           </div>
         </div>
       </div>
-      <div class="col-md-6">
+      <div class="col-12">
         <div>
           <h5 class="fw-bold text-light border-bottom">General Attribute</h5>
         </div>
@@ -71,7 +71,7 @@
           <div class="col-10">
             <div class="progress">
               <div class="progress-bar bg-primary" role="progressbar" aria-valuenow="61" aria-valuemin="0"
-                aria-valuemax="100" style="width:61%;">61</div>
+                aria-valuemax="100" [style.width]="(item[0].player.attributes.general.control / 200) * 100 + '%'">{{(item[0].player.attributes.general.control) / 2}}</div>
 
             </div>
           </div>
@@ -81,7 +81,7 @@
           <div class="col-10">
             <div class="progress">
               <div class="progress-bar bg-primary" role="progressbar" aria-valuenow="62" aria-valuemin="0"
-                aria-valuemax="100" style="width:52%;">52</div>
+                aria-valuemax="100" [style.width]="(item[0].player.attributes.general.strength / 200) * 100 + '%'">{{(item[0].player.attributes.general.strength) / 2}}</div>
             </div>
           </div>
           <div class="text-light col-2">RES
@@ -90,7 +90,7 @@
           <div class="col-10">
             <div class="progress">
               <div class="progress-bar bg-primary" role="progressbar" aria-valuenow="62" aria-valuemin="0"
-                aria-valuemax="100" style="width:12%;">12</div>
+                aria-valuemax="100" [style.width]="(item[0].player.attributes.general.res / 200) * 100 + '%'">{{(item[0].player.attributes.general.res) / 2}}</div>
 
             </div>
 
@@ -101,7 +101,7 @@
           <div class="col-10">
             <div class="progress">
               <div class="progress-bar bg-primary" role="progressbar" aria-valuenow="62" aria-valuemin="0"
-                aria-valuemax="100" style="width:71%;">71</div>
+                aria-valuemax="100" [style.width]="(item[0].player.attributes.general.jump / 200) * 100 + '%'">{{(item[0].player.attributes.general.jump) / 2}}</div>
 
             </div>
           </div>
@@ -111,7 +111,7 @@
           <div class="col-10">
             <div class="progress">
               <div class="progress-bar bg-primary" role="progressbar" aria-valuenow="62" aria-valuemin="0"
-                aria-valuemax="100" style="width:61%;">61</div>
+                aria-valuemax="100" [style.width]="(item[0].player.attributes.general.run / 200) * 100 + '%'">{{(item[0].player.attributes.general.run) / 2}}</div>
 
             </div>
           </div>
@@ -121,55 +121,55 @@
           <div class="col-10">
             <div class="progress">
               <div class="progress-bar bg-primary" role="progressbar" aria-valuenow="62" aria-valuemin="0"
-                aria-valuemax="100" style="width:61%;">61</div>
+                aria-valuemax="100" [style.width]="(item[0].player.attributes.general.dribble / 200) * 100 + '%'">{{(item[0].player.attributes.general.dribble) / 2}}</div>
 
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="col-md-6">
+    <div class="col-12">
       <div>
         <h5 class="fw-bold text-light border-bottom">Defense Attribute</h5>
       </div>
 
       <div class="row">
-        <div class="text-light col-1">REB
+        <div class="text-light col-2">REB
         </div>
 
-        <div class="col-11">
+        <div class="col-10">
           <div class="progress">
             <div class="progress-bar bg-info" role="progressbar" aria-valuenow="61" aria-valuemin="0"
-              aria-valuemax="100" style="width:61%;">61</div>
+              aria-valuemax="100" [style.width]="(item[0].player.attributes.defense.reb / 200) * 100 + '%'">{{(item[0].player.attributes.defense.reb) / 2}}</div>
 
           </div>
         </div>
-        <div class="text-light col-1">BLK
+        <div class="text-light col-2">BLK
         </div>
-        <div class="col-11">
+        <div class="col-10">
           <div class="progress">
             <div class="progress-bar bg-info" role="progressbar" aria-valuenow="62" aria-valuemin="0"
-              aria-valuemax="100" style="width:52%;">52</div>
+              aria-valuemax="100" [style.width]="(item[0].player.attributes.defense.blk / 200) * 100 + '%'">{{(item[0].player.attributes.defense.blk) / 2}}</div>
 
           </div>
         </div>
-        <div class="text-light col-1">Jam
+        <div class="text-light col-2">Jam
         </div>
 
-        <div class="col-11">
+        <div class="col-10">
           <div class="progress">
             <div class="progress-bar bg-info" role="progressbar" aria-valuenow="62" aria-valuemin="0"
-              aria-valuemax="100" style="width:12%;">12</div>
+              aria-valuemax="100" [style.width]="(item[0].player.attributes.defense.jam / 200) * 100 + '%'">{{(item[0].player.attributes.defense.jam) / 2}}</div>
 
           </div>
         </div>
-        <div class="text-light col-1">STL
+        <div class="text-light col-2">STL
         </div>
 
-        <div class="col-11">
+        <div class="col-10">
           <div class="progress">
             <div class="progress-bar bg-info" role="progressbar" aria-valuenow="62" aria-valuemin="0"
-              aria-valuemax="100" style="width:71%;">71</div>
+              aria-valuemax="100" [style.width]="(item[0].player.attributes.defense.stl / 200) * 100 + '%'">{{(item[0].player.attributes.defense.stl) / 2}}</div>
 
           </div>
         </div>

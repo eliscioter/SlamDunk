@@ -9,9 +9,12 @@ import { Player } from 'src/app/interfaces/Players';
 export class PlayerAttributesComponent implements OnInit {
 
   @Input() item: Player[] = []
+  value!: number
   constructor() { }
 
   ngOnInit(): void {
+    // this.value = Number(this.item[0].player.attributes.offense.close) / 2
+    console.log(this.item)
   }
 
 }
