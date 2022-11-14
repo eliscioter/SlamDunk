@@ -55,7 +55,7 @@
                     <li  *ngIf="this.user.isLoggedIn() && this.user.getRole()?.includes('EDITOR')" class="nav-item">
                         <button mat-button *ngIf="this.user.isLoggedIn()" (click)="openSignIn()" class="btn px-0 bg-transparent sign-in">Sign Out</button>
                     </li>
-                    <div class="border-top">
+                    <div class="border-top" *ngIf="this.user.isLoggedIn() && this.user.getRole()?.includes('EDITOR')">
                         <li class="nav-item">
                             <a class="nav-link" routerLink="/forum">Team</a>
                         </li>
