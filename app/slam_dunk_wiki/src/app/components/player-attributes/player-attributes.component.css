@@ -1,3 +1,8 @@
 .skill-container {
-    background: rgba(242, 241, 239, 0.8) !important;
+    background: rgba(28, 22, 22, 0.8) !important;
+}
+@media (max-width: 1075px) {
+    .skill-container {
+        width: 100% !important;
+    }
 }
