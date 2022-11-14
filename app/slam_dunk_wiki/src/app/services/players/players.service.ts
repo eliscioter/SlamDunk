@@ -9,11 +9,11 @@ import { Observable } from 'rxjs';
 export class PlayersService {
 
   private api_url = 'https://slamdunk.onrender.com/api/data'
-  private dev_url = 'http://localhost:5000/api/data'
+  // private dev_url = 'http://localhost:5000/api/data'
 
   constructor(private http: HttpClient) { }
 
-  getPlayers(): Observable<Player[]> {
+  /* getPlayers(): Observable<Player[]> {
     return this.http.get<Player[]>(`${this.dev_url}/players`)
   }
 
@@ -31,8 +31,8 @@ export class PlayersService {
 
   deletePlayer(player: string): Observable<Player> {
     return this.http.delete<Player>(`${this.dev_url}/player/delete/${player}`)
-  }
-  /* getPlayers(): Observable<Player[]> {
+  } */
+  getPlayers(): Observable<Player[]> {
     return this.http.get<Player[]>(`${this.api_url}/players`)
   }
 
@@ -50,5 +50,5 @@ export class PlayersService {
 
   deletePlayer(player: string): Observable<Player> {
     return this.http.delete<Player>(`${this.api_url}/player/delete/${player}`)
-  } */
+  }
 }
