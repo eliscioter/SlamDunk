@@ -1,0 +1,9 @@
+.thank-you-container{
+    max-width: 100%;
+    min-height: 100vh;
+    background-image: url("../../../assets/thank-you-page-bg.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+
+}

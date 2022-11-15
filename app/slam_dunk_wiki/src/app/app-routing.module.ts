@@ -23,6 +23,7 @@ import { TraitsAdminComponent } from './admin/pages/traits-admin/traits-admin.co
 import { ModifyPlayerComponent } from './admin/pages/modify-player/modify-player.component';
 import { ErrorComponent } from './pages/error/error.component';
 import { PlayerDasboardComponent} from './pages/player-dasboard/player-dasboard.component';
+import { ThanksComponent } from './pages/thanks/thanks.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, data: {title: 'Slam Dunk Wiki'}},
@@ -46,6 +47,7 @@ const routes: Routes = [
     ]  
   },
   { path: 'player/:id', component: PlayerDasboardComponent},
+  { path: 'thanks', component: ThanksComponent },
   { path: '**', component: ErrorComponent, data: { title: 'Error' }}
   
 ];

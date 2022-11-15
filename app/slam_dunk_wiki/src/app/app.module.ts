@@ -36,6 +36,7 @@ import { ModifyPlayerComponent } from './admin/pages/modify-player/modify-player
 import { PlayerDasboardComponent } from './pages/player-dasboard/player-dasboard.component';
 import { PlayerInfoComponent } from './components/player-info/player-info.component';
 import { PlayerAttributesComponent } from './components/player-attributes/player-attributes.component';
+import { ThanksComponent } from './pages/thanks/thanks.component';
 
 @NgModule({
   declarations: [
@@ -66,6 +67,7 @@ import { PlayerAttributesComponent } from './components/player-attributes/player
     PlayerDasboardComponent,
     PlayerInfoComponent,
     PlayerAttributesComponent,
+    ThanksComponent,
   ],
   imports: [
     BrowserModule,
