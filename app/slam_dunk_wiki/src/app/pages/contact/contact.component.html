@@ -6,8 +6,7 @@
 
 
     <form 
-    ngNoForm 
-    #contactForm 
+    #contactForm="ngForm"
     (ngSubmit)="contactForm.reset()" 
     ngNativeValidate 
     [action]='api_url' 

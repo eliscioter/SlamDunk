@@ -17,10 +17,7 @@ export class ContactComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.userService.isLoggedIn()){
-      console.log(this.userService.getUsername())
       this.name = this.userService.getUsername()
     }
-    console.log(this.name)
-
   }
 }
