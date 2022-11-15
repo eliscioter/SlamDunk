@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { ToastrService } from 'ngx-toastr';
 
 import { UserService } from '../../services/user/user.service';
 import { ForumService } from '../../services/forum/forum.service';
@@ -18,7 +19,7 @@ export class ForumsComponent implements OnInit {
   forum_author!: string
   faTrash = faTrash;
 
-  constructor(private forum: ForumService, protected user: UserService, private router: Router) { }
+  constructor(private forum: ForumService, protected user: UserService, private router: Router, private toast: ToastrService) { }
 
   ngOnInit(): void {
     this.forum.getForums().subscribe({
@@ -33,7 +34,7 @@ export class ForumsComponent implements OnInit {
   }
 
   verifyAuth(id: string) {
-    if(!this.user.isLoggedIn()) return alert('You need to sign in first to see the forum thread')
+    if(!this.user.isLoggedIn()) return this.toast.info('You must be logged in to see the thread')
     else return this.router.navigate(['/forum/thread',id])
   }
 
@@ -47,7 +48,7 @@ export class ForumsComponent implements OnInit {
         this.forums = this.forums.filter(forum => forum._id !== forum._id)
         location.reload()
       },
-      error: (e) => alert('Something went wrong')
+      error: () => this.toast.error('Something went wrong')
     })
   }
 }

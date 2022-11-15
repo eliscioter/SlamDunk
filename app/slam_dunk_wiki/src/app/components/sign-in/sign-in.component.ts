@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog'
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 import { Member } from '../../interfaces/Member'
 import { MemberService } from '../../services/member/member.service';
@@ -16,7 +17,11 @@ export class SignInComponent implements OnInit {
   username!: string
   password!: string
 
-  constructor(private dialog: MatDialogRef<SignInComponent>, private member: MemberService, private admin: AdminService, private router: Router) {}
+  constructor(private dialog: MatDialogRef<SignInComponent>, 
+    private member: MemberService, 
+    private admin: AdminService, 
+    private router: Router,
+    private toast: ToastrService) {}
 
   ngOnInit(): void {
   }
@@ -35,15 +40,15 @@ export class SignInComponent implements OnInit {
         this.closeDialog()
         if(this.admin.getURL() === 'Error') {
           this.router.navigate(['/'])
-          alert('Sign in successful')
+          this.toast.success('Sign in successful')
           return
         }
-        alert('Sign in successful')
+        this.toast.success('Sign in successful')
         window.location.reload()
       },
       error: () => {
         this.password = ''
-        alert('Sign in failed')
+        this.toast.error('Sign in failed')
       } 
     })
   }

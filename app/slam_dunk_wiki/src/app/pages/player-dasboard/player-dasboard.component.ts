@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
+import { ToastrService } from 'ngx-toastr';
 
 import { PlayersService } from 'src/app/services/players/players.service';
 import { Player } from 'src/app/interfaces/Players';
@@ -14,7 +15,7 @@ export class PlayerDasboardComponent implements OnInit {
   data: Player[] = []
   id!:string
   bg!:string
-  constructor(private route: ActivatedRoute,private playerservice:PlayersService, private title:Title) { 
+  constructor(private route: ActivatedRoute,private playerservice:PlayersService, private title:Title, private toast: ToastrService) { 
     this.id=this.route.snapshot.params['id']
   }
 
@@ -101,7 +102,7 @@ export class PlayerDasboardComponent implements OnInit {
           tag: player.tag
         }
         this.data.push(obj)
-      },error: e => console.log(e)
+      },error: () => this.toast.error('Something went wrong')
     })
   }
 }

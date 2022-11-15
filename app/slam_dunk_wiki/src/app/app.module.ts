@@ -10,6 +10,7 @@ import { MatDialogModule } from '@angular/material/dialog'
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import {AutosizeModule} from 'ngx-autosize';
+import { ToastrModule } from 'ngx-toastr'
 
 import { HomeComponent } from './pages/home/home.component';
 import { ForumComponent } from './pages/forum/forum.component';
@@ -77,7 +78,14 @@ import { ThanksComponent } from './pages/thanks/thanks.component';
     MatDialogModule,
     HttpClientModule,
     FormsModule,
-    AutosizeModule
+    AutosizeModule,
+    ToastrModule.forRoot({
+      positionClass: 'toast-top-center', 
+      preventDuplicates: true,
+      timeOut: 3000,
+      closeButton: true,
+      progressBar: true
+    })
   ],
   providers: [
     {

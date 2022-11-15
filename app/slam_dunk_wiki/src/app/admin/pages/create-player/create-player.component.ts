@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 import { Player } from 'src/app/interfaces/Players';
 import { PlayersService } from 'src/app/services/players/players.service';
@@ -56,7 +57,7 @@ export class CreatePlayerComponent implements OnInit {
   tl6_img_url!: string
   tag!: string
 
-  constructor(private player: PlayersService, private router: Router) { }
+  constructor(private player: PlayersService, private router: Router, private toast: ToastrService) { }
 
   ngOnInit(): void {
   }
@@ -138,12 +139,12 @@ export class CreatePlayerComponent implements OnInit {
       tag: this.tag
     }
     this.player.createPlayer(createPlayer).subscribe({
-      next: data => {
-        alert('Player created successfully')
+      next: () => {
+        this.toast.success('Player created successfully')
         this.router.navigate(['/dashboard/admin/players'])
       }, 
-      error: e => {
-        alert('Something went wrong')
+      error: () => {
+        this.toast.error('Something went wrong')
       }
     })
   }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 import { AdminService } from 'src/app/services/admin/admin.service';
 import { UserService } from 'src/app/services/user/user.service';
@@ -13,7 +14,7 @@ export class LoginComponent implements OnInit {
 
   username!: string
   password!: string
-  constructor(private admin: AdminService, private user: UserService, private router: Router) { }
+  constructor(private admin: AdminService, private router: Router, private toast: ToastrService) { }
 
   ngOnInit(): void {}
   onLogin(): void {
@@ -25,9 +26,9 @@ export class LoginComponent implements OnInit {
       next: () => {
         this.router.navigate(['/dashboard/admin/players'], { replaceUrl: true })
         
-        alert('Welcome admin!')
+        this.toast.success(`Welcome ${this.username}`)
       },
-      error: () => {alert('Login failed')}
+      error: () => {this.toast.error('Login failed')}
     })
   }
 

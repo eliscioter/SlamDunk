@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { faPlusSquare } from '@fortawesome/free-regular-svg-icons';
 import { Router } from '@angular/router';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 import { CreateForum } from '../../interfaces/CreateForum'
 import { MemberService }  from '../../services/member/member.service'
@@ -18,7 +18,11 @@ export class ForumComponent implements OnInit {
   title!: string
   content!: string
 
-  constructor(protected member: MemberService, protected user: UserService, private forumService: ForumService, private router: Router) { }
+  constructor(protected member: MemberService, 
+    protected user: UserService, 
+    private forumService: ForumService, 
+    private router: Router,
+    private toast: ToastrService) { }
 
   ngOnInit(): void {
     
@@ -39,8 +43,8 @@ export class ForumComponent implements OnInit {
       next: (data) => {
         this.router.navigate(['/forum/thread', data._id])
       },
-      error: (e) => {
-        alert('Something went wrong')
+      error: () => {
+        this.toast.error('Something went wrong')
       }
     })
     

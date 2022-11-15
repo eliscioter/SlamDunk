@@ -1,4 +1,6 @@
 import { Component, OnInit} from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
+
 import { Player } from 'src/app/interfaces/Players';
 import { PlayersService } from 'src/app/services/players/players.service';
 
@@ -10,7 +12,7 @@ import { PlayersService } from 'src/app/services/players/players.service';
 export class PlayersComponent implements OnInit {
   players: Player[] = [];
 
-  constructor(private playerService: PlayersService) { }
+  constructor(private playerService: PlayersService, private toast: ToastrService) { }
 
   ngOnInit(): void {
     this.playerService.getPlayers().subscribe({
@@ -18,7 +20,7 @@ export class PlayersComponent implements OnInit {
         this.players = data
       }, 
       error: () => {
-        alert('Something went wrong')
+        this.toast.error('Something went wrong')
       }
     })
   }

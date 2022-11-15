@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 import { ForumService } from '../../services/forum/forum.service';
 import { MemberService } from 'src/app/services/member/member.service';
@@ -18,12 +19,18 @@ export class ForumThreadComponent implements OnInit {
   author!: string;
   comment!: string;
   data: Body[] = []
-  constructor(private forumService: ForumService, private userService: UserService, private route: ActivatedRoute) {
+  constructor(private forumService: ForumService, 
+    private userService: UserService, 
+    private route: ActivatedRoute,
+    private toast: ToastrService) {
     this.id = this.route.snapshot.params['id']
   }
 
   ngOnInit(): void {
-    if (!this.userService.isLoggedIn()) return alert('You must be logged in')
+    if (!this.userService.isLoggedIn()){
+      this.toast.info('You must be logged in')
+      return 
+    }
     this.forumService.getForum(this.id).subscribe( data => {
       this.data = data.body
       this.title = data.title
@@ -53,7 +60,7 @@ export class ForumThreadComponent implements OnInit {
         this.comment = ''
         window.location.reload()
       }, error: (error) => {
-        error.statusText === 'Unauthorized' ? alert('You need to sign in first') : error
+        error.statusText === 'Unauthorized' ? this.toast.info('You need to sign in first') : error
       }
     })
   }

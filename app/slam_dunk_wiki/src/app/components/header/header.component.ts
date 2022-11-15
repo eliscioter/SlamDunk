@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog'
 import { Title } from '@angular/platform-browser';
+import { ToastrService } from 'ngx-toastr';
 
 import { SignInComponent } from '../sign-in/sign-in.component'
 import { MemberService } from '../../services/member/member.service';
@@ -15,7 +16,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class HeaderComponent implements OnInit {
 
   @Input() titleName!: string
-  constructor(private dialog: MatDialog, protected user: UserService, protected member: MemberService, protected admin: AdminService, private title: Title, private readonly route: ActivatedRoute, private router: Router) { }
+  constructor(private dialog: MatDialog, 
+    protected user: UserService, 
+    protected member: MemberService, 
+    protected admin: AdminService, 
+    private router: Router,
+    private toast: ToastrService) { }
 
   ngOnInit(): void {
   }
@@ -30,8 +36,8 @@ export class HeaderComponent implements OnInit {
         next: () => {
           this.router.navigate(['/'], { replaceUrl: true })
         }, 
-        error: (e) => {
-          alert('Something went wrong')
+        error: () => {
+          this.toast.error('Something went wrong')
         }
       })
       return
@@ -41,8 +47,8 @@ export class HeaderComponent implements OnInit {
         next: () => {
           this.router.navigate(['/'], { replaceUrl: true })
         }, 
-        error: (e) => {
-          alert('Something went wrong')
+        error: () => {
+          this.toast.error('Something went wrong')
         }
       })
       return
