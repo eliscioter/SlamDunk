@@ -6,12 +6,12 @@
 
 
     <form 
-    #contactForm="ngForm"
-    (ngSubmit)="contactForm.reset()" 
+    ngNoForm
+    #contactForm
     ngNativeValidate 
     [action]='api_url' 
     method="POST"
-    target="_blank"
+    target="_self"
     >
         <input type="hidden" name="_subject" value="New comment!">
         <input type="hidden" name="_next" value="https://slam-dunk.vercel.app/thanks">
