@@ -15,7 +15,7 @@
   height: 550px;
 }
 
-@media (min-width: 375px) and (max-width:560px){
+@media (max-width:560px){
   .iframe-intro{
     margin-top: 170px;
     width: auto;
