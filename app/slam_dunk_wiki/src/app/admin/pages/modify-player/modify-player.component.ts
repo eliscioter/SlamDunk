@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
-import { Player, Talent } from 'src/app/interfaces/Players';
+import { Player } from 'src/app/interfaces/Players';
 import { PlayersService } from 'src/app/services/players/players.service';
 
 @Component({
@@ -56,7 +57,7 @@ export class ModifyPlayerComponent implements OnInit {
   tl6_desc!: string
   tl6_img_url!: string
 
-  constructor(private playerService: PlayersService, private route: ActivatedRoute, private router: Router) { 
+  constructor(private playerService: PlayersService, private route: ActivatedRoute, private router: Router, private toast: ToastrService) { 
     this.id = this.route.snapshot.params['_id']
   }
 
@@ -191,9 +192,9 @@ export class ModifyPlayerComponent implements OnInit {
     }
     this.playerService.updatePlayer(player).subscribe({
       next: () => {
-        alert(`${this.firstName} ${this.lastName} successfully updated`)
+        this.toast.success(`${this.firstName} ${this.lastName} successfully updated`)
         this.router.navigate(['/dashboard/admin/players'])
-      }, error: () => alert('Something went wrong')
+      }, error: () => this.toast.error('Something went wrong')
     })
   }
 

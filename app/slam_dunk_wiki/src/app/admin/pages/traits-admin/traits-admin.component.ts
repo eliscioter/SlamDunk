@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { faTrash, faEdit } from '@fortawesome/free-solid-svg-icons';
+import { ToastrService } from 'ngx-toastr';
 
 import { Trait } from 'src/app/interfaces/Traits';
 import { TraitsService } from 'src/app/services/traits/traits.service';
@@ -20,7 +21,7 @@ export class TraitsAdminComponent implements OnInit {
   tag!: string
   buttonName!: string
 
-  constructor(private traitsService: TraitsService) { }
+  constructor(private traitsService: TraitsService, private toast: ToastrService) { }
 
   ngOnInit(): void {
     this.traitsService.getTraits().subscribe({
@@ -52,8 +53,9 @@ export class TraitsAdminComponent implements OnInit {
     }
     this.traitsService.createTrait(trait).subscribe({
       next: () => {
+        this.toast.success(`Create ${this.title} successfully`)
         window.location.reload()
-      }, error: () => alert('Something went wrong')
+      }, error: () => this.toast.error('Something went wrong')
     })
   }
   
@@ -67,7 +69,7 @@ export class TraitsAdminComponent implements OnInit {
         this.imgURL = res.image_url
         this.tag = res.tag
         
-      }, error: () => alert('Something went wrong')
+      }, error: () => this.toast.error('Something went wrong')
     })
   }
 
@@ -81,9 +83,9 @@ export class TraitsAdminComponent implements OnInit {
     }
     this.traitsService.updateTrait(updatedTrait).subscribe({
       next: () => {
-        alert(`${updatedTrait.name} successfully updated`)
+        this.toast.success(`${updatedTrait.name} successfully updated`)
         window.location.reload()
-      }, error: () => alert('Something went wrong')
+      }, error: () => this.toast.error('Something went wrong')
     })
   }
 

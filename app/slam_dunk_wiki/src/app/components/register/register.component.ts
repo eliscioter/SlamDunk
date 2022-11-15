@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 import { Member } from '../../interfaces/Member';
 import { MemberService } from '../../services/member/member.service';
@@ -16,7 +17,7 @@ export class RegisterComponent implements OnInit {
   password!: string;
   re_password!: string;
 
-  constructor(private member: MemberService, private router: Router) { }
+  constructor(private member: MemberService, private router: Router, private toast: ToastrService) { }
 
   ngOnInit(): void {
   }
@@ -24,13 +25,15 @@ export class RegisterComponent implements OnInit {
   private matchedPassword(): boolean {
     const pass = this.password
     const re_pass = this.re_password
-    console.log(`${this.email} and ${pass} and ${re_pass}`)
     if (!pass || !re_pass) return false
     return pass === re_pass ? true : false
   }
 
   protected onRegister(): void {
-    if (!this.matchedPassword()) return alert('Password did not match')
+    if (!this.matchedPassword()) {
+      this.toast.warning('Password did not match')
+      return 
+    }
     
     const form: Member = {
       email: this.email,
@@ -44,16 +47,15 @@ export class RegisterComponent implements OnInit {
     }
     this.member.register(form).subscribe({
       next: () => {
-        alert('Success')
+        this.toast.success('Success')
         this.member.auth(user).subscribe({
           next: () => {
-            alert('Logging in')
+            this.toast.success('Logging in')
             this.router.navigate(['/'])
           }
         })
       },
-      error: e => {alert('Something went wrong')}
+      error: () => {this.toast.error('Something went wrong')}
     })
   }
-
 }

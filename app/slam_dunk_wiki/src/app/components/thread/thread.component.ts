@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { ToastrService } from 'ngx-toastr';
 
 import { UserService } from 'src/app/services/user/user.service';
 import { ForumService } from 'src/app/services/forum/forum.service';
@@ -17,7 +18,7 @@ export class ThreadComponent implements OnInit {
   id!: string;
   @Input() forum: Body[] = []
 
-  constructor(protected user: UserService, private forumService: ForumService, private route: ActivatedRoute) {
+  constructor(protected user: UserService, private forumService: ForumService, private route: ActivatedRoute, private toast: ToastrService) {
     this.id = this.route.snapshot.params['id'];
   }
 
@@ -32,9 +33,10 @@ export class ThreadComponent implements OnInit {
     this.forumService.deleteComment(this.id, forum).subscribe({
       next: () => {
         this.forum = this.forum.filter(forum => forum._id !== forum._id)
+        this.toast.success(`${forum.content} deleted successfully`)
         location.reload()
       },
-      error: (e) => console.log(e)
+      error: () => this.toast.error('Something went wrong')
     })
   }
 }
