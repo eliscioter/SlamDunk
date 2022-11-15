@@ -5,20 +5,29 @@
         </div>
 
 
-    <form ngNativeValidate>
-
+    <form 
+    ngNoForm 
+    #contactForm 
+    (ngSubmit)="contactForm.reset()" 
+    ngNativeValidate 
+    [action]='api_url' 
+    method="POST"
+    target="_blank"
+    >
+        <input type="hidden" name="_subject" value="New comment!">
+        <input type="hidden" name="_next" value="http://localhost:4200/thanks">
         <div class="form-floating mb-3 contact-form">
-            <input type="text" class="form-control" name="title" placeholder="Name" required/>
+            <input type="text" class="form-control" name="name" placeholder="Name" [(ngModel)]="name" required/>
             <label for="floatingInput">Name</label>
         </div>
 
         <div class="form-floating mb-3 contact-form">
-            <input type="email" class="form-control" name="title" placeholder="Email" required/>
+            <input type="email" class="form-control" name="email" placeholder="Email" [(ngModel)]="email" required/>
             <label for="floatingTextarea">E-mail</label>
         </div>
 
         <div class="form-floating contact-form">
-            <textarea class="form-control" name="content" id="floatingTextarea" placeholder="content" autosize required></textarea>
+            <textarea class="form-control" name="comment" id="floatingTextarea" placeholder="content" [(ngModel)]="comment" autosize required></textarea>
             <label for="floatingTextarea">Messages</label>
         </div>
 
