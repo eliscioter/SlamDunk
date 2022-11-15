@@ -36,7 +36,7 @@ const routes: Routes = [
   { path: 'traits/offense', component: TraitsComponent, data: {title: 'Traits | Offense'}},
   { path: 'traits/defense', component: DefenseComponent, data: {title: 'Traits | Defense'}},
   { path: 'traits/trick', component: TrickComponent, data: {title: 'Traits | Trick'}},
-  { path: 'contact', component: ContactComponent, data: {title: 'Contact'}},
+  { path: 'contact', component: ContactComponent, data: {title: 'Contact'}, canActivate: [AuthGuard]},
   { path: 'admin/login', component: LoginComponent, data: {title: 'Admin | Login'}, canActivate: [LoginGuard] },
   { path: 'create-player', component: CreatePlayerComponent, data: {title: 'Admin | Create Player'}, canActivate: [AdminGuard] },
   { path: 'modify/:_id', component: ModifyPlayerComponent, data: {title: 'Admin | Modify'}, canActivate: [AdminGuard]},
@@ -46,7 +46,7 @@ const routes: Routes = [
       { path: 'admin/traits', component: TraitsAdminComponent, data: {title: 'Admin | Traits'}, canActivate: [AdminGuard] },
     ]  
   },
-  { path: 'player/:id', component: PlayerDasboardComponent},
+  { path: 'player/:id', component: PlayerDasboardComponent, canActivate: [AuthGuard]},
   { path: 'thanks', component: ThanksComponent },
   { path: '**', component: ErrorComponent, data: { title: 'Error' }}
   
