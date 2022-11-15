@@ -11,7 +11,7 @@ export class ContactComponent implements OnInit {
   name!: string
   email!: string
   comment!: string
-  api_url: string = "https://formsubmit.co/slamdunkwiki@gmail.com"
+  api_url: string = "https://formsubmit.co/slamdunkwiki@gmail.com" 
 
   constructor(private userService: UserService) { }
 
@@ -23,9 +23,4 @@ export class ContactComponent implements OnInit {
     console.log(this.name)
 
   }
-
-  onSubmit() {
-    if(!this.userService.isLoggedIn()) return alert('Please sign in first')
-  }
-
 }
