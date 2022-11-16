@@ -38,6 +38,8 @@ import { PlayerDasboardComponent } from './pages/player-dasboard/player-dasboard
 import { PlayerInfoComponent } from './components/player-info/player-info.component';
 import { PlayerAttributesComponent } from './components/player-attributes/player-attributes.component';
 import { ThanksComponent } from './pages/thanks/thanks.component';
+import { LoadingComponent } from './components/loading/loading.component';
+import { NetworkInterceptor } from './interceptor/network/network.interceptor';
 
 @NgModule({
   declarations: [
@@ -69,6 +71,7 @@ import { ThanksComponent } from './pages/thanks/thanks.component';
     PlayerInfoComponent,
     PlayerAttributesComponent,
     ThanksComponent,
+    LoadingComponent,
   ],
   imports: [
     BrowserModule,
@@ -91,6 +94,11 @@ import { ThanksComponent } from './pages/thanks/thanks.component';
     {
       provide:  HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
+      multi: true
+    },
+    {
+      provide:  HTTP_INTERCEPTORS,
+      useClass: NetworkInterceptor,
       multi: true
     },
     Title,
