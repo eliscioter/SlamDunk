@@ -4,6 +4,7 @@
   </header>
   <main>
     <router-outlet></router-outlet>
+    <app-loading *ngIf="loading$ | async"></app-loading>
   </main>
   <footer class="mt-auto">
     <app-footer></app-footer>

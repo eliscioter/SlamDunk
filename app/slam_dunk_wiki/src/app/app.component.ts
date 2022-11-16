@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { Router, NavigationEnd, ActivatedRoute, RoutesRecognized } from '@angular/router';
-import { filter, map } from 'rxjs/operators';
+import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
+import { filter } from 'rxjs/operators';
 
+import { LoadingService } from './services/loading/loading.service';
 import { AdminService } from './services/admin/admin.service';
 @Component({
   selector: 'app-root',
@@ -11,9 +12,15 @@ import { AdminService } from './services/admin/admin.service';
 })
 export class AppComponent {
 
-  nameT!: string;
+  protected nameT!: string;
+  protected loading$ = this.loader.loading$
 
-  constructor(private titleService: Title, private router: Router, private readonly route: ActivatedRoute, private admin: AdminService) {}
+  constructor(private titleService: Title, 
+    private router: Router, 
+    private readonly route: 
+    ActivatedRoute, 
+    private admin: AdminService, 
+    private loader: LoadingService) {}
   
   ngOnInit() {
     
