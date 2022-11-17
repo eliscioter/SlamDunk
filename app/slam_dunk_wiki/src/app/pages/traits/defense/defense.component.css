@@ -12,10 +12,15 @@ div>.card {
   background-color: #ffeece;
   overflow: hidden;
   text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 div>.card>img {
   margin-top: 10px;
+  transition: transform .5s ease;
+}
+div>.card > img:hover {
+  transform: scale(1.2);
 }
 
 div>.card-text {

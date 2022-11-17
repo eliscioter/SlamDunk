@@ -5,13 +5,18 @@
 .card-body{
   background-color: #b63a0d;
 }
-
+.card {
+  overflow: hidden;
+}
 .card > img {
   object-fit: cover!important;
   height: 500px;
   max-height: 500px;
+  transition: transform .5s ease;
 }
-
+.card > img:hover {
+  transform: scale(1.2);
+}
 a {
   text-decoration: none;
 }

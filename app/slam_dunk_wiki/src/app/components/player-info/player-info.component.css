@@ -6,6 +6,14 @@
 
 .player-image{
     width: 70px;
+    overflow: hidden;
+
+}
+.player-image{
+    transition: transform .5s ease;
+}
+.player-image:hover {
+    transform: scale(1.2);
 }
 
 .player-ultimate-image{
