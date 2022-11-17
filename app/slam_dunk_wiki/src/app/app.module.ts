@@ -85,7 +85,7 @@ import { NetworkInterceptor } from './interceptor/network/network.interceptor';
     ToastrModule.forRoot({
       positionClass: 'toast-top-center', 
       preventDuplicates: true,
-      timeOut: 3000,
+      timeOut: 5000,
       closeButton: true,
       progressBar: true
     })
