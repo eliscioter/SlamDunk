@@ -1,9 +1,9 @@
 .loading-container {
     position:fixed;
-    top: 0;
+    top: 10%;
     left:0;
     right:0;
-    bottom:0;
+    bottom:10%;
     background-image: url("../../../assets/loading-screen.gif");
     background-repeat: no-repeat;
     background-position: center;
@@ -11,32 +11,6 @@
 }
 
 .text-container {
-    margin-top: 150px;
-    border-right: 4px solid black;
-    font-size: 180%;
-    white-space: nowrap;
-    overflow: hidden;
-}
-
-.text {
-    animation: typewriter 3s steps(15) 1s infinite both,
-                blinkCursor 500ms steps(15) 1s infinite
-}
-
-@keyframes typewriter {
-    from {
-         width: 0;
-    }
-    to {
-        width: 250px
-    }
-}
-
-@keyframes blinkCursor {
-    from {
-        border-right-color: black;
-    }
-    to {
-        border-right-color: transparent
-    }
+    margin-top: 170px;
+    background-color: rgba(108, 122, 137,0.8);
 }
