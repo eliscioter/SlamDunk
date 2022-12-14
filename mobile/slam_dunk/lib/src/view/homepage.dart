@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:slam_dunk/src/style/colors.dart';
-import 'package:slam_dunk/src/view/screens/players.dart';
+import 'package:slam_dunk/src/view/players_screen/players.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
