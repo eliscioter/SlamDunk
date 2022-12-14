@@ -17,4 +17,18 @@ class PlayersService {
       print('error response');
     }
   }
+
+  Future<dynamic> getPlayer(String api) async {
+    var url = Uri.parse('$_baseUrl/player/$api');
+    var headers = {
+      'Content-Type': 'application/json',
+    };
+    var response = await _client.get(url, headers: headers);
+
+    if (response.statusCode == 200) {
+      return response.body;
+    } else {
+      print('error response');
+    }
+  }
 }
