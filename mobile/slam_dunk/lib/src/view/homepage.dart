@@ -11,18 +11,9 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  static const routeName = 'Slam Dunk Wiki';
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      drawer: Drawer(
-        backgroundColor: Color(AppColor().backgroundColor),
-      ),
-      appBar: AppBar(
-        title: const Text(routeName),
-        backgroundColor: Color(AppColor().backgroundColor),
-      ),
+    return Scaffold(      
       body: Container(
         width: double.infinity,
         decoration: const BoxDecoration(

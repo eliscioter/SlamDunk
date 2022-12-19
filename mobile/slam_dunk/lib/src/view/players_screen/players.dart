@@ -13,15 +13,10 @@ class Players extends StatefulWidget {
 }
 
 class _PlayersState extends State<Players> {
-  static const routeName = "Players";
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(routeName),
-        backgroundColor: Color(AppColor().backgroundColor),
-      ),
       body: FutureBuilder<List<Player>?>(
           future: FetchedPlayer().displayPlayers(),
           builder: (context, snapshot) {
