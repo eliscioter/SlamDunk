@@ -16,20 +16,39 @@ class SlamDunk extends StatefulWidget {
 }
 
 class _SlamDunkState extends State<SlamDunk> {
-  int index = 0;
+  int index = 0, indexes = 0;
   static const screens = [
     HomePage(),
     Players(),
     Traits(),
     Forum(),
+    About(),
+    Contact(),
   ];
 
   late String routeName;
 
+  Widget _screen() {
+    Widget current;
+    if (indexes > 3) {
+      current = screens[indexes];
+    }
+    indexes = 0;
+    current = screens[index];
+    return current;
+  }
+
+  int _highlight() {
+    if (routeName == 'About' || routeName == 'Contact') {
+      return 0xffFFFFFF;
+    }
+    return 0xff8B0000;
+  }
+
   @override
   Widget build(BuildContext context) {
     if (index == 0) {
-      routeName = 'Home';
+      routeName = 'Slam Dunk Wiki';
     } else if (index == 1) {
       routeName = 'Players';
     } else if (index == 2) {
@@ -37,9 +56,19 @@ class _SlamDunkState extends State<SlamDunk> {
     } else if (index == 3) {
       routeName = 'Forum';
     }
+    if (indexes == 4) {
+      routeName = 'About';
+    } else if (indexes == 5) {
+      routeName = 'Contact';
+    }
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
+        appBar: AppBar(
+          title: Text(routeName),
+          backgroundColor: Color(AppColor().backgroundColor),
+        ),
+        body: _screen(),
         drawer: Builder(
           builder: (context) => Drawer(
             backgroundColor: Color(AppColor().backgroundColor),
@@ -64,11 +93,10 @@ class _SlamDunkState extends State<SlamDunk> {
                     ),
                     ListTile(
                       onTap: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) => const About(),
-                          ),
-                        );
+                        Navigator.pop(context);
+                        setState(() {
+                          indexes = 4;
+                        });
                       },
                       leading: const Icon(
                         Icons.info,
@@ -82,11 +110,10 @@ class _SlamDunkState extends State<SlamDunk> {
                     ),
                     ListTile(
                       onTap: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) => const Contact(),
-                          ),
-                        );
+                        Navigator.pop(context);
+                        setState(() {
+                          indexes = 5;
+                        });
                       },
                       leading: const Icon(
                         Icons.contact_support,
@@ -104,33 +131,32 @@ class _SlamDunkState extends State<SlamDunk> {
             ),
           ),
         ),
-        appBar: AppBar(
-          title: Text(routeName),
-          backgroundColor: Color(AppColor().backgroundColor),
-        ),
-        body: screens[index],
-        bottomNavigationBar: Container(
+        bottomNavigationBar: SizedBox(
           height: 60,
-          decoration: BoxDecoration(
-            color: Theme.of(context).primaryColor,
-            borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(20),
-              topRight: Radius.circular(20),
-            ),
-          ),
-          child: NavigationBar(
-            selectedIndex: index,
-            onDestinationSelected: (index) =>
-                setState((() => this.index = index)),
-            destinations: const [
-              NavigationDestination(
-                  icon: Icon(Icons.home_outlined), label: 'Home'),
-              NavigationDestination(
-                  icon: Icon(Icons.sports_handball_outlined), label: 'Players'),
-              NavigationDestination(
-                  icon: Icon(Icons.psychology_outlined), label: 'Traits'),
-              NavigationDestination(
-                  icon: Icon(Icons.forum_outlined), label: 'Forum'),
+          child: BottomNavigationBar(
+            currentIndex: index,
+            onTap: (index) => setState((() => this.index = index)),
+            selectedItemColor: Color(_highlight()),
+            unselectedItemColor: Colors.white,
+            backgroundColor: Colors.black,
+            type: BottomNavigationBarType.fixed,
+            items: const [
+              BottomNavigationBarItem(
+                icon: Icon(Icons.home_outlined),
+                label: 'Home',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.sports_handball_outlined),
+                label: 'Players',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.psychology_outlined),
+                label: 'Traits',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.forum_outlined),
+                label: 'Forum',
+              ),
             ],
           ),
         ),
