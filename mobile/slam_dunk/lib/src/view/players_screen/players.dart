@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:slam_dunk/src/style/colors.dart';
 import 'package:slam_dunk/src/view/players_screen/controller/fetched_player.dart';
 import 'package:slam_dunk/src/model/player_model.dart';
 import 'package:slam_dunk/src/view/player_info_screen/player_info.dart';
