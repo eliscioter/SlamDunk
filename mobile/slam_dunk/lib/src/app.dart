@@ -32,9 +32,11 @@ class _SlamDunkState extends State<SlamDunk> {
     Widget current;
     if (indexes > 3) {
       current = screens[indexes];
+    } else {
+      indexes = 0;
+      current = screens[index];
     }
     indexes = 0;
-    current = screens[index];
     return current;
   }
 
