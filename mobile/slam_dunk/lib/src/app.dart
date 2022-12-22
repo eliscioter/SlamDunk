@@ -4,7 +4,7 @@ import 'package:slam_dunk/src/style/colors.dart';
 import 'package:slam_dunk/src/view/homepage.dart';
 import 'package:slam_dunk/src/view/players_screen/players.dart';
 import 'package:slam_dunk/src/view/traits_screen/traits.dart';
-import 'package:slam_dunk/src/view/forum_screen/forum.dart';
+import 'package:slam_dunk/src/view/forums_screen/forums.dart';
 import 'package:slam_dunk/src/view/about/about.dart';
 import 'package:slam_dunk/src/view/contact/contact.dart';
 
