@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:slam_dunk/src/style/colors.dart';
+import 'package:slam_dunk/src/view/components/sign_in/controller/sign_in_controller.dart';
+import 'package:slam_dunk/src/view/components/sign_in/sign_in.dart';
 
 import 'package:slam_dunk/src/view/homepage.dart';
 import 'package:slam_dunk/src/view/players_screen/players.dart';
@@ -47,6 +49,13 @@ class _SlamDunkState extends State<SlamDunk> {
     return 0xff8B0000;
   }
 
+  late bool a;
+
+  /* Future<bool> isSignedIn() async {
+    return await Authentication().isAuthenticated();
+  } */
+
+  bool isSignedIn = false;
   @override
   Widget build(BuildContext context) {
     if (index == 0) {
@@ -70,7 +79,6 @@ class _SlamDunkState extends State<SlamDunk> {
           title: Text(routeName),
           backgroundColor: Color(AppColor().backgroundColor),
         ),
-        body: _screen(),
         drawer: Builder(
           builder: (context) => Drawer(
             backgroundColor: Color(AppColor().backgroundColor),
@@ -79,20 +87,61 @@ class _SlamDunkState extends State<SlamDunk> {
                 margin: const EdgeInsets.only(top: 15.0),
                 child: Column(
                   children: [
-                    UserAccountsDrawerHeader(
-                      decoration: BoxDecoration(
-                        color: Colors.redAccent[700],
-                      ),
-                      accountName: const Text("Marcelo Augusto Elias"),
-                      accountEmail: const Text("marcelo@gmail.com"),
-                      currentAccountPicture: const CircleAvatar(
-                        backgroundColor: Colors.black,
-                        child: Icon(
-                          Icons.person,
-                          size: 50,
-                        ),
-                      ),
-                    ),
+                    isSignedIn
+                        ? Stack(
+                            children: [
+                              UserAccountsDrawerHeader(
+                                decoration: BoxDecoration(
+                                  color: Colors.redAccent[700],
+                                ),
+                                accountName: const Text(
+                                  'marcelo',
+                                ),
+                                accountEmail: const Text('marcelo@gmail.com'),
+                                currentAccountPicture: const CircleAvatar(
+                                  backgroundColor: Colors.black,
+                                  child: Icon(
+                                    Icons.person,
+                                    size: 50,
+                                  ),
+                                ),
+                              ),
+                              Align(
+                                alignment: Alignment.topRight,
+                                child: TextButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      isSignedIn = false;
+                                    });
+                                  },
+                                  child: const Text(
+                                    'Sign out',
+                                    style: TextStyle(color: Colors.black),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          )
+                        : ListTile(
+                            onTap: () {
+                              setState(() {
+                                isSignedIn = true;
+                              });
+                              showDialog(
+                                  context: context,
+                                  barrierDismissible: false,
+                                  builder: (BuildContext context) =>
+                                      const SignIn());
+                            },
+                            leading: const Icon(
+                              Icons.person,
+                              color: Colors.white,
+                            ),
+                            title: const Text(
+                              'Sign in',
+                              style: TextStyle(color: Colors.red),
+                            ),
+                          ),
                     ListTile(
                       onTap: () {
                         Navigator.pop(context);
@@ -133,6 +182,7 @@ class _SlamDunkState extends State<SlamDunk> {
             ),
           ),
         ),
+        body: _screen(),
         bottomNavigationBar: SizedBox(
           height: 60,
           child: BottomNavigationBar(
