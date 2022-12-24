@@ -13,9 +13,10 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(      
+    return Scaffold(
       body: Container(
         width: double.infinity,
+        height: double.infinity,
         decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage("assets/images/homepage_bg.png"),
@@ -31,8 +32,15 @@ class _HomePageState extends State<HomePage> {
             ),
             const Text('Scout the players!'),
             ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.orange[900], // Background color
+              ),
               onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(builder: (context) => const Players()));
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const Players(),
+                  ),
+                );
               },
               child: const Text("Let's go"),
             ),
