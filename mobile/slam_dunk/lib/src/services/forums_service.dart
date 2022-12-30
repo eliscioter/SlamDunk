@@ -1,17 +1,17 @@
-import 'package:http/http.dart' as http;
+import 'package:dio/dio.dart';
 
 class ForumsService {
-  final _client = http.Client();
+  final Dio _client = Dio();
   static const _baseUrl = 'https://slamdunkforum.onrender.com/api/data';
 
   Future<dynamic> getForums(String api) async {
-    var url = Uri.parse('$_baseUrl/$api');
-    var headers = {
+    String url = '$_baseUrl/$api';
+    final options = Options(headers: {
       'Content-Type': 'application/json',
-    };
-    var response = await _client.get(url, headers: headers);
+    });
+    Response response = await _client.get(url, options: options);
     if (response.statusCode == 200) {
-      return response.body;
+      return response.data;
     } else {
       print('error in service');
     }
