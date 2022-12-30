@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:slam_dunk/src/model/player_info_model.dart';
 import 'package:slam_dunk/src/services/players_service.dart';
 
@@ -9,7 +11,7 @@ class FetchedPlayerInfo {
 
     if (response == null) return null;
 
-    var player = playerFromJson(response);
+    Player player = playerFromJson(jsonEncode(response));
     
     return player;
   }

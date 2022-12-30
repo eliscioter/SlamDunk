@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:slam_dunk/src/model/traits/defense_model.dart';
 import 'package:slam_dunk/src/model/traits/offense_model.dart';
 import 'package:slam_dunk/src/model/traits/tricks.model.dart';
@@ -10,7 +12,7 @@ class FetchTraits {
       print(err);
     });
     if (response == null) return null;
-    var offense = offenseFromJson(response);
+    List<Offense> offense = offenseFromJson(jsonEncode(response));
 
     return offense;
   }
@@ -21,7 +23,7 @@ class FetchTraits {
       print(err);
     });
     if (response == null) return null;
-    var defense = defenseFromJson(response);
+    List<Defense> defense = defenseFromJson(jsonEncode(response));
 
     return defense;
   }
@@ -31,7 +33,7 @@ class FetchTraits {
       print(err);
     });
     if (response == null) return null;
-    var tricks = tricksFromJson(response);
+    List<Tricks> tricks = tricksFromJson(jsonEncode(response));
 
     return tricks;
   }
