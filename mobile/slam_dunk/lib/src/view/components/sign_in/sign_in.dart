@@ -1,18 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:slam_dunk/src/provider/user_provider.dart';
+import 'package:slam_dunk/src/provider/user_status_provider.dart';
 import 'package:slam_dunk/src/view/components/sign_in/controller/sign_in_controller.dart';
 import 'package:slam_dunk/src/view/register/register.dart';
 
-class SignIn extends StatefulWidget {
+class SignIn extends ConsumerStatefulWidget {
   const SignIn({super.key});
 
   @override
-  State<SignIn> createState() => _SignInState();
+  ConsumerState<SignIn> createState() => _SignInState();
 }
 
-class _SignInState extends State<SignIn> {
+class _SignInState extends ConsumerState<SignIn> {
   @override
   Widget build(BuildContext context) {
-    String name = '', password = '';
+    late String name, password;
+
+    closeDialogBox() async {
+      await Future.delayed(const Duration(seconds: 2));
+    }
+
     return AlertDialog(
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -66,8 +74,18 @@ class _SignInState extends State<SignIn> {
             backgroundColor: Colors.orange[900], // Background color
           ),
           onPressed: () {
-            print('$name, $password');
-            Navigator.of(context).pop();
+            ref
+                .read(userController.notifier)
+                .testMethod(name, password)
+                .then((val) {
+              ref.read(userProvider.notifier).setUserInfo(val.username);
+
+              ref.read(isSignedInProvider.notifier).isSignedIn(true);
+            });
+            closeDialogBox().then((val) {
+              CircularProgressIndicator;
+              Navigator.of(context).pop();
+            });
           },
           child: const Text('Sign in'),
         ),

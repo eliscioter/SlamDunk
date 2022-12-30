@@ -1,30 +1,28 @@
-class Authentication {
-  late String _name, _password;
-  late bool flag;
+import 'dart:convert';
 
-  Authentication(String name, String password) {
-    _name = name;
-    _password = _password;
-  }
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:slam_dunk/src/model/member_model.dart';
+import 'package:slam_dunk/src/provider/user_provider.dart';
+import 'package:slam_dunk/src/services/sign_in_service.dart';
 
-  checkAuthentication(name, password) {
-    if (name == 'admin' && password == 'admin123') {
-      _name = name;
-      _password = password;
-      print('$name $password');
-      flag = true;
-      return true;
-    }
-    flag = false;
-    return false;
-  }
+class Authentication extends StateNotifier<Member> {
+  Authentication() : super(Member());
 
-  Future<bool> isAuthenticated() async {
-    print('$_name, $_password');
-    return await checkAuthentication(_name, _password);
-  }
+  testMethod(String username, password) async {
+    var response =
+        await SignInService().auth(username, password).catchError((err) {
+      print(err);
+    });
 
-  getCredentials() {
-    return checkAuthentication(_name, _password) ? _name : null;
+    Member user = memberFromJson(jsonEncode(response));
+    return user;
   }
+@override
+  void dispose() {
+    super.dispose();
+  }
+  
 }
+
+final userController =
+    StateNotifierProvider<Authentication, Member>((ref) => Authentication());
