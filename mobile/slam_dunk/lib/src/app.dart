@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:slam_dunk/src/provider/route_name_provider.dart';
 import 'package:slam_dunk/src/provider/screen_provider.dart';
 import 'package:slam_dunk/src/provider/user_provider.dart';
 import 'package:slam_dunk/src/provider/user_status_provider.dart';
+import 'package:slam_dunk/src/services/sign_in_service.dart';
 import 'package:slam_dunk/src/style/colors.dart';
-import 'package:slam_dunk/src/view/about/about.dart';
-import 'package:slam_dunk/src/view/components/sign_in/sign_in.dart';
-import 'package:slam_dunk/src/view/contact/contact.dart';
-import 'package:slam_dunk/src/view/forums_screen/forums.dart';
+import 'package:slam_dunk/src/view/about.dart';
+import 'package:slam_dunk/src/view/components/sign_in.dart';
+import 'package:slam_dunk/src/view/contact.dart';
+import 'package:slam_dunk/src/view/forums.dart';
 import 'package:slam_dunk/src/view/homepage.dart';
-import 'package:slam_dunk/src/view/players_screen/players.dart';
-import 'package:slam_dunk/src/view/traits_screen/traits.dart';
+import 'package:slam_dunk/src/view/players.dart';
+import 'package:slam_dunk/src/view/traits.dart';
 
 class SlamDunk extends ConsumerWidget {
   const SlamDunk({super.key});
@@ -62,8 +64,9 @@ class SlamDunk extends ConsumerWidget {
                                 ),
                                 accountName: Text(
                                   username.toString(),
+                                  style: const TextStyle(fontSize: 20),
                                 ),
-                                accountEmail: const Text('marcelo@gmail.com'),
+                                accountEmail: null,
                                 currentAccountPicture: const CircleAvatar(
                                   backgroundColor: Colors.black,
                                   child: Icon(
@@ -75,7 +78,33 @@ class SlamDunk extends ConsumerWidget {
                               Align(
                                 alignment: Alignment.topRight,
                                 child: TextButton(
-                                  onPressed: () {},
+                                  onPressed: () async {
+                                    if (!await SignInService().signout()) {
+                                      Fluttertoast.showToast(
+                                          msg: "Error. Can't Sign Out.",
+                                          toastLength: Toast.LENGTH_SHORT,
+                                          gravity: ToastGravity.BOTTOM,
+                                          timeInSecForIosWeb: 1,
+                                          backgroundColor: Colors.red,
+                                          textColor: Colors.white,
+                                          fontSize: 16.0);
+                                    } else {
+                                      ref
+                                          .read(isSignedInProvider.notifier)
+                                          .isSignedIn(false);
+                                      ref
+                                          .read(userProvider.notifier)
+                                          .setUserInfo('');
+                                      Fluttertoast.showToast(
+                                          msg: '$username signed out',
+                                          toastLength: Toast.LENGTH_SHORT,
+                                          gravity: ToastGravity.BOTTOM,
+                                          timeInSecForIosWeb: 1,
+                                          backgroundColor: Colors.red,
+                                          textColor: Colors.white,
+                                          fontSize: 16.0);
+                                    }
+                                  },
                                   child: const Text(
                                     'Sign out',
                                     style: TextStyle(color: Colors.black),
