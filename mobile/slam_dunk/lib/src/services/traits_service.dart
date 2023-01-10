@@ -4,6 +4,8 @@ class OffenseService {
   final Dio _client = Dio();
   static const String _baseUrl =
       'https://slamdunk.onrender.com/api/data/category';
+  // static const String _baseUrl = 'http://localhost:5000/api/data/category';
+
   final options = Options(headers: {
     'Content-Type': 'application/json',
   });
@@ -15,7 +17,7 @@ class OffenseService {
     if (response.statusCode == 200) {
       return response.data;
     } else {
-      print(url);
+      return null;
     }
   }
 
@@ -27,7 +29,7 @@ class OffenseService {
     if (response.statusCode == 200) {
       return response.data;
     } else {
-      print(url);
+      return null;
     }
   }
 
@@ -39,7 +41,7 @@ class OffenseService {
     if (response.statusCode == 200) {
       return response.data;
     } else {
-      print(url);
+      return null;
     }
   }
 }
