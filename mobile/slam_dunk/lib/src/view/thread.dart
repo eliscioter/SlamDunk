@@ -5,13 +5,6 @@ import 'package:slam_dunk/src/model/forum_model.dart';
 import 'package:slam_dunk/src/provider/forum_provider.dart';
 import 'package:slam_dunk/src/style/colors.dart';
 
-// class Thread extends StatefulWidget {
-//   const Thread({super.key});
-
-//   @override
-//   State<Thread> createState() => _ThreadState();
-// }
-
 class Thread extends ConsumerWidget {
   final FocusNode focusNode = FocusNode();
 
@@ -20,7 +13,6 @@ class Thread extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final forumId = ref.watch(forumIdProvider);
-    print('forum id ${forumId[0]}');
     return Scaffold(
       appBar: AppBar(
         title: const Text('Thread'),
