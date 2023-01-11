@@ -5,7 +5,7 @@ import 'package:slam_dunk/src/services/forum_thread_service.dart';
 
 class FetchForumThread {
   Future<Thread?> displayThread(String id) async {
-    var response = await ForumThreadService().getForums(id).catchError((err) {
+    var response = await ForumThreadService().getForum(id).catchError((err) {
       throw Exception('error: $err');
     });
     if (response == null) {

@@ -9,7 +9,7 @@ class ForumThreadService {
 
   static const _baseUrl = 'https://slamdunkforum.onrender.com/api/data/forum';
   // static const _baseUrl = 'http://localhost:5003/api/data/forum';
-  Future<dynamic> getForums(String api) async {
+  Future<dynamic> getForum(String api) async {
     String? accessToken = await _storage.read(key: 'accessToken');
     String? refreshToken = await _storage.read(key: 'refreshToken');
 
