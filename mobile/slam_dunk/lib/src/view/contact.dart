@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class Contact extends StatefulWidget {
   const Contact({super.key});
@@ -125,7 +126,15 @@ class _ContactState extends State<Contact> {
                                   final RegExp emailRegex = RegExp(
                                       r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$');
                                   if (!emailRegex.hasMatch(_email)) {
-                                    return print("Please enter a valid email");
+                                    Fluttertoast.showToast(
+                                        msg: 'Invalid email address',
+                                        toastLength: Toast.LENGTH_SHORT,
+                                        gravity: ToastGravity.BOTTOM,
+                                        timeInSecForIosWeb: 1,
+                                        backgroundColor: Colors.red,
+                                        textColor: Colors.white,
+                                        fontSize: 16.0);
+                                    return;
                                   }
                                   print('$_name $_email $_message');
                                 },
