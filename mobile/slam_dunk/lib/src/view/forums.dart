@@ -4,6 +4,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:slam_dunk/src/model/forum_model.dart';
 import 'package:slam_dunk/src/provider/forum_provider.dart';
 import 'package:slam_dunk/src/provider/user_status_provider.dart';
+import 'package:slam_dunk/src/view/components/create_forum_form.dart';
 import 'package:slam_dunk/src/view/thread.dart';
 import 'package:slam_dunk/src/controller/forum_controller.dart';
 
@@ -18,7 +19,12 @@ class Forum extends ConsumerWidget {
       floatingActionButton: Visibility(
         visible: isSignedIn,
         child: FloatingActionButton(
-          onPressed: () {},
+          onPressed: () {
+            showDialog(
+                context: context,
+                barrierDismissible: false,
+                builder: (BuildContext context) => const ForumForm());
+          },
           backgroundColor: Colors.orange.withOpacity(0.8),
           child: const Icon(
             Icons.add,
@@ -105,6 +111,7 @@ class Forum extends ConsumerWidget {
                               ),
                             );
                           },
+                          reverse: true,
                         );
                       } else {
                         return const Center(
