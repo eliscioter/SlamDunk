@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:slam_dunk/src/controller/forum_thread.dart';
-import 'package:slam_dunk/src/model/forum_model.dart';
 import 'package:slam_dunk/src/provider/forum_provider.dart';
+import 'package:slam_dunk/src/provider/user_provider.dart';
 import 'package:slam_dunk/src/style/colors.dart';
 
 class Thread extends ConsumerWidget {
   final FocusNode focusNode = FocusNode();
+  final TextEditingController _comment = TextEditingController();
 
   Thread({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final forumId = ref.watch(forumIdProvider);
+    final username = ref.watch(userProvider);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Thread'),
@@ -69,6 +71,7 @@ class Thread extends ConsumerWidget {
                               borderSide: BorderSide(color: Colors.white),
                             ),
                           ),
+                          controller: _comment,
                         ),
                         Align(
                           alignment: Alignment.centerRight,
@@ -76,7 +79,10 @@ class Thread extends ConsumerWidget {
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.orange,
                             ),
-                            onPressed: () {},
+                            onPressed: () {
+                              FetchForumThread()
+                                  .onComment(username, _comment.text, forumId[0]);
+                            },
                             child: const Text('Post'),
                           ),
                         ),

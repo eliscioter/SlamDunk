@@ -14,4 +14,14 @@ class FetchForumThread {
     Thread? thread = threadFromJson(jsonEncode(response));
     return thread;
   }
+
+  onComment(String author, String body, String id) async {
+    var response = await ForumThreadService()
+        .createComment(author, body, id)
+        .catchError((err) => throw Exception('error: $err'));
+
+    if (!response) {
+      throw Exception('error creating');
+    }
+  }
 }
