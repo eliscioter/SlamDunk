@@ -14,7 +14,15 @@ class Thread extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final forumId = ref.watch(forumIdProvider);
-    final username = ref.watch(userProvider);
+    final userInfo = ref.watch(userProvider);
+
+    isMod() => userInfo[1] == '[MODERATOR]';
+
+    directionToDelete() {
+      return isMod()
+          ? DismissDirection.endToStart
+          : DismissDirection.none;
+    }
     return Scaffold(
       appBar: AppBar(
         title: const Text('Thread'),
@@ -41,10 +49,12 @@ class Thread extends ConsumerWidget {
               child: Column(
                 children: [
                   Container(
+                    width: double.infinity,
                     padding: const EdgeInsets.all(20.0),
                     color: Colors.orange.shade600.withOpacity(0.8),
                     child: Text(
                       '${forumId[1]}',
+                      textAlign: TextAlign.center,
                       style: const TextStyle(
                         fontSize: 25,
                       ),
@@ -81,7 +91,7 @@ class Thread extends ConsumerWidget {
                             ),
                             onPressed: () {
                               FetchForumThread()
-                                  .onComment(username, _comment.text, forumId[0]);
+                                  .onComment(userInfo[0], _comment.text, forumId[0]);
                             },
                             child: const Text('Post'),
                           ),
@@ -99,30 +109,81 @@ class Thread extends ConsumerWidget {
                             return ListView.builder(
                               itemCount: snapshot.data!.body!.length,
                               itemBuilder: (context, index) {
-                                return Container(
-                                  padding: const EdgeInsets.all(10),
-                                  margin: const EdgeInsets.only(top: 10),
-                                  color: Colors.amber.shade100.withOpacity(0.8),
-                                  child: Column(
-                                    children: [
-                                      Container(
-                                        decoration: const BoxDecoration(
-                                          border: Border(
-                                            bottom:
-                                                BorderSide(color: Colors.black),
+                                return Dismissible(
+                                   key: Key(snapshot.data?.body![index]?.id! ?? ''),
+                              direction:
+                                  directionToDelete(),
+                              confirmDismiss: (direction) async {
+                                if (isMod()) {
+                                  final bool res = await showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return AlertDialog(
+                                          title: const Text("Confirm"),
+                                          content: const Text(
+                                              "Are you sure you want to delete this item?"),
+                                          actions: [
+                                            TextButton(
+                                              child: const Text("Cancel"),
+                                              onPressed: () =>
+                                                  Navigator.of(context)
+                                                      .pop(false),
+                                            ),
+                                            TextButton(
+                                              child: const Text("Delete"),
+                                              onPressed: () =>
+                                                  Navigator.of(context)
+                                                      .pop(true),
+                                            ),
+                                          ],
+                                        );
+                                      });
+                                  return res;
+                                } else {
+                                  return false;
+                                }
+                              },
+                              onDismissed: (direction) {
+                                print('deleted');
+                              },
+                              background: Container(
+                                color: Colors.red,
+                                child: const Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Padding(
+                                    padding: EdgeInsets.only(left: 20),
+                                    child: Icon(
+                                      Icons.delete,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                                  child: Container(
+                                    padding: const EdgeInsets.all(10),
+                                    margin: const EdgeInsets.only(top: 10),
+                                    color: Colors.amber.shade100.withOpacity(0.8),
+                                    child: Column(
+                                      children: [
+                                        Container(
+                                          decoration: const BoxDecoration(
+                                            border: Border(
+                                              bottom:
+                                                  BorderSide(color: Colors.black),
+                                            ),
                                           ),
+                                          child: Align(
+                                              alignment: Alignment.centerLeft,
+                                              child: Text(
+                                                  '${snapshot.data?.body![index]?.author}')),
                                         ),
-                                        child: Align(
-                                            alignment: Alignment.centerLeft,
-                                            child: Text(
-                                                '${snapshot.data?.body![index]?.author}')),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Text(
-                                            '${snapshot.data?.body![index]?.content}'),
-                                      )
-                                    ],
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Text(
+                                              '${snapshot.data?.body![index]?.content}'),
+                                        )
+                                      ],
+                                    ),
                                   ),
                                 );
                               },
