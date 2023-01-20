@@ -7,7 +7,6 @@ import 'package:slam_dunk/src/controller/sign_in_controller.dart';
 import 'package:slam_dunk/src/provider/user_provider.dart';
 import 'package:slam_dunk/src/provider/user_status_provider.dart';
 import 'package:slam_dunk/src/style/colors.dart';
-import 'package:slam_dunk/src/view/homepage.dart';
 
 class Register extends ConsumerStatefulWidget {
   const Register({super.key});
@@ -190,7 +189,7 @@ class _RegisterState extends ConsumerState<Register> {
                               .then((val) {
                             ref
                                 .read(userProvider.notifier)
-                                .setUserInfo(val.username);
+                                .setUserInfo(val.username, val.role);
 
                             ref
                                 .read(isSignedInProvider.notifier)
