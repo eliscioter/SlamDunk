@@ -19,7 +19,7 @@ class _SignInState extends ConsumerState<SignIn> {
   @override
   Widget build(BuildContext context) {
     closeDialogBox() async {
-      await Future.delayed(const Duration(seconds: 2));
+      await Future.delayed(const Duration(seconds: 4));
     }
 
     return AlertDialog(
@@ -60,7 +60,9 @@ class _SignInState extends ConsumerState<SignIn> {
                 icon: const Icon(Icons.lock_outline),
                 suffixIcon: IconButton(
                   icon: Icon(
-                    showPassword ? Icons.visibility_outlined : Icons.visibility_off_outlined,
+                    showPassword
+                        ? Icons.visibility_outlined
+                        : Icons.visibility_off_outlined,
                     color: Colors.black,
                   ),
                   onPressed: () {
@@ -108,11 +110,13 @@ class _SignInState extends ConsumerState<SignIn> {
                 .read(userController.notifier)
                 .signIn(name.text, password.text)
                 .then((val) {
-              ref.read(userProvider.notifier).setUserInfo(val.username);
+              ref
+                  .read(userProvider.notifier)
+                  .setUserInfo(val.username.toString(), val.role.toString());
 
               ref.read(isSignedInProvider.notifier).isSignedIn(true);
             });
-            
+
             closeDialogBox().then((val) {
               CircularProgressIndicator;
               Navigator.of(context).pop();
