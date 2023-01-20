@@ -23,7 +23,7 @@ class SlamDunk extends ConsumerWidget {
     final routeName = ref.watch(routeNameProvider);
     final isSignedIn = ref.watch(isSignedInProvider);
     final index = ref.watch(screenProvider);
-    final username = ref.watch(userProvider);
+    final userInfo = ref.watch(userProvider);
     const screens = [
       HomePage(),
       Players(),
@@ -63,7 +63,7 @@ class SlamDunk extends ConsumerWidget {
                                   color: Colors.redAccent[700],
                                 ),
                                 accountName: Text(
-                                  username.toString(),
+                                  userInfo[0].toString(),
                                   style: const TextStyle(fontSize: 20),
                                 ),
                                 accountEmail: null,
@@ -94,9 +94,9 @@ class SlamDunk extends ConsumerWidget {
                                           .isSignedIn(false);
                                       ref
                                           .read(userProvider.notifier)
-                                          .setUserInfo('');
+                                          .setUserInfo('', '');
                                       Fluttertoast.showToast(
-                                          msg: '$username signed out',
+                                          msg: '${userInfo[0]} signed out',
                                           toastLength: Toast.LENGTH_SHORT,
                                           gravity: ToastGravity.BOTTOM,
                                           timeInSecForIosWeb: 1,
