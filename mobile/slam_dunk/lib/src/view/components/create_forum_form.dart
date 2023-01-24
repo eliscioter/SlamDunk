@@ -37,7 +37,7 @@ class _ForumFormState extends ConsumerState<ForumForm> {
 
   @override
   Widget build(BuildContext context) {
-    final username = ref.watch(userProvider);
+    final userInfo = ref.watch(userProvider);
 
     return GestureDetector(
       onTap: () {
@@ -109,10 +109,10 @@ class _ForumFormState extends ConsumerState<ForumForm> {
             onPressed: () async {
               Map<String, dynamic> form = {
                 "title": title.text,
-                "primary_author": username,
+                "primary_author": userInfo[0],
                 "body": [
                   {
-                    "author": username,
+                    "author": userInfo[0],
                     "content": content.text,
                   }
                 ]
@@ -128,20 +128,37 @@ class _ForumFormState extends ConsumerState<ForumForm> {
                     fontSize: 16.0);
                 return;
               }
-              Navigator.of(context).pop();
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => Thread(),
-                ),
-              );
-              Fluttertoast.showToast(
-                  msg: "Error.",
-                  toastLength: Toast.LENGTH_SHORT,
-                  gravity: ToastGravity.BOTTOM,
-                  timeInSecForIosWeb: 1,
-                  backgroundColor: Colors.red,
-                  textColor: Colors.white,
-                  fontSize: 16.0);
+              try {
+                Navigator.of(context).pop();
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => Thread(),
+                  ),
+                );
+                Fluttertoast.showToast(
+                    msg: "Sucessfully created.",
+                    toastLength: Toast.LENGTH_SHORT,
+                    gravity: ToastGravity.BOTTOM,
+                    timeInSecForIosWeb: 1,
+                    backgroundColor: Colors.red,
+                    textColor: Colors.white,
+                    fontSize: 16.0);
+              } catch (e) {
+                Navigator.of(context).pop();
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => Thread(),
+                  ),
+                );
+                Fluttertoast.showToast(
+                    msg: "Sucessfully created.",
+                    toastLength: Toast.LENGTH_SHORT,
+                    gravity: ToastGravity.BOTTOM,
+                    timeInSecForIosWeb: 1,
+                    backgroundColor: Colors.red,
+                    textColor: Colors.white,
+                    fontSize: 16.0);
+              }
             },
             child: const Text('Create'),
           ),
