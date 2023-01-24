@@ -5,12 +5,10 @@ import 'package:slam_dunk/src/services/forum_thread_service.dart';
 
 class FetchForumThread {
   Future<Thread?> displayThread(String id) async {
-    var response = await ForumThreadService().getForum(id).catchError((err) {
-      throw Exception('error: $err');
-    });
-    if (response == null) {
-      return null;
-    }
+    var response = await ForumThreadService()
+        .getForum(id)
+        .catchError((err) => throw Exception('error: $err'));
+    if (response == null) return null;
     Thread? thread = threadFromJson(jsonEncode(response));
     return thread;
   }
@@ -19,9 +17,13 @@ class FetchForumThread {
     var response = await ForumThreadService()
         .createComment(author, body, id)
         .catchError((err) => throw Exception('error: $err'));
+    if (response == null) return null;
+  }
 
-    if (!response) {
-      throw Exception('error creating');
-    }
+  onDelete(String forumId, String messageId) async {
+    var response = await ForumThreadService()
+        .deleteComment(forumId, messageId)
+        .catchError((err) => throw Exception('error: $err'));
+    if (response == null) return null;
   }
 }

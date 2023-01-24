@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:slam_dunk/src/controller/forum_thread.dart';
 import 'package:slam_dunk/src/provider/forum_provider.dart';
 import 'package:slam_dunk/src/provider/user_provider.dart';
@@ -19,10 +20,9 @@ class Thread extends ConsumerWidget {
     isMod() => userInfo[1] == '[MODERATOR]';
 
     directionToDelete() {
-      return isMod()
-          ? DismissDirection.endToStart
-          : DismissDirection.none;
+      return isMod() ? DismissDirection.endToStart : DismissDirection.none;
     }
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Thread'),
@@ -90,8 +90,8 @@ class Thread extends ConsumerWidget {
                               backgroundColor: Colors.orange,
                             ),
                             onPressed: () {
-                              FetchForumThread()
-                                  .onComment(userInfo[0], _comment.text, forumId[0]);
+                              FetchForumThread().onComment(
+                                  userInfo[0], _comment.text, forumId[0]);
                             },
                             child: const Text('Post'),
                           ),
@@ -110,66 +110,92 @@ class Thread extends ConsumerWidget {
                               itemCount: snapshot.data!.body!.length,
                               itemBuilder: (context, index) {
                                 return Dismissible(
-                                   key: Key(snapshot.data?.body![index]?.id! ?? ''),
-                              direction:
-                                  directionToDelete(),
-                              confirmDismiss: (direction) async {
-                                if (isMod()) {
-                                  final bool res = await showDialog(
-                                      context: context,
-                                      builder: (BuildContext context) {
-                                        return AlertDialog(
-                                          title: const Text("Confirm"),
-                                          content: const Text(
-                                              "Are you sure you want to delete this item?"),
-                                          actions: [
-                                            TextButton(
-                                              child: const Text("Cancel"),
-                                              onPressed: () =>
-                                                  Navigator.of(context)
-                                                      .pop(false),
-                                            ),
-                                            TextButton(
-                                              child: const Text("Delete"),
-                                              onPressed: () =>
-                                                  Navigator.of(context)
-                                                      .pop(true),
-                                            ),
-                                          ],
-                                        );
-                                      });
-                                  return res;
-                                } else {
-                                  return false;
-                                }
-                              },
-                              onDismissed: (direction) {
-                                print('deleted');
-                              },
-                              background: Container(
-                                color: Colors.red,
-                                child: const Align(
-                                  alignment: Alignment.centerRight,
-                                  child: Padding(
-                                    padding: EdgeInsets.only(left: 20),
-                                    child: Icon(
-                                      Icons.delete,
-                                      color: Colors.white,
+                                  key: Key(
+                                      snapshot.data?.body![index]?.id! ?? ''),
+                                  direction: directionToDelete(),
+                                  confirmDismiss: (direction) async {
+                                    if (isMod()) {
+                                      final bool res = await showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            return AlertDialog(
+                                              title: const Text("Confirm"),
+                                              content: const Text(
+                                                  "Are you sure you want to delete this item?"),
+                                              actions: [
+                                                TextButton(
+                                                  child: const Text("Cancel"),
+                                                  onPressed: () =>
+                                                      Navigator.of(context)
+                                                          .pop(false),
+                                                ),
+                                                TextButton(
+                                                  child: const Text("Delete"),
+                                                  onPressed: () =>
+                                                      Navigator.of(context)
+                                                          .pop(true),
+                                                ),
+                                              ],
+                                            );
+                                          });
+                                      return res;
+                                    } else {
+                                      return false;
+                                    }
+                                  },
+                                  onDismissed: (direction) {
+                                    FetchForumThread()
+                                        .onDelete(
+                                            forumId[0],
+                                            snapshot.data?.body![index]?.id! ??
+                                                '')
+                                        .then((_) {
+                                      Fluttertoast.showToast(
+                                          msg: "Deleted comment",
+                                          toastLength: Toast.LENGTH_SHORT,
+                                          gravity: ToastGravity.BOTTOM,
+                                          timeInSecForIosWeb: 1,
+                                          backgroundColor: Colors.red,
+                                          textColor: Colors.white,
+                                          fontSize: 16.0);
+                                      return;
+                                    }).catchError((err) {
+                                      Fluttertoast.showToast(
+                                          msg: "$err",
+                                          toastLength: Toast.LENGTH_SHORT,
+                                          gravity: ToastGravity.BOTTOM,
+                                          timeInSecForIosWeb: 1,
+                                          backgroundColor: Colors.red,
+                                          textColor: Colors.white,
+                                          fontSize: 16.0);
+                                      return;
+                                    });
+                                  },
+                                  background: Container(
+                                    color: Colors.red,
+                                    child: const Align(
+                                      alignment: Alignment.centerRight,
+                                      child: Padding(
+                                        padding: EdgeInsets.only(left: 20),
+                                        child: Icon(
+                                          Icons.delete,
+                                          color: Colors.white,
+                                        ),
+                                      ),
                                     ),
                                   ),
-                                ),
-                              ),
                                   child: Container(
                                     padding: const EdgeInsets.all(10),
                                     margin: const EdgeInsets.only(top: 10),
-                                    color: Colors.amber.shade100.withOpacity(0.8),
+                                    color:
+                                        Colors.amber.shade100.withOpacity(0.8),
                                     child: Column(
                                       children: [
                                         Container(
                                           decoration: const BoxDecoration(
                                             border: Border(
-                                              bottom:
-                                                  BorderSide(color: Colors.black),
+                                              bottom: BorderSide(
+                                                  color: Colors.black),
                                             ),
                                           ),
                                           child: Align(

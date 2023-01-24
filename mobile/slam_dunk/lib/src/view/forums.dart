@@ -20,9 +20,7 @@ class Forum extends ConsumerWidget {
     isMod() => userInfo[1] == '[MODERATOR]';
 
     directionToDelete() {
-      return isMod()
-          ? DismissDirection.endToStart
-          : DismissDirection.none;
+      return isMod() ? DismissDirection.endToStart : DismissDirection.none;
     }
 
     return Scaffold(
@@ -65,8 +63,7 @@ class Forum extends ConsumerWidget {
                           itemBuilder: (context, index) {
                             return Dismissible(
                               key: Key(snapshot.data![index].id!),
-                              direction:
-                                  directionToDelete(),
+                              direction: directionToDelete(),
                               confirmDismiss: (direction) async {
                                 if (isMod()) {
                                   final bool res = await showDialog(
@@ -97,8 +94,28 @@ class Forum extends ConsumerWidget {
                                   return false;
                                 }
                               },
-                              onDismissed: (direction) {
-                                print('deleted');
+                              onDismissed: (direction) async {
+                                await FetchForums()
+                                    .onDeleteForum(snapshot.data![index].id!)
+                                    .then((_) {
+                                  Fluttertoast.showToast(
+                                      msg: "Deleted ${snapshot.data![index].title}",
+                                      toastLength: Toast.LENGTH_SHORT,
+                                      gravity: ToastGravity.BOTTOM,
+                                      timeInSecForIosWeb: 1,
+                                      backgroundColor: Colors.red,
+                                      textColor: Colors.white,
+                                      fontSize: 16.0);
+                                }).catchError((err) {
+                                  Fluttertoast.showToast(
+                                      msg: "$err",
+                                      toastLength: Toast.LENGTH_SHORT,
+                                      gravity: ToastGravity.BOTTOM,
+                                      timeInSecForIosWeb: 1,
+                                      backgroundColor: Colors.red,
+                                      textColor: Colors.white,
+                                      fontSize: 16.0);
+                                });
                               },
                               background: Container(
                                 color: Colors.red,
