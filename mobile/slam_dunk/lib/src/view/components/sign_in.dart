@@ -15,116 +15,115 @@ class SignIn extends ConsumerStatefulWidget {
 class _SignInState extends ConsumerState<SignIn> {
   TextEditingController name = TextEditingController(),
       password = TextEditingController();
-  bool showPassword = false;
+  bool showPassword = false, flag = false;
   @override
   Widget build(BuildContext context) {
-    closeDialogBox() async {
-      await Future.delayed(const Duration(seconds: 4));
-    }
-
-    return AlertDialog(
-      title: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          const Text('Sign in'),
-          InkWell(
-            onTap: () {
-              Navigator.of(context).pop();
-            },
-            child: const Icon(Icons.close),
-          ),
-        ],
-      ),
-      content: SingleChildScrollView(
-        child: ListBody(
-          children: [
-            TextFormField(
-              decoration: const InputDecoration(
-                labelText: 'Username',
-                icon: Icon(Icons.account_box_outlined),
-                labelStyle: TextStyle(color: Colors.black),
-                enabledBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(
-                    color: Colors.black,
-                  ),
-                ),
-                focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.orange),
-                ),
-              ),
-              controller: name,
-            ),
-            TextFormField(
-              decoration: InputDecoration(
-                labelText: 'Password',
-                icon: const Icon(Icons.lock_outline),
-                suffixIcon: IconButton(
-                  icon: Icon(
-                    showPassword
-                        ? Icons.visibility_outlined
-                        : Icons.visibility_off_outlined,
-                    color: Colors.black,
-                  ),
-                  onPressed: () {
-                    setState(() {
-                      showPassword = !showPassword;
-                    });
+    return !flag
+        ? AlertDialog(
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text('Sign in'),
+                InkWell(
+                  onTap: () {
+                    Navigator.of(context).pop();
                   },
+                  child: const Icon(Icons.close),
                 ),
-                labelStyle: const TextStyle(color: Colors.black),
-                enabledBorder: const UnderlineInputBorder(
-                  borderSide: BorderSide(
-                    color: Colors.black,
-                  ),
-                ),
-                focusedBorder: const UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.orange),
-                ),
-              ),
-              obscureText: !showPassword,
-              controller: password,
+              ],
             ),
-          ],
-        ),
-      ),
-      actions: [
-        TextButton(
-          child: const Text(
-            'No account?',
-            style: TextStyle(color: Colors.black),
-          ),
-          onPressed: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => const Register(),
+            content: SingleChildScrollView(
+              child: ListBody(
+                children: [
+                  TextFormField(
+                    decoration: const InputDecoration(
+                      labelText: 'Username',
+                      icon: Icon(Icons.account_box_outlined),
+                      labelStyle: TextStyle(color: Colors.black),
+                      enabledBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Colors.black,
+                        ),
+                      ),
+                      focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.orange),
+                      ),
+                    ),
+                    controller: name,
+                  ),
+                  TextFormField(
+                    decoration: InputDecoration(
+                      labelText: 'Password',
+                      icon: const Icon(Icons.lock_outline),
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          showPassword
+                              ? Icons.visibility_outlined
+                              : Icons.visibility_off_outlined,
+                          color: Colors.black,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            showPassword = !showPassword;
+                          });
+                        },
+                      ),
+                      labelStyle: const TextStyle(color: Colors.black),
+                      enabledBorder: const UnderlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Colors.black,
+                        ),
+                      ),
+                      focusedBorder: const UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.orange),
+                      ),
+                    ),
+                    obscureText: !showPassword,
+                    controller: password,
+                  ),
+                ],
               ),
-            );
-          },
-        ),
-        ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.orange[900], // Background color
-          ),
-          onPressed: () {
-            ref
-                .read(userController.notifier)
-                .signIn(name.text, password.text)
-                .then((val) {
-              ref
-                  .read(userProvider.notifier)
-                  .setUserInfo(val.username.toString(), val.role.toString());
+            ),
+            actions: [
+              TextButton(
+                child: const Text(
+                  'No account?',
+                  style: TextStyle(color: Colors.black),
+                ),
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const Register(),
+                    ),
+                  );
+                },
+              ),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.orange[900], // Background color
+                ),
+                onPressed: () {
+                  setState(() {
+                    flag = true;
+                  });
+                  ref
+                      .read(userController.notifier)
+                      .signIn(name.text, password.text)
+                      .then((val) {
+                    ref.read(userProvider.notifier).setUserInfo(
+                        val.username.toString(), val.role[0].toString());
 
-              ref.read(isSignedInProvider.notifier).isSignedIn(true);
-            });
-
-            closeDialogBox().then((val) {
-              CircularProgressIndicator;
-              Navigator.of(context).pop();
-            });
-          },
-          child: const Text('Sign in'),
-        ),
-      ],
-    );
+                    ref.read(isSignedInProvider.notifier).isSignedIn(true);
+                  }).then((_) {
+                    Navigator.of(context).pop();
+                  }).catchError((err) {
+                    throw Exception(err);
+                  });
+                },
+                child: const Text('Sign in'),
+              ),
+            ],
+          )
+        : const Center(child: CircularProgressIndicator());
   }
 }
