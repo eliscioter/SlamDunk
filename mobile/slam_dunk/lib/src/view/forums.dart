@@ -17,7 +17,7 @@ class Forum extends ConsumerWidget {
     final isSignedIn = ref.watch(isSignedInProvider);
     final userInfo = ref.watch(userProvider);
 
-    isMod() => userInfo[1] == '[MODERATOR]';
+    isMod() => userInfo[1] == 'MODERATOR';
 
     directionToDelete() {
       return isMod() ? DismissDirection.endToStart : DismissDirection.none;
