@@ -136,7 +136,6 @@ class _ContactState extends State<Contact> {
                                         fontSize: 16.0);
                                     return;
                                   }
-                                  print('$_name $_email $_message');
                                 },
                                 child: const Text('Submit'),
                               ),
