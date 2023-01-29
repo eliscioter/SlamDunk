@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:slam_dunk/src/provider/route_name_provider.dart';
 import 'package:slam_dunk/src/provider/screen_provider.dart';
@@ -15,11 +16,35 @@ import 'package:slam_dunk/src/view/homepage.dart';
 import 'package:slam_dunk/src/view/players.dart';
 import 'package:slam_dunk/src/view/traits.dart';
 
-class SlamDunk extends ConsumerWidget {
+class SlamDunk extends ConsumerStatefulWidget {
   const SlamDunk({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<SlamDunk> createState() => _SlamDunkState();
+}
+
+class _SlamDunkState extends ConsumerState<SlamDunk> {
+  @override
+  void initState() {
+    super.initState();
+    getUserInfo();
+  }
+
+  getUserInfo() async {
+    const storage = FlutterSecureStorage();
+    if (await storage.containsKey(key: 'accessToken')) {
+      String username = (await storage.read(key: 'username'))!;
+      String role = (await storage.read(key: 'role'))!;
+      ref.read(userProvider.notifier).setUserInfo(username, role);
+      ref.read(isSignedInProvider.notifier).isSignedIn(true);
+    } else {
+      ref.read(userProvider.notifier).setUserInfo('', '');
+      ref.read(isSignedInProvider.notifier).isSignedIn(false);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final routeName = ref.watch(routeNameProvider);
     final isSignedIn = ref.watch(isSignedInProvider);
     final index = ref.watch(screenProvider);

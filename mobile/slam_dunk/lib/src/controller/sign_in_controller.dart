@@ -15,16 +15,17 @@ class Authentication extends StateNotifier<Member> {
         await SignInService().auth(username, password).catchError((err) {
       throw Exception('error: $err');
     });
-
     Member user = memberFromJson(jsonEncode(response));
 
     if (await _storage.containsKey(key: 'accessToken') ||
-        await _storage.containsKey(key: 'refreshToken')) {
+        await _storage.containsKey(key: 'token')) {
       _storage.deleteAll();
     }
     await _storage.write(key: 'accessToken', value: user.accessToken);
     await _storage.write(key: 'refreshToken', value: user.refreshToken);
-
+    await _storage.write(key: 'username', value: user.username);
+    await _storage.write(key: 'role', value: user.role![0]);
+    
     return user;
   }
 
