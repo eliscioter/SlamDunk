@@ -1,6 +1,6 @@
 <div *ngFor="let forum of forums; let i = index">
     <div class="d-flex justify-content-end">
-        <fa-icon *ngIf="verifyRole()" [icon]="faTrash" class="delete-button ms-3" (click)="onDelete(forum)"></fa-icon> 
+        <fa-icon *ngIf="verifyRole()" [icon]="faTrash" class="delete-button ms-3" (click)="onDelete(forum, i)"></fa-icon> 
     </div>
     <a (click)="verifyAuth(forums[i]._id)" class="text-decoration-none" >
         <div class="d-flex align-items-center flex-wrap border rounded px-3 mb-2 pb-3">
