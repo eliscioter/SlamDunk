@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { ToastrService } from 'ngx-toastr';
+import * as io from 'socket.io-client'
 
 import { UserService } from '../../services/user/user.service';
 import { ForumService } from '../../services/forum/forum.service';
@@ -18,18 +19,34 @@ export class ForumsComponent implements OnInit {
   forum_id!: string
   forum_author!: string
   faTrash = faTrash;
+  private socket: any;
+
 
   constructor(private forum: ForumService, protected user: UserService, private router: Router, private toast: ToastrService) { }
 
   ngOnInit(): void {
+    this.displayForums()
+  }
+
+  displayForums() {
+    this.socket = io.io(`http://localhost:5003`);
+    
     this.forum.getForums().subscribe({
       next: (data) => {
-            this.forums = data.reverse()
-            for (let item = 0; item < data.length; item++) {
-              this.forum_id = (data[item]._id)
-              this.forumCreated.push(new Date(data[item].createdAt).toUTCString())
-            }
-      }
+        this.socket.on('receive-forum', (forumContent: Forum) => {
+          this.forums.unshift(forumContent)
+        })
+        this.socket.on('receive-new-forums', (forums: Forum[]) => {
+          this.forums.splice(0, this.forums.length, ...forums)
+        })
+        console.log(this.forums)
+        this.forums = data.reverse()
+        for (let item = 0; item < data.length; item++) {
+          this.forum_id = (data[item]._id)
+          this.forumCreated.push(new Date(data[item].createdAt).toUTCString())
+          
+        }
+      }, error: () => this.toast.error('Something went wrong')
     })
   }
 
@@ -42,11 +59,14 @@ export class ForumsComponent implements OnInit {
     return this.user.getRole()?.includes('MODERATOR')
   }
 
-  onDelete(forum: Forum) {
-    this.forum.deleteForum(forum).subscribe({
+  onDelete(deletedForum: Forum, index: number) {
+    this.socket = io.io(`http://localhost:5003`);
+
+    this.forum.deleteForum(deletedForum).subscribe({
       next: () => {
-        this.forums = this.forums.filter(forum => forum._id !== forum._id)
-        location.reload()
+        this.forums = this.forums.filter(forum => forum._id !== deletedForum._id)
+        this.socket.emit('forum', this.forums, true)
+        this.toast.success(`${deletedForum.title} deleted successfully`)
       },
       error: () => this.toast.error('Something went wrong')
     })
