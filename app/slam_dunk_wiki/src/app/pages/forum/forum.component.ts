@@ -45,7 +45,8 @@ export class ForumComponent implements OnInit {
     this.forumService.createForum(forum).subscribe({
       next: (data) => {
         this.router.navigate(['/forum/thread', data._id])
-        this.socket = io.io(`http://localhost:5003`)
+        // this.socket = io.io(`http://localhost:5003`)
+        this.socket = io.io(`https://slamdunkforum.onrender.com`)
         this.socket.emit('forum', forum, false)
       },
       error: () => {

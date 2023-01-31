@@ -32,7 +32,8 @@ export class ThreadComponent implements OnInit {
   }
 
   onDelete(deletedComment: Body) {
-    this.socket = io.io(`http://localhost:5003`);
+    // this.socket = io.io(`http://localhost:5003`)
+    this.socket = io.io(`https://slamdunkforum.onrender.com`)
 
     this.forumService.deleteComment(this.id, deletedComment).subscribe({
       next: () => {

@@ -29,7 +29,8 @@ export class ForumsComponent implements OnInit {
   }
 
   displayForums() {
-    this.socket = io.io(`http://localhost:5003`);
+    // this.socket = io.io(`http://localhost:5003`)
+    this.socket = io.io(`https://slamdunkforum.onrender.com`)
     
     this.forum.getForums().subscribe({
       next: (data) => {
@@ -60,7 +61,8 @@ export class ForumsComponent implements OnInit {
   }
 
   onDelete(deletedForum: Forum, index: number) {
-    this.socket = io.io(`http://localhost:5003`);
+    // this.socket = io.io(`http://localhost:5003`)
+    this.socket = io.io(`https://slamdunkforum.onrender.com`)
 
     this.forum.deleteForum(deletedForum).subscribe({
       next: () => {
