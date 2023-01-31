@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { ToastrService } from 'ngx-toastr';
+import * as io from 'socket.io-client'
 
 import { UserService } from 'src/app/services/user/user.service';
 import { ForumService } from 'src/app/services/forum/forum.service';
@@ -17,6 +18,7 @@ export class ThreadComponent implements OnInit {
   faTrash = faTrash;
   id!: string;
   @Input() forum: Body[] = []
+  private socket: any;
 
   constructor(protected user: UserService, private forumService: ForumService, private route: ActivatedRoute, private toast: ToastrService) {
     this.id = this.route.snapshot.params['id'];
@@ -29,12 +31,14 @@ export class ThreadComponent implements OnInit {
     return this.user.getRole()?.includes('MODERATOR')
   }
 
-  onDelete(forum: Body) {
-    this.forumService.deleteComment(this.id, forum).subscribe({
+  onDelete(deletedComment: Body) {
+    this.socket = io.io(`http://localhost:5003`);
+
+    this.forumService.deleteComment(this.id, deletedComment).subscribe({
       next: () => {
-        this.forum = this.forum.filter(forum => forum._id !== forum._id)
-        this.toast.success(`${forum.content} deleted successfully`)
-        location.reload()
+        this.forum = this.forum.filter(forum => forum._id !== deletedComment._id)
+        this.socket.emit('thread', this.id, this.forum, true)
+        this.toast.success(`${deletedComment.content} deleted successfully`)
       },
       error: () => this.toast.error('Something went wrong')
     })
