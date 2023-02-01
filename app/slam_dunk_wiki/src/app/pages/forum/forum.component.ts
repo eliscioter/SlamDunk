@@ -47,7 +47,7 @@ export class ForumComponent implements OnInit {
         this.router.navigate(['/forum/thread', data._id])
         // this.socket = io.io(`http://localhost:5003`)
         this.socket = io.io(`https://slamdunkforum.onrender.com`)
-        this.socket.emit('forum', forum, false)
+        this.socket.emit('forum', forum, data._id, false)
       },
       error: () => {
         this.toast.error('Something went wrong')
