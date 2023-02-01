@@ -58,14 +58,14 @@ export class ForumsComponent implements OnInit {
     return this.user.getRole()?.includes('MODERATOR')
   }
 
-  onDelete(deletedForum: Forum, index: number) {
+  onDelete(deletedForum: Forum) {
     // this.socket = io.io(`http://localhost:5003`)
     this.socket = io.io(`https://slamdunkforum.onrender.com`)
 
     this.forum.deleteForum(deletedForum).subscribe({
       next: () => {
         this.forums = this.forums.filter(forum => forum._id !== deletedForum._id)
-        this.socket.emit('forum', this.forums, true)
+        this.socket.emit('forum', this.forums, deletedForum._id ,true)
         this.toast.success(`${deletedForum.title} deleted successfully`)
       },
       error: () => this.toast.error('Something went wrong')
