@@ -37,12 +37,12 @@ server.listen(PORT, () => console.log(`Listening to port ${PORT}...`))
 mongoose.connect(DB_URI, () => console.log(`Connected to the database...`))
 
 io.on("connection", (socket) => {
-    socket.on('forum', (msg, withDeletedForum) => {
+    socket.on('forum', (msg, id, withDeletedForum) => {
         if(withDeletedForum) {
             socket.broadcast.emit('receive-new-forums', msg)
             return
         }
-        socket.broadcast.emit('receive-forum', msg)
+        socket.broadcast.emit('receive-forum', msg, id)
     })
     socket.on('join-thread', thread => {
         socket.join(thread)

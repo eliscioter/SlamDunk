@@ -21,7 +21,6 @@ export class ForumsComponent implements OnInit {
   faTrash = faTrash;
   private socket: any;
 
-
   constructor(private forum: ForumService, protected user: UserService, private router: Router, private toast: ToastrService) { }
 
   ngOnInit(): void {
@@ -34,16 +33,15 @@ export class ForumsComponent implements OnInit {
     
     this.forum.getForums().subscribe({
       next: (data) => {
-        this.socket.on('receive-forum', (forumContent: Forum) => {
-          this.forums.unshift(forumContent)
+        this.socket.on('receive-forum', (forumContent: Forum, id: string) => {
+          this.forums.unshift({...forumContent, _id: id})
         })
         this.socket.on('receive-new-forums', (forums: Forum[]) => {
           this.forums.splice(0, this.forums.length, ...forums)
         })
-        console.log(this.forums)
         this.forums = data.reverse()
         for (let item = 0; item < data.length; item++) {
-          this.forum_id = (data[item]._id)
+          this.forum_id = data[item]._id
           this.forumCreated.push(new Date(data[item].createdAt).toUTCString())
           
         }
