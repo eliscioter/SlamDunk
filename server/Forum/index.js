@@ -48,7 +48,6 @@ io.on("connection", (socket) => {
         socket.join(thread)
     })
     socket.on('thread', (thread, msg, withDeletedComment) => {
-        console.log(withDeletedComment)
         if(withDeletedComment) {
             socket.to(thread).emit('new-comment', msg)
             return
