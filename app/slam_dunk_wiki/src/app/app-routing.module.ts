@@ -46,7 +46,7 @@ const routes: Routes = [
       { path: 'admin/traits', component: TraitsAdminComponent, data: {title: 'Admin | Traits'}, canActivate: [AdminGuard] },
     ]  
   },
-  { path: 'player/:id', component: PlayerDasboardComponent, canActivate: [AuthGuard]},
+  { path: 'player/:id', component: PlayerDasboardComponent},
   { path: 'thanks', component: ThanksComponent },
   { path: '**', component: ErrorComponent, data: { title: 'Error' }}
   
