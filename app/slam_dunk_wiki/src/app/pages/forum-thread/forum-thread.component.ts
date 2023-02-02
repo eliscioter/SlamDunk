@@ -37,8 +37,8 @@ export class ForumThreadComponent implements OnInit {
       this.toast.info('You must be logged in')
       return 
     }
-    this.socket = io.io(`http://localhost:5003`)
-    // this.socket = io.io(`https://slamdunkforum.onrender.com`)
+    // this.socket = io.io(`http://localhost:5003`)
+    this.socket = io.io(`https://slamdunkforum.onrender.com`)
 
     this.socket.emit('join-thread', this.id)
     this.forumService.getForum(this.id).subscribe({
@@ -88,8 +88,8 @@ export class ForumThreadComponent implements OnInit {
     this.forumService.commentForum(comment, this.id).subscribe({
       next: () => {
         this.comment = ''
-        this.socket = io.io(`http://localhost:5003`)
-        // this.socket = io.io(`https://slamdunkforum.onrender.com`)
+        // this.socket = io.io(`http://localhost:5003`)
+        this.socket = io.io(`https://slamdunkforum.onrender.com`)
         this.socket.emit('thread', this.id, comment, false)
         this.displayThread(false)
       }, error: (error) => {
