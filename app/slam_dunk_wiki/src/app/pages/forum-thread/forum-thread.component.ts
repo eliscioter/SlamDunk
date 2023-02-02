@@ -37,30 +37,15 @@ export class ForumThreadComponent implements OnInit {
       this.toast.info('You must be logged in')
       return 
     }
+    
+      
     // this.socket = io.io(`http://localhost:5003`)
     this.socket = io.io(`https://slamdunkforum.onrender.com`)
 
     this.socket.emit('join-thread', this.id)
     this.forumService.getForum(this.id).subscribe({
-
-      next: comment => {
-        this.socket.on('comment', (newComment: Comment) => {
-          const comment: Body = {
-            author: newComment.body.author,
-            content: newComment.body.content,
-            title: '',
-            primary_author: '',
-            body: []
-          };
-          this.data.push(comment)
-
-        })
-        this.socket.on('new-comment', (newComment: Body[]) => {
-          this.data.splice(0, this.data.length, ...newComment)
-        })
-        this.data = comment.body
-        this.title = comment.title
-        this.author = this.userService.getUsername()
+      next: comment => 
+      {
         if(window.localStorage) {
           if( !localStorage.getItem('firstLoad') ) {
             localStorage['firstLoad'] = true;
@@ -69,8 +54,27 @@ export class ForumThreadComponent implements OnInit {
           else 
             localStorage.removeItem('firstLoad');
         }
+        this.socket.on('comment', (newComment: Comment) => {
+          console.log(comment.body[(comment.body.length - 1)])
+          const sendComment: Body = {
+            author: newComment.body.author,
+            content: newComment.body.content,
+            title: '',
+            primary_author: '',
+            body: []
+          };
+          this.data.push(sendComment)
+          
+        })
+        this.socket.on('new-comment', (newComment: Body[]) => {
+          this.data.splice(0, this.data.length, ...newComment)
+          
+        })
+        this.data = comment.body
+        this.title = comment.title
+        this.author = this.userService.getUsername()
+        
       }, error: () => this.toast.error('Something went wrong')
-      
       
     })
   }
@@ -88,6 +92,7 @@ export class ForumThreadComponent implements OnInit {
         // this.socket = io.io(`http://localhost:5003`)
         this.socket = io.io(`https://slamdunkforum.onrender.com`)
         this.socket.emit('thread', this.id, comment, false)
+        this.displayThread()
       }, error: (error) => {
         error.statusText === 'Unauthorized' ? this.toast.info('You need to sign in first') : error
       }
