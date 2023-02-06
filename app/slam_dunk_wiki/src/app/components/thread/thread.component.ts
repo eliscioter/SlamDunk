@@ -30,18 +30,23 @@ export class ThreadComponent implements OnInit {
   verifyRole(): boolean {
     return this.user.getRole()?.includes('MODERATOR')
   }
-
+  
   onDelete(deletedComment: Body) {
     // this.socket = io.io(`http://localhost:5003`)
     this.socket = io.io(`https://slamdunkforum.onrender.com`)
+    this.callDelete(deletedComment)
+  }
 
+  callDelete(deletedComment: Body) {
     this.forumService.deleteComment(this.id, deletedComment).subscribe({
       next: () => {
         this.forum = this.forum.filter(forum => forum._id !== deletedComment._id)
         this.socket.emit('thread', this.id, this.forum, true)
         this.toast.success(`${deletedComment.content} deleted successfully`)
       },
-      error: () => this.toast.error('Something went wrong')
+      error: () => {
+        this.toast.error('Something went wrong')
+      }
     })
   }
 }

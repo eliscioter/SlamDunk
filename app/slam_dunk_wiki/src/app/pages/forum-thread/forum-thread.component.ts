@@ -39,20 +39,13 @@ export class ForumThreadComponent implements OnInit {
     }
     // this.socket = io.io(`http://localhost:5003`)
     this.socket = io.io(`https://slamdunkforum.onrender.com`)
-
+    
     this.socket.emit('join-thread', this.id)
     this.forumService.getForum(this.id).subscribe({
       next: comment => 
       {
         if(reload) {
-          if(window.localStorage) {
-            if( !localStorage.getItem('firstLoad') ) {
-              localStorage['firstLoad'] = true;
-              window.location.reload();
-            }  
-            else 
-              localStorage.removeItem('firstLoad');
-          }
+          this.socket.emit('thread', this.id, comment.body, true)
         }
         this.socket.on('comment', (newComment: Comment) => {
           const sendComment: Body = {
@@ -63,16 +56,16 @@ export class ForumThreadComponent implements OnInit {
             body: []
           };
           this.data.push(sendComment)
-          
         })
         this.socket.on('new-comment', (newComment: Body[]) => {
-          this.data.splice(0, this.data.length, ...newComment)
-          
+          this.data = newComment
+          return
         })
+        
         this.data = comment.body
+        console.log(this.data)
         this.title = comment.title
         this.author = this.userService.getUsername()
-        
       }, error: () => this.toast.error('Something went wrong')
       
     })
@@ -91,7 +84,7 @@ export class ForumThreadComponent implements OnInit {
         // this.socket = io.io(`http://localhost:5003`)
         this.socket = io.io(`https://slamdunkforum.onrender.com`)
         this.socket.emit('thread', this.id, comment, false)
-        this.displayThread(false)
+        this.displayThread(true)
       }, error: (error) => {
         error.statusText === 'Unauthorized' ? this.toast.info('You need to sign in first') : error
       }
