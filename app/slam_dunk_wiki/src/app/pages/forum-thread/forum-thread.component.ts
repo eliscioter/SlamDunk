@@ -46,6 +46,10 @@ export class ForumThreadComponent implements OnInit {
       {
         if(reload) {
           this.socket.emit('thread', this.id, comment.body, true)
+          this.socket.on('new-comment', (newComment: Body[]) => {
+            this.data = newComment
+            return
+          })
         }
         this.socket.on('comment', (newComment: Comment) => {
           const sendComment: Body = {
@@ -57,13 +61,8 @@ export class ForumThreadComponent implements OnInit {
           };
           this.data.push(sendComment)
         })
-        this.socket.on('new-comment', (newComment: Body[]) => {
-          this.data = newComment
-          return
-        })
         
         this.data = comment.body
-        console.log(this.data)
         this.title = comment.title
         this.author = this.userService.getUsername()
       }, error: () => this.toast.error('Something went wrong')
