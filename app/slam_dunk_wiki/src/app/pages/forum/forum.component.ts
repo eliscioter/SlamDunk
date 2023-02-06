@@ -1,35 +1,36 @@
-import { Component, OnInit } from '@angular/core';
-import { faPlusSquare } from '@fortawesome/free-regular-svg-icons';
-import { Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
+import { Component, OnInit } from '@angular/core'
+import { faPlusSquare } from '@fortawesome/free-regular-svg-icons'
+import { Router } from '@angular/router'
+import { ToastrService } from 'ngx-toastr'
 import * as io from 'socket.io-client'
 
-
 import { CreateForum } from '../../interfaces/CreateForum'
-import { MemberService }  from '../../services/member/member.service'
-import { ForumService } from '../../services/forum/forum.service';
-import { UserService } from 'src/app/services/user/user.service';
+import { MemberService } from '../../services/member/member.service'
+import { ForumService } from '../../services/forum/forum.service'
+import { UserService } from 'src/app/services/user/user.service'
+
+declare var $: any;
 @Component({
   selector: 'app-forum',
   templateUrl: './forum.component.html',
-  styleUrls: ['./forum.component.css']
+  styleUrls: ['./forum.component.css'],
 })
-export class ForumComponent implements OnInit {
 
+export class ForumComponent implements OnInit {
   faPlusSquare = faPlusSquare
   title!: string
   content!: string
-  private socket: any;
+  private socket: any
 
-  constructor(protected member: MemberService, 
-    protected user: UserService, 
-    private forumService: ForumService, 
+  constructor(
+    protected member: MemberService,
+    protected user: UserService,
+    private forumService: ForumService,
     private router: Router,
-    private toast: ToastrService) { }
+    private toast: ToastrService
+  ) {}
 
-  ngOnInit(): void {
-    
-  }
+  ngOnInit(): void {}
 
   onCreateForum() {
     const forum: CreateForum = {
@@ -38,21 +39,22 @@ export class ForumComponent implements OnInit {
       body: [
         {
           author: this.user.getUsername(),
-          content: this.content
-        }
-      ]
+          content: this.content,
+        },
+      ],
     }
     this.forumService.createForum(forum).subscribe({
       next: (data) => {
+        $('#create_post').modal('hide');
         this.router.navigate(['/forum/thread', data._id])
+
         // this.socket = io.io(`http://localhost:5003`)
         this.socket = io.io(`https://slamdunkforum.onrender.com`)
         this.socket.emit('forum', forum, data._id, false)
       },
       error: () => {
         this.toast.error('Something went wrong')
-      }
+      },
     })
-    
   }
 }
