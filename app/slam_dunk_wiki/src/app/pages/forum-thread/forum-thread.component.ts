@@ -29,10 +29,10 @@ export class ForumThreadComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.displayThread(true)
+    this.displayThread()
   }
 
-  displayThread(reload: boolean): void {
+  displayThread(): void {
     if (!this.userService.isLoggedIn()){
       this.toast.info('You must be logged in')
       return 
@@ -44,22 +44,9 @@ export class ForumThreadComponent implements OnInit {
     this.forumService.getForum(this.id).subscribe({
       next: comment => 
       {
-        if(reload) {
-          this.socket.emit('thread', this.id, comment.body, true)
-          this.socket.on('new-comment', (newComment: Body[]) => {
-            this.data = newComment
-            return
-          })
-        }
-        this.socket.on('comment', (newComment: Comment) => {
-          const sendComment: Body = {
-            author: newComment.body.author,
-            content: newComment.body.content,
-            title: '',
-            primary_author: '',
-            body: []
-          };
-          this.data.push(sendComment)
+        this.socket.emit('thread', this.id, comment.body)
+        this.socket.on('new-comment', (newComment: Body[]) => {
+          this.data = newComment
         })
         
         this.data = comment.body
@@ -82,8 +69,7 @@ export class ForumThreadComponent implements OnInit {
         this.comment = ''
         // this.socket = io.io(`http://localhost:5003`)
         this.socket = io.io(`https://slamdunkforum.onrender.com`)
-        this.socket.emit('thread', this.id, comment, false)
-        this.displayThread(true)
+        this.displayThread()
       }, error: (error) => {
         error.statusText === 'Unauthorized' ? this.toast.info('You need to sign in first') : error
       }

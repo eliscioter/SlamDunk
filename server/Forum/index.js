@@ -47,12 +47,8 @@ io.on("connection", (socket) => {
     socket.on('join-thread', thread => {
         socket.join(thread)
     })
-    socket.on('thread', (thread, msg, withDeletedComment) => {
-        if(withDeletedComment) {
-            socket.to(thread).emit('new-comment', msg)
-            return
-        }
-        socket.to(thread).emit('comment', msg)
+    socket.on('thread', (thread, msg) => {
+        socket.to(thread).emit('new-comment', msg)
     })
     socket.on('disconnect', () => {
         console.log('user disconnected')
