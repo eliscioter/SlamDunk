@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import * as io from 'socket.io-client'
 
 import { Player } from 'src/app/interfaces/Players';
 import { PlayersService } from 'src/app/services/players/players.service';
@@ -56,6 +57,7 @@ export class ModifyPlayerComponent implements OnInit {
   tl6_name!: string
   tl6_desc!: string
   tl6_img_url!: string
+  private socket: any
 
   constructor(private playerService: PlayersService, private route: ActivatedRoute, private router: Router, private toast: ToastrService) { 
     this.id = this.route.snapshot.params['_id']
@@ -113,6 +115,8 @@ export class ModifyPlayerComponent implements OnInit {
 
  
   onUpdate() {
+    // this.socket = io.io(`http://localhost:5000`)
+    this.socket = io.io(`https://slamdunk.onrender.com`)
     const player: Player = {
       _id: this.id,
       player: {
@@ -192,6 +196,7 @@ export class ModifyPlayerComponent implements OnInit {
     }
     this.playerService.updatePlayer(player).subscribe({
       next: () => {
+        this.socket.emit('player', player, player._id, false, true)
         this.toast.success(`${this.firstName} ${this.lastName} successfully updated`)
         this.router.navigate(['/dashboard/admin/players'])
       }, error: () => this.toast.error('Something went wrong')

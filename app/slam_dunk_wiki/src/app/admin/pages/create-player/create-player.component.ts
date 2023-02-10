@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import * as io from 'socket.io-client'
 
 import { Player } from 'src/app/interfaces/Players';
 import { PlayersService } from 'src/app/services/players/players.service';
@@ -56,6 +57,7 @@ export class CreatePlayerComponent implements OnInit {
   tl6_desc!: string
   tl6_img_url!: string
   tag!: string
+  private socket: any
 
   constructor(private player: PlayersService, private router: Router, private toast: ToastrService) { }
 
@@ -139,7 +141,10 @@ export class CreatePlayerComponent implements OnInit {
       tag: this.tag
     }
     this.player.createPlayer(createPlayer).subscribe({
-      next: () => {
+      next: data => {
+        // this.socket = io.io(`http://localhost:5000`)
+        this.socket = io.io(`https://slamdunk.onrender.com`)
+        this.socket.emit('player', createPlayer, data._id, false, false)
         this.toast.success('Player created successfully')
         this.router.navigate(['/dashboard/admin/players'])
       }, 
