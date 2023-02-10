@@ -67,8 +67,6 @@ export class ForumThreadComponent implements OnInit {
     this.forumService.commentForum(comment, this.id).subscribe({
       next: () => {
         this.comment = ''
-        // this.socket = io.io(`http://localhost:5003`)
-        this.socket = io.io(`https://slamdunkforum.onrender.com`)
         this.displayThread()
       }, error: (error) => {
         error.statusText === 'Unauthorized' ? this.toast.info('You need to sign in first') : error
