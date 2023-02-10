@@ -41,7 +41,7 @@ export class ThreadComponent implements OnInit {
     this.forumService.deleteComment(this.id, deletedComment).subscribe({
       next: () => {
         this.forum = this.forum.filter(forum => forum._id !== deletedComment._id)
-        this.socket.emit('thread', this.id, this.forum, true)
+        this.socket.emit('thread', this.id, this.forum)
         this.toast.success(`${deletedComment.content} deleted successfully`)
       },
       error: () => {
