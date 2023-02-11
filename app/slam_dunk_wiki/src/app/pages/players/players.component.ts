@@ -18,8 +18,8 @@ export class PlayersComponent implements OnInit {
   constructor(private playerService: PlayersService, private toast: ToastrService) { }
 
   ngOnInit(): void {
-    this.socket = io.io(`http://localhost:5000`)
-    //  this.socket = io.io(`https://slamdunk.onrender.com`)
+    // this.socket = io.io(`http://localhost:5000`)
+     this.socket = io.io(`https://slamdunk.onrender.com`)
     this.playerService.getPlayers().subscribe({
       next: data => {
         this.socket.on('receive-players', (players: Player, id: string) => {

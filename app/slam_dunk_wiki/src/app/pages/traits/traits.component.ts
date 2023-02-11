@@ -19,7 +19,7 @@ export class TraitsComponent implements OnInit {
 
   ngOnInit(): void {
     //  this.socket = io.io(`http://localhost:5000`)
-     this.socket = io.io(`https://slamdunk.onrender.com`)
+    this.socket = io.io(`https://slamdunk.onrender.com`)
     this.traitsService.getTraits().subscribe({
       next: traitData => {
         this.socket.on('receive-traits', (trait: Trait, id: string) => {
