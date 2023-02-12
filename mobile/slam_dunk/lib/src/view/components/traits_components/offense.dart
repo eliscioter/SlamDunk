@@ -1,10 +1,18 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:socket_io_client/socket_io_client.dart' as IO;
+
 import 'package:slam_dunk/src/model/traits/offense_model.dart';
 import 'package:slam_dunk/src/controller/traits_controller.dart';
 
-class Offense_Screen extends StatelessWidget {
+class Offense_Screen extends StatefulWidget {
   const Offense_Screen({super.key});
 
+  @override
+  State<Offense_Screen> createState() => _Offense_ScreenState();
+}
+
+class _Offense_ScreenState extends State<Offense_Screen> {
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -14,6 +22,42 @@ class Offense_Screen extends StatelessWidget {
           future: FetchTraits().displayOffense(),
           builder: ((context, snapshot) {
             if (snapshot.hasData) {
+              IO.Socket socket = IO.io('http://localhost:5000');
+              // IO.Socket socket = IO.io('https://slamdunk.onrender.com');
+              socket.on('receive-traits', (trait) {
+                List<dynamic> res = trait;
+                Map<String, dynamic> firstElement = res[0];
+                if (firstElement['tag'] == 'offense') {
+                  Offense addTrait = Offense.fromJson(firstElement);
+                  if (mounted) {
+                    setState(() => snapshot.data!.add(addTrait));
+                  }
+                }
+              });
+              socket.on('receive-new-traits', (traits) {
+                List<Offense> newTraits = offenseFromJson(jsonEncode(traits));
+                if (mounted) {
+                  setState(() {
+                    snapshot.data!.clear();
+                    snapshot.data!.addAll(newTraits);
+                  });
+                }
+              });
+              socket.on('receive-updated-traits', (trait) {
+                Map<String, dynamic> firstElement = trait;
+                Offense convertTrait = Offense.fromJson(firstElement);
+                if (firstElement['tag'] == 'offense') {
+                  int index = snapshot.data!
+                      .indexWhere((item) => item.id == convertTrait.id);
+                  if (index != -1) {
+                    if (mounted) {
+                      setState(() {
+                        snapshot.data![index] = convertTrait;
+                      });
+                    }
+                  }
+                }
+              });
               return ListView.builder(
                   shrinkWrap: true,
                   itemCount: snapshot.data!.length,
@@ -37,11 +81,15 @@ class Offense_Screen extends StatelessWidget {
                           ),
                           Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: Image.network('${snapshot.data![index].imageUrl}'),
+                            child: Image.network(
+                                '${snapshot.data![index].imageUrl}'),
                           ),
                           Padding(
                             padding: const EdgeInsets.all(10.0),
-                            child: Text('${snapshot.data![index].description}', textAlign: TextAlign.center,),
+                            child: Text(
+                              '${snapshot.data![index].description}',
+                              textAlign: TextAlign.center,
+                            ),
                           )
                         ],
                       ),

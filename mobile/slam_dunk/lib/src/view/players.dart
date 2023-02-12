@@ -1,4 +1,6 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 import 'package:slam_dunk/src/controller/fetched_player.dart';
 import 'package:slam_dunk/src/model/player_model.dart';
@@ -12,7 +14,6 @@ class Players extends StatefulWidget {
 }
 
 class _PlayersState extends State<Players> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,6 +21,39 @@ class _PlayersState extends State<Players> {
           future: FetchedPlayer().displayPlayers(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
+              IO.Socket socket = IO.io('http://localhost:5000');
+              // IO.Socket socket = IO.io('https://slamdunk.onrender.com');
+              socket.on('receive-players', (trait) {
+                List<dynamic> res = trait;
+                Map<String, dynamic> firstElement = res[0];
+
+                Player addPlayer = Player.fromJson(firstElement);
+                if (mounted) {
+                  setState(() => snapshot.data!.add(addPlayer));
+                }
+              });
+              socket.on('receive-new-players', (players) {
+                List<Player> newPlayers = playerFromJson(jsonEncode(players));
+                if (mounted) {
+                  setState(() {
+                    snapshot.data!.clear();
+                    snapshot.data!.addAll(newPlayers);
+                  });
+                }
+              });
+              socket.on('receive-updated-players', (player) {
+                Map<String, dynamic> firstElement = player;
+                Player convertPlayer = Player.fromJson(firstElement);
+                int index = snapshot.data!
+                    .indexWhere((item) => item.id == convertPlayer.id);
+                if (index != -1) {
+                  if (mounted) {
+                    setState(() {
+                      snapshot.data![index] = convertPlayer;
+                    });
+                  }
+                }
+              });
               return ListView.builder(
                   itemCount: snapshot.data!.length,
                   itemBuilder: (context, index) {
