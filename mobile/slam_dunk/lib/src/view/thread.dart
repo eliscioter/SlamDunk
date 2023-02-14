@@ -1,23 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:slam_dunk/src/model/thread_model.dart';
+import 'package:slam_dunk/src/provider/forum_comments_data.dart';
+import 'package:socket_io_client/socket_io_client.dart' as IO;
+
 import 'package:slam_dunk/src/controller/forum_thread.dart';
 import 'package:slam_dunk/src/provider/forum_provider.dart';
 import 'package:slam_dunk/src/provider/user_provider.dart';
 import 'package:slam_dunk/src/style/colors.dart';
 
-class Thread extends ConsumerWidget {
+class ForumThread extends ConsumerStatefulWidget {
+  const ForumThread({super.key});
+
+  @override
+  ConsumerState<ForumThread> createState() => _ForumThreadState();
+}
+
+class _ForumThreadState extends ConsumerState<ForumThread> {
   final FocusNode focusNode = FocusNode();
   final TextEditingController _comment = TextEditingController();
 
-  Thread({super.key});
-
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     final forumId = ref.watch(forumIdProvider);
     final userInfo = ref.watch(userProvider);
+    final forumComments = ref.watch(forumCommentsProvider);
 
-    isMod() => userInfo[1] == '[MODERATOR]';
+    isMod() => userInfo[1] == 'MODERATOR';
 
     directionToDelete() {
       return isMod() ? DismissDirection.endToStart : DismissDirection.none;
@@ -90,8 +100,50 @@ class Thread extends ConsumerWidget {
                               backgroundColor: Colors.orange,
                             ),
                             onPressed: () {
-                              FetchForumThread().onComment(
-                                  userInfo[0], _comment.text, forumId[0]);
+                              if (_comment.text.isEmpty) {
+                                Fluttertoast.showToast(
+                                    msg:
+                                        "Oops! you must have forgot to add your comment.",
+                                    toastLength: Toast.LENGTH_SHORT,
+                                    gravity: ToastGravity.BOTTOM,
+                                    timeInSecForIosWeb: 1,
+                                    backgroundColor: Colors.red,
+                                    textColor: Colors.white,
+                                    fontSize: 16.0);
+                                return;
+                              }
+                              FetchForumThread()
+                                  .onComment(
+                                      userInfo[0], _comment.text, forumId[0])
+                                  .then((_) {
+                                // IO.Socket socket = IO.io('http://localhost:5003');
+                                IO.Socket socket = IO.io('https://slamdunkforum.onrender.com');
+                                Map<String, Object> newComment = {
+                                  "body": {
+                                    "author": userInfo[0],
+                                    "content": _comment.text
+                                  },
+                                  "withDeleted": false
+                                };
+                                socket.emit('thread', {forumId[0], newComment});
+                                ref
+                                    .read(forumCommentsProvider.notifier)
+                                    .setForumComments([
+                                  ...forumComments,
+                                  Body.fromJson(newComment)
+                                ]);
+                                _comment.text = '';
+                              }).catchError((err) {
+                                Fluttertoast.showToast(
+                                    msg: "$err",
+                                    toastLength: Toast.LENGTH_SHORT,
+                                    gravity: ToastGravity.BOTTOM,
+                                    timeInSecForIosWeb: 1,
+                                    backgroundColor: Colors.red,
+                                    textColor: Colors.white,
+                                    fontSize: 16.0);
+                                return;
+                              });
                             },
                             child: const Text('Post'),
                           ),
@@ -106,6 +158,25 @@ class Thread extends ConsumerWidget {
                         future: FetchForumThread().displayThread(forumId[0]),
                         builder: (context, snapshot) {
                           if (snapshot.hasData) {
+                            // IO.Socket socket = IO.io('http://localhost:5003');
+                            IO.Socket socket = IO.io('https://slamdunkforum.onrender.com');
+                            socket.emit('join-thread', forumId[0]);
+
+                            socket.on('new-comment', (newComment) {
+                              bool withDeleted = newComment['withDeleted'];
+                              Body addComment;
+                              if (withDeleted == true) {
+                                addComment = Body.fromJson(newComment);
+                              } else {
+                                addComment = Body.fromJson(newComment["body"]);
+                              }
+
+                              if (mounted) {
+                                setState(
+                                    () => snapshot.data!.body?.add(addComment));
+                              }
+                            });
+
                             return ListView.builder(
                               itemCount: snapshot.data!.body!.length,
                               itemBuilder: (context, index) {
@@ -150,6 +221,23 @@ class Thread extends ConsumerWidget {
                                             snapshot.data?.body![index]?.id! ??
                                                 '')
                                         .then((_) {
+                                      // IO.Socket socket = IO.io('http://localhost:5003');
+                                      IO.Socket socket = IO.io('https://slamdunkforum.onrender.com');
+                                      List<Body?>? newComments = snapshot
+                                          .data?.body!
+                                          .where((element) =>
+                                              element!.id !=
+                                              snapshot.data?.body![index]?.id!)
+                                          .toList();
+                                      var newThread = {
+                                        "body": newComments,
+                                        "withDeleted": true
+                                      };
+                                      socket.emit(
+                                          'thread', {forumId[0], newThread});
+                                      ref
+                                          .read(forumCommentsProvider.notifier)
+                                          .setForumComments(newComments);
                                       Fluttertoast.showToast(
                                           msg: "Deleted comment",
                                           toastLength: Toast.LENGTH_SHORT,
@@ -199,9 +287,10 @@ class Thread extends ConsumerWidget {
                                             ),
                                           ),
                                           child: Align(
-                                              alignment: Alignment.centerLeft,
-                                              child: Text(
-                                                  '${snapshot.data?.body![index]?.author}')),
+                                            alignment: Alignment.centerLeft,
+                                            child: Text(
+                                                '${snapshot.data?.body![index]?.author}'),
+                                          ),
                                         ),
                                         Padding(
                                           padding: const EdgeInsets.all(8.0),

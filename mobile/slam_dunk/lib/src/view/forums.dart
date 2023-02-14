@@ -1,6 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:slam_dunk/src/provider/forum_data.dart';
+import 'package:slam_dunk/src/provider/new_forum.dart';
+import 'package:socket_io_client/socket_io_client.dart' as IO;
+
 import 'package:slam_dunk/src/model/forum_model.dart';
 import 'package:slam_dunk/src/provider/forum_provider.dart';
 import 'package:slam_dunk/src/provider/user_provider.dart';
@@ -9,13 +15,19 @@ import 'package:slam_dunk/src/view/components/create_forum_form.dart';
 import 'package:slam_dunk/src/view/thread.dart';
 import 'package:slam_dunk/src/controller/forum_controller.dart';
 
-class Forum extends ConsumerWidget {
+class Forum extends ConsumerStatefulWidget {
   const Forum({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<Forum> createState() => _ForumState();
+}
+
+class _ForumState extends ConsumerState<Forum> with WidgetsBindingObserver {
+  @override
+  Widget build(BuildContext context) {
     final isSignedIn = ref.watch(isSignedInProvider);
     final userInfo = ref.watch(userProvider);
+    // final forum = ref.watch(forumsDataProvider);
 
     isMod() => userInfo[1] == 'MODERATOR';
 
@@ -58,6 +70,37 @@ class Forum extends ConsumerWidget {
                     future: FetchForums().displayForums(),
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
+                        // IO.Socket socket = IO.io('http://localhost:5003');
+                        IO.Socket socket = IO.io('https://slamdunkforum.onrender.com');
+                        socket.on('receive-forum', (forum) {
+                          List<dynamic> res = forum;
+                          Map<String, dynamic> firstElement = res[0];
+                          String id = res[1];
+                          ref
+                              .read(newForumIdProvider.notifier)
+                              .setNewForumId(id);
+                          final dateTime = DateTime.now().toIso8601String();
+                          Forums addForum = Forums.fromJson({
+                            ...firstElement,
+                            '_id': id,
+                            'createdAt': dateTime,
+                            'updatedAt': dateTime
+                          });
+                          if (mounted) {
+                            setState(() => snapshot.data!.add(addForum));
+                          }
+                          
+                        });
+                        socket.on('receive-new-forums', (forum) {
+                          List<Forums> newForums =
+                              forumsFromJson(jsonEncode(forum));
+                          if (mounted) {
+                            setState(() {
+                              snapshot.data!.clear();
+                              snapshot.data!.addAll(newForums);
+                            });
+                          }
+                        });
                         return ListView.builder(
                           itemCount: snapshot.data!.length,
                           itemBuilder: (context, index) {
@@ -98,8 +141,20 @@ class Forum extends ConsumerWidget {
                                 await FetchForums()
                                     .onDeleteForum(snapshot.data![index].id!)
                                     .then((_) {
+                                  // IO.Socket socket = IO.io('http://localhost:5003');
+                                  IO.Socket socket = IO.io('https://slamdunkforum.onrender.com');
+                                  socket.emit('forum', {
+                                    snapshot.data,
+                                    snapshot.data![index].id!,
+                                    true
+                                  });
+                                  ref
+                                      .read(forumsDataProvider.notifier)
+                                      .setForum(snapshot.data);
+
                                   Fluttertoast.showToast(
-                                      msg: "Deleted ${snapshot.data![index].title}",
+                                      msg:
+                                          "Deleted ${snapshot.data![index].title}",
                                       toastLength: Toast.LENGTH_SHORT,
                                       gravity: ToastGravity.BOTTOM,
                                       timeInSecForIosWeb: 1,
@@ -148,7 +203,7 @@ class Forum extends ConsumerWidget {
                                       '${snapshot.data![index].title}');
                                   Navigator.of(context).push(
                                     MaterialPageRoute(
-                                      builder: (context) => Thread(),
+                                      builder: (context) => const ForumThread(),
                                     ),
                                   );
                                 },

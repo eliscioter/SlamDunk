@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:slam_dunk/src/model/forum_model.dart';
+import 'package:slam_dunk/src/provider/forum_data.dart';
+import 'package:slam_dunk/src/provider/new_forum.dart';
+import 'package:socket_io_client/socket_io_client.dart' as IO;
+
 import 'package:slam_dunk/src/controller/forum_controller.dart';
 import 'package:slam_dunk/src/provider/forum_provider.dart';
 import 'package:slam_dunk/src/provider/user_provider.dart';
@@ -38,6 +43,46 @@ class _ForumFormState extends ConsumerState<ForumForm> {
   @override
   Widget build(BuildContext context) {
     final userInfo = ref.watch(userProvider);
+    final forum = ref.watch(forumsDataProvider);
+    final newForumId = ref.watch(newForumIdProvider);
+
+    Future<bool> sendForum() async {
+      Map<String, dynamic> form = {
+        "title": title.text,
+        "primary_author": userInfo[0],
+        "body": [
+          {
+            "author": userInfo[0],
+            "content": content.text,
+          }
+        ]
+      };
+      List<dynamic>? forumRes = await forumDetails(form);
+
+      if (forumRes == null) {
+        Fluttertoast.showToast(
+            msg: "Error.",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0);
+        return false;
+      }
+
+      // IO.Socket socket = IO.io('http://localhost:5003');
+      IO.Socket socket = IO.io('https://slamdunkforum.onrender.com');
+      socket.emit('forum', {form, forumRes[0], false});
+      final dateTime = DateTime.now().toIso8601String();
+
+      ref.read(forumsDataProvider.notifier).setForum([
+        ...?forum,
+        Forums.fromJson(
+            {...form, '_id': newForumId, 'createdAt': dateTime, 'updatedAt': dateTime})
+      ]);
+      return true;
+    }
 
     return GestureDetector(
       onTap: () {
@@ -107,32 +152,14 @@ class _ForumFormState extends ConsumerState<ForumForm> {
               backgroundColor: Colors.orange[900], // Background color
             ),
             onPressed: () async {
-              Map<String, dynamic> form = {
-                "title": title.text,
-                "primary_author": userInfo[0],
-                "body": [
-                  {
-                    "author": userInfo[0],
-                    "content": content.text,
-                  }
-                ]
-              };
-              if (await forumDetails(form) == null) {
-                Fluttertoast.showToast(
-                    msg: "Error.",
-                    toastLength: Toast.LENGTH_SHORT,
-                    gravity: ToastGravity.BOTTOM,
-                    timeInSecForIosWeb: 1,
-                    backgroundColor: Colors.red,
-                    textColor: Colors.white,
-                    fontSize: 16.0);
-                return;
-              }
+              if (await sendForum() == false) return;
+
+              // TODO: investigate why try and catch has the same code
               try {
                 Navigator.of(context).pop();
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => Thread(),
+                    builder: (context) => const ForumThread(),
                   ),
                 );
                 Fluttertoast.showToast(
@@ -147,7 +174,7 @@ class _ForumFormState extends ConsumerState<ForumForm> {
                 Navigator.of(context).pop();
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => Thread(),
+                    builder: (context) => const ForumThread(),
                   ),
                 );
                 Fluttertoast.showToast(
