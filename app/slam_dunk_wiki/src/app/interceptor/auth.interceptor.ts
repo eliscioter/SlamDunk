@@ -23,7 +23,13 @@ export class AuthInterceptor implements HttpInterceptor {
 
     const route = this.admin.getURL() as string
     const target = String(route).substring(0, 5)
-    /* const credentials = {
+    /* 
+      TODO:
+        Check the target for admin when creating forum
+        Make admin accesible to create forum or remove the function for admin
+      TODO
+    */
+   /*  const credentials = {
       port: '5002',
       type: 'user',
       token: JSON.parse(this.userService.getToken()),
