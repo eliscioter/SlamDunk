@@ -21,14 +21,14 @@ class Offense {
     String? name;
     String? imageUrl;
     String? description;
-    Tag? tag;
+    String? tag;
 
     factory Offense.fromJson(Map<String, dynamic> json) => Offense(
         id: json["_id"],
         name: json["name"],
         imageUrl: json["image_url"],
         description: json["description"],
-        tag: tagValues.map[json["tag"]],
+        tag: json["tag"],
     );
 
     Map<String, dynamic> toJson() => {
@@ -36,24 +36,24 @@ class Offense {
         "name": name,
         "image_url": imageUrl,
         "description": description,
-        "tag": tagValues.reverse[tag],
+        "tag": tag,
     };
 }
 
-enum Tag { OFFENSE }
+// enum Tag { OFFENSE }
 
-final tagValues = EnumValues({
-    "offense": Tag.OFFENSE
-});
+// final tagValues = EnumValues({
+//     "offense": Tag.OFFENSE
+// });
 
-class EnumValues<T> {
-    Map<String, T> map;
-    late Map<T, String> reverseMap;
+// class EnumValues<T> {
+//     Map<String, T> map;
+//     late Map<T, String> reverseMap;
 
-    EnumValues(this.map);
+//     EnumValues(this.map);
 
-    Map<T, String> get reverse {
-        reverseMap;
-        return reverseMap;
-    }
-}
+//     Map<T, String> get reverse {
+//         reverseMap;
+//         return reverseMap;
+//     }
+// }
