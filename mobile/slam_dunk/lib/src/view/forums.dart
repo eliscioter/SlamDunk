@@ -27,7 +27,7 @@ class _ForumState extends ConsumerState<Forum> with WidgetsBindingObserver {
   Widget build(BuildContext context) {
     final isSignedIn = ref.watch(isSignedInProvider);
     final userInfo = ref.watch(userProvider);
-    // final forum = ref.watch(forumsDataProvider);
+    final forum = ref.watch(forumsDataProvider);
 
     isMod() => userInfo[1] == 'MODERATOR';
 
@@ -71,7 +71,8 @@ class _ForumState extends ConsumerState<Forum> with WidgetsBindingObserver {
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
                         // IO.Socket socket = IO.io('http://localhost:5003');
-                        IO.Socket socket = IO.io('https://slamdunkforum.onrender.com');
+                        IO.Socket socket =
+                            IO.io('https://slamdunkforum.onrender.com');
                         socket.on('receive-forum', (forum) {
                           List<dynamic> res = forum;
                           Map<String, dynamic> firstElement = res[0];
@@ -89,7 +90,6 @@ class _ForumState extends ConsumerState<Forum> with WidgetsBindingObserver {
                           if (mounted) {
                             setState(() => snapshot.data!.add(addForum));
                           }
-                          
                         });
                         socket.on('receive-new-forums', (forum) {
                           List<Forums> newForums =
@@ -142,7 +142,8 @@ class _ForumState extends ConsumerState<Forum> with WidgetsBindingObserver {
                                     .onDeleteForum(snapshot.data![index].id!)
                                     .then((_) {
                                   // IO.Socket socket = IO.io('http://localhost:5003');
-                                  IO.Socket socket = IO.io('https://slamdunkforum.onrender.com');
+                                  IO.Socket socket = IO
+                                      .io('https://slamdunkforum.onrender.com');
                                   socket.emit('forum', {
                                     snapshot.data,
                                     snapshot.data![index].id!,
