@@ -111,7 +111,7 @@ class _SignInState extends ConsumerState<SignIn> {
                       .signIn(name.text, password.text)
                       .then((val) {
                     ref.read(userProvider.notifier).setUserInfo(
-                        val.username.toString(), val.role[0].toString());
+                        [val.username.toString(), val.role[0].toString()]);
 
                     ref.read(isSignedInProvider.notifier).isSignedIn(true);
                   }).then((_) {

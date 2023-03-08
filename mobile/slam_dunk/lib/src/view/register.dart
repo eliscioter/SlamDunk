@@ -16,13 +16,57 @@ class Register extends ConsumerStatefulWidget {
 }
 
 class _RegisterState extends ConsumerState<Register> {
-  bool _showPassword = false, _showPasswordConfirm = false;
+  bool _showPassword = false, _showPasswordConfirm = false, _isLoading = false;
   TextEditingController email = TextEditingController(),
       name = TextEditingController(),
       password = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    validateUser(userInfo) async {
+      setState(() {
+        _isLoading = true;
+      });
+      bool isSignInSucess = await RegisterController().signUp(userInfo);
+
+      if (isSignInSucess) {
+        ref
+            .read(userController.notifier)
+            .signIn(name.text, password.text)
+            .then((val) {
+          ref
+              .read(userProvider.notifier)
+              .setUserInfo([val.username, val.role[0]]);
+          ref.read(isSignedInProvider.notifier).isSignedIn(true);
+          setState(() {
+            _isLoading = false;
+          });
+          Fluttertoast.showToast(
+              msg: "Registered successfully",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.BOTTOM,
+              timeInSecForIosWeb: 1,
+              backgroundColor: Colors.red,
+              textColor: Colors.white,
+              fontSize: 16.0);
+          Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                  builder: (BuildContext context) => const SlamDunk()),
+              ModalRoute.withName('/'));
+        });
+      } else {
+        Fluttertoast.showToast(
+            msg: "Register error.",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0);
+      }
+    }
+
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -171,55 +215,26 @@ class _RegisterState extends ConsumerState<Register> {
                   Container(
                     width: double.infinity,
                     margin: const EdgeInsets.only(top: 10, left: 10, right: 10),
-                    child: ElevatedButton(
+                    child: ElevatedButton.icon(
+                      icon: _isLoading
+                          ? const CircularProgressIndicator()
+                          : const Icon(Icons.arrow_forward_ios_outlined),
+                      label: const Text('Register', style: TextStyle(fontSize: 20),),
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.orange[900], // Background color
+                        backgroundColor: Colors.orange[900], 
+                        fixedSize: const Size(50, 50),// Background color
                       ),
-                      onPressed: () async {
-                        Map<String, String> userInfo = {
-                          'username': name.text,
-                          'email': email.text,
-                          'password': password.text,
-                          'role': 'MEMBER'
-                        };
-                        if (await RegisterController().signUp(userInfo)) {
-                          ref
-                              .read(userController.notifier)
-                              .signIn(name.text, password.text)
-                              .then((val) {
-                            ref
-                                .read(userProvider.notifier)
-                                .setUserInfo(val.username, val.role);
-
-                            ref
-                                .read(isSignedInProvider.notifier)
-                                .isSignedIn(true);
-                          });
-                          Fluttertoast.showToast(
-                              msg: "Registered successfully",
-                              toastLength: Toast.LENGTH_SHORT,
-                              gravity: ToastGravity.BOTTOM,
-                              timeInSecForIosWeb: 1,
-                              backgroundColor: Colors.red,
-                              textColor: Colors.white,
-                              fontSize: 16.0);
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) => const SlamDunk(),
-                            ),
-                          );
-                        } else {
-                          Fluttertoast.showToast(
-                              msg: "Register error.",
-                              toastLength: Toast.LENGTH_SHORT,
-                              gravity: ToastGravity.BOTTOM,
-                              timeInSecForIosWeb: 1,
-                              backgroundColor: Colors.red,
-                              textColor: Colors.white,
-                              fontSize: 16.0);
-                        }
-                      },
-                      child: const Text('Register'),
+                      onPressed: _isLoading
+                          ? null
+                          : () async {
+                              Map<String, String> userInfo = {
+                                'username': name.text,
+                                'email': email.text,
+                                'password': password.text,
+                                'role': 'MEMBER'
+                              };
+                              await validateUser(userInfo);
+                            },
                     ),
                   ),
                 ],

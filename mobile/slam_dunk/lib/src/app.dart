@@ -35,10 +35,10 @@ class _SlamDunkState extends ConsumerState<SlamDunk> {
     if (await storage.containsKey(key: 'accessToken')) {
       String username = (await storage.read(key: 'username'))!;
       String role = (await storage.read(key: 'role'))!;
-      ref.read(userProvider.notifier).setUserInfo(username, role);
+      ref.read(userProvider.notifier).setUserInfo([username, role]);
       ref.read(isSignedInProvider.notifier).isSignedIn(true);
     } else {
-      ref.read(userProvider.notifier).setUserInfo('', '');
+      ref.read(userProvider.notifier).setUserInfo(['', '']);
       ref.read(isSignedInProvider.notifier).isSignedIn(false);
     }
   }
@@ -119,7 +119,7 @@ class _SlamDunkState extends ConsumerState<SlamDunk> {
                                           .isSignedIn(false);
                                       ref
                                           .read(userProvider.notifier)
-                                          .setUserInfo('', '');
+                                          .setUserInfo(['', '']);
                                       Fluttertoast.showToast(
                                           msg: '${userInfo[0]} signed out',
                                           toastLength: Toast.LENGTH_SHORT,

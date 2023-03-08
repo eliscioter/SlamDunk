@@ -148,23 +148,56 @@ class About extends StatelessWidget {
                         ),
                       ),
                     ),
-                    Center(
-                      child: Column(
-                        children: [
-                          ClipOval(
-                            child: Image.asset(
-                              'assets/images/jana.jpg',
-                              height: 100,
-                              width: 100,
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        top: 10.0,
+                        bottom: 10.0,
+                      ),
+                      child: Center(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Column(
+                              children: [
+                                ClipOval(
+                                  child: Image.asset(
+                                    'assets/images/jana.jpg',
+                                    height: 100,
+                                    width: 100,
+                                  ),
+                                ),
+                                const Text(
+                                  'Jana Yac',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                  ),
+                                )
+                              ],
                             ),
-                          ),
-                          const Text(
-                            'Jana Yac',
-                            style: TextStyle(
-                              color: Colors.white,
+                            Column(
+                              children: [
+                                ClipOval(
+                                  child: Container(
+                                      color: Colors.white,
+                                      child: const CircleAvatar(
+                                        backgroundColor: Colors.black,
+                                        radius: 50.0,
+                                        child: Icon(
+                                          Icons.person,
+                                          size: 100,
+                                        ),
+                                      )),
+                                ),
+                                const Text(
+                                  'Allisandra Bendijo',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                  ),
+                                )
+                              ],
                             ),
-                          )
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ],

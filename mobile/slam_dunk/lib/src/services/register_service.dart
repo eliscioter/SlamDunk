@@ -9,12 +9,12 @@ class RegisterService {
     try {
       final Response response =
           await _client.post('$_baseUrl/store', data: userInfo);
-      if (response.statusCode == 201) {
-        return true;
+      if (response.statusCode != 201) {
+        return false;
       }
-      return false;
+      return true;
     } catch (e) {
-      throw Exception('Failed to register: $e');
+      return false;
     }
   }
 }

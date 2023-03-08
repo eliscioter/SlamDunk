@@ -1,9 +1,9 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class UserInfo extends StateNotifier<List> {
+class UserInfo extends StateNotifier<List<String>> {
   UserInfo() : super(['','']);
 
-  void setUserInfo(String username, String role) => state = [username, role];
+  void setUserInfo(List<String> userDetails) => state = [userDetails[0], userDetails[1]];
 
   @override
   void dispose() {
@@ -11,4 +11,4 @@ class UserInfo extends StateNotifier<List> {
   }
 }
 
-final userProvider = StateNotifierProvider<UserInfo, List>((ref) => UserInfo());
+final userProvider = StateNotifierProvider<UserInfo, List<String>>((ref) => UserInfo());
