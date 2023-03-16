@@ -50,7 +50,7 @@ class _HomePageState extends State<HomePage> {
       },
     ];
 
-    int index = Random().nextInt(8) + 1;
+    int index = Random().nextInt(7) + 1;
     return '${quotes[index]['quote']}\n\n-${quotes[index]['author']}';
   }
 
