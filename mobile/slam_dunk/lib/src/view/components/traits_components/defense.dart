@@ -22,8 +22,8 @@ class _Defense_ScreenState extends State<Defense_Screen> {
           future: FetchTraits().displayDefense(),
           builder: ((context, snapshot) {
             if (snapshot.hasData) {
-              IO.Socket socket = IO.io('http://localhost:5000');
-              // IO.Socket socket = IO.io('https://slamdunk.onrender.com');
+              // IO.Socket socket = IO.io('http://localhost:5000');
+              IO.Socket socket = IO.io('https://slamdunk.onrender.com');
               socket.on('receive-traits', (trait) {
                 List<dynamic> res = trait;
                 Map<String, dynamic> firstElement = res[0];

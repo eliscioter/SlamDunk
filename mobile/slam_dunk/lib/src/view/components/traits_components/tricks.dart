@@ -22,8 +22,8 @@ class _Tricks_ScreenState extends State<Tricks_Screen> {
           future: FetchTraits().displayTricks(),
           builder: ((context, snapshot) {
             if (snapshot.hasData) {
-              IO.Socket socket = IO.io('http://localhost:5000');
-              // IO.Socket socket = IO.io('https://slamdunk.onrender.com');
+              // IO.Socket socket = IO.io('http://localhost:5000');
+              IO.Socket socket = IO.io('https://slamdunk.onrender.com');
               socket.on('receive-traits', (trait) {
                 List<dynamic> res = trait;
                 Map<String, dynamic> firstElement = res[0];
