@@ -67,6 +67,6 @@ export const signOutUser = asyncHandler(async (req, res) => {
         const fetchToken = await TokenModel.findOne({ token: token }).deleteOne()
         res.status(204).json({message: 'Logged out'})
     } catch (error) {
-        res.status(400).json({message: error.message})    
+        res.status(400).json({message: error.message})
     }
 })
